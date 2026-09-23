@@ -1,29 +1,52 @@
 import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const file = new URL("../index.html", import.meta.url);
-const html = fs.readFileSync(file, "utf8");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 
-const requiredIds = ["page-today", "page-plan", "page-lab", "page-reflect", "page-you"];
-for (const id of requiredIds) {
-  if (!html.includes(`id="${id}"`)) {
-    throw new Error(`Missing required page: ${id}`);
-  }
+const html = read("index.html");
+const requiredPages = ["page-today", "page-plan", "page-lab", "page-reflect", "page-you"];
+for (const id of requiredPages) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing required page: ${id}`);
 }
 
-const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map((m) => m[1]);
-const markupOnly = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?<\/script>/gi, "");
-const ids = [...markupOnly.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
+const requiredAssets = [
+  "assets/styles.css",
+  "assets/app.js",
+  "assets/week-composer.js",
+  "assets/attention-connections.js",
+];
+for (const asset of requiredAssets) {
+  const full = path.join(root, asset);
+  if (!fs.existsSync(full)) throw new Error(`Missing required asset: ${asset}`);
+  if (fs.statSync(full).size === 0) throw new Error(`Empty required asset: ${asset}`);
+}
+
+if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js"]) {
+  if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
+}
+
+const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
+if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);
+
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
 const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
-if (duplicates.length) {
-  throw new Error(`Duplicate DOM IDs: ${[...new Set(duplicates)].join(", ")}`);
-}
+if (duplicates.length) throw new Error(`Duplicate DOM IDs: ${[...new Set(duplicates)].join(", ")}`);
 
-for (const [i, source] of scripts.entries()) {
+for (const asset of requiredAssets.filter((x) => x.endsWith(".js"))) {
+  const source = read(asset);
   try {
     new Function(source);
   } catch (error) {
-    throw new Error(`Inline script ${i + 1} failed to parse: ${error.message}`);
+    throw new Error(`${asset} failed to parse: ${error.message}`);
   }
 }
 
-console.log(`Blueprint validation passed: ${ids.length} markup IDs, ${scripts.length} inline scripts.`);
+const css = read("assets/styles.css");
+if (!css.includes(":root") || !css.includes(".app")) throw new Error("Core design-system selectors are missing");
+
+console.log(
+  `Blueprint validation passed: ${ids.length} DOM IDs, ${requiredAssets.length} external assets, no inline app scripts.`
+);

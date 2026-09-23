@@ -3,7 +3,7 @@ import fs from "node:fs";
 const file = new URL("../index.html", import.meta.url);
 const html = fs.readFileSync(file, "utf8");
 
-const requiredIds = ["page-today", "page-planhub", "page-labhub", "page-reflecthub", "page-youhub"];
+const requiredIds = ["page-today", "page-plan", "page-lab", "page-reflect", "page-you"];
 for (const id of requiredIds) {
   if (!html.includes(`id="${id}"`)) {
     throw new Error(`Missing required page: ${id}`);

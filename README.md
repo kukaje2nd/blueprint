@@ -18,6 +18,9 @@ Primary spaces:
 
 The current application is intentionally dependency-light:
 
+- a static app shell in `index.html`
+- shared design system in `assets/styles.css`
+- application behavior split across `assets/app.js`, `assets/week-composer.js`, and `assets/attention-connections.js`
 - static HTML / CSS / JavaScript
 - browser-local persistence
 - local account prototype and per-account namespaces
@@ -67,9 +70,9 @@ Every branch can then receive a Vercel preview deployment, while `main` can serv
 
 ## Near-term migration
 
-The next engineering phase is to move from the single-file prototype to a maintainable application structure while preserving behavior:
+The first monolith split is complete. The next engineering phase is to continue toward a maintainable application structure while preserving behavior:
 
-- componentized frontend
+- componentized frontend and route-level modules
 - production authentication
 - database-backed per-user workspaces
 - cross-device sync

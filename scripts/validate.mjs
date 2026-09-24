@@ -17,6 +17,7 @@ const requiredAssets = [
   "assets/week-composer.js",
   "assets/attention-connections.js",
   "assets/today.js",
+  "assets/plan.js",
 ];
 for (const asset of requiredAssets) {
   const full = path.join(root, asset);
@@ -25,8 +26,13 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js", "assets/today.js"]) {
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js", "assets/today.js", "assets/plan.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
+}
+
+
+for (const id of ["planFlowTitle","planDirectionList","planCapacityBar","planNextBlocks","planAlignmentTitle"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing connected Plan surface: ${id}`);
 }
 
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];

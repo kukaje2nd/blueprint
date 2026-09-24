@@ -28,6 +28,31 @@
   function renderSuggestions(p){const used=new Set(p.blocks.map(b=>`${b.sourceType}:${b.sourceId}`));$('#weekSuggestions').innerHTML=sourceSuggestions().map(s=>`<div class="week-suggestion"><i>${s.icon}</i><span><strong>${escapeHTML(s.title)}</strong><small>${escapeHTML(s.meta)}</small></span>${used.has(`${s.type}:${s.id}`)?'<button type="button" disabled>placed</button>':`<button type="button" data-week-suggest="${s.type}:${s.id}">place →</button>`}</div>`).join('')||'<div class="week-day-empty">Add a goal or experiment and Blueprint will surface planning candidates here.</div>'}
   function updateTodayWeekBridge(){const key=isoDate(composerMonday(0)),p=weekPlans[key];const title=$('#todayWeekPromise'),meta=$('#todayWeekCapacity');if(!title||!meta)return;if(!p||(!p.promise&&!p.blocks?.length)){title.textContent='Your week is not composed yet.';meta.textContent='Plan the shape before the calendar fills itself.';return}title.textContent=p.promise||`${p.blocks.length} protected blocks this week.`;const used=planMinutes(p),cap=(p.capacity||18)*60;meta.textContent=`${minsToText(used)} protected · ${Math.max(0,Math.round((cap-used)/60*10)/10)}h intentional capacity still open${p.committedAt?' · committed':''}`}
   function renderWeekComposer(){const p=currentPlan();$('#weekPromise').value=p.promise||'';$('#weekBoundary').value=p.boundary||'';renderCanvas(p);renderSuggestions(p);const cap=renderCapacity(p);renderWeekStory(p,cap);updateTodayWeekBridge();document.dispatchEvent(new CustomEvent('blueprint:week-updated'))}
+  function currentWeekSnapshot(){
+    const key=isoDate(composerMonday(0));
+    const p=weekPlans[key]||{capacity:18,promise:'',boundary:'',blocks:[],committedAt:null};
+    return {key,plan:p,minutes:planMinutes(p),capacityMinutes:(Number(p.capacity)||18)*60};
+  }
+  function addGoalToCurrentWeek(goalId){
+    const suggestion=sourceSuggestions().find(x=>x.type==='goal'&&String(x.id)===String(goalId));
+    if(!suggestion)return {ok:false,reason:'missing'};
+    const key=isoDate(composerMonday(0));
+    if(!weekPlans[key])weekPlans[key]={capacity:18,promise:'',boundary:'',blocks:[],committedAt:null};
+    const p=weekPlans[key];
+    if(p.blocks.some(b=>b.sourceType==='goal'&&String(b.sourceId)===String(goalId)))return {ok:false,reason:'exists'};
+    const slot=firstOpenSlot(p,suggestion.kind);
+    p.blocks.push({id:'wb-plan-'+Date.now(),title:suggestion.title,day:slot.day,time:slot.time,duration:suggestion.duration,kind:suggestion.kind,sourceType:'goal',sourceId:suggestion.id});
+    p.committedAt=null;
+    persistWeek();
+    if(currentWeekKey()===key)renderWeekComposer();else updateTodayWeekBridge();
+    document.dispatchEvent(new CustomEvent('blueprint:week-updated'));
+    return {ok:true,reason:'added'};
+  }
+  window.BlueprintWeek={
+    getCurrent:currentWeekSnapshot,
+    addGoal:addGoalToCurrentWeek,
+    render:()=>renderWeekComposer()
+  };
   function init(){if(!$('#page-week'))return;$('#weekBlockForm').addEventListener('submit',e=>{e.preventDefault();const title=$('#weekBlockTitle').value.trim();if(!title)return;const p=currentPlan();p.blocks.push({id:'wb-'+Date.now(),title,day:Number($('#weekBlockDay').value)||0,time:$('#weekBlockTime').value||'09:00',duration:Number($('#weekBlockDuration').value)||60,kind:$('#weekBlockKind').value||'focus',sourceType:'custom',sourceId:null});p.committedAt=null;$('#weekBlockTitle').value='';persistWeek();renderWeekComposer()});$('#weekCanvas').addEventListener('click',e=>{const b=e.target.closest('[data-remove-week-block]');if(b)removeBlock(b.dataset.removeWeekBlock)});$('#weekSuggestions').addEventListener('click',e=>{const b=e.target.closest('[data-week-suggest]');if(!b)return;const [type,...rest]=b.dataset.weekSuggest.split(':');addSuggestedBlock(type,rest.join(':'))});$('#capacityTotal').addEventListener('input',e=>{const p=currentPlan();p.capacity=Number(e.target.value)||18;p.committedAt=null;persistWeek();renderWeekComposer()});$('#weekPromise').addEventListener('change',e=>{const p=currentPlan();p.promise=e.target.value.trim();persistWeek();updateTodayWeekBridge()});$('#weekBoundary').addEventListener('change',e=>{const p=currentPlan();p.boundary=e.target.value.trim();persistWeek()});$('#composerPrev').onclick=()=>{composerOffset--;renderWeekComposer()};$('#composerNext').onclick=()=>{composerOffset++;renderWeekComposer()};$('#weekAutoCompose').onclick=autoCompose;$('#weekCommit').onclick=commitWeek;renderWeekComposer()}
   const originalRenderHubs=window.renderV12Hubs;window.renderV12Hubs=function(){originalRenderHubs?.();updateTodayWeekBridge()};
   init();updateTodayWeekBridge();

@@ -148,7 +148,7 @@
 <section class="page active" id="page-today">
 <div class="page-head"><div><div class="eyebrow" id="todayEyebrow">Monday · Week 39</div><h1 id="greeting">Good evening.</h1><p class="subhead">A quiet operating brief for what matters now. You can go deeper only when you need to.</p></div><div class="date-chip" id="todayDate">September 21, 2026</div></div>
 <div class="today-hero">
-<div class="hero-top"><div><div class="eyebrow">Primary outcome</div><h2 class="hero-title" id="primaryOutcome">Finish the Blueprint interaction pass</h2><p class="hero-copy" id="heroCopy">A good day does not need to be full. Protect enough attention for one meaningful change, then notice what actually happened.</p><div class="hero-actions"><button class="solid-btn" id="startFocus">▶ Start focus</button><button class="soft-btn" data-page-jump="calendar">Open calendar</button></div></div><div class="focus-pill"><span>Focus readiness</span><strong>82</strong><small>↑ strong window</small></div></div>
+<div class="hero-top"><div><div class="eyebrow">Primary outcome</div><h2 class="hero-title" id="primaryOutcome">Finish the Blueprint interaction pass</h2><p class="hero-copy" id="heroCopy">A good day does not need to be full. Protect enough attention for one meaningful change, then notice what actually happened.</p><div class="hero-actions"><button class="solid-btn" id="startFocus">▶ Start focus</button><button class="soft-btn" data-page-jump="calendar">Open calendar</button></div></div><div class="focus-pill" id="dayReadiness"><span>Day readiness</span><strong id="dayReadinessState">Steady</strong><small id="dayReadinessLabel">waiting for today’s evidence</small><em>planning stance · not a score</em></div></div>
 <div class="mode-deck" aria-label="Day mode">
   <div class="mode-intro"><span>Day mode</span><strong id="modeTitle">Build</strong><small id="modeNarrative">Compress attention around one meaningful outcome.</small></div>
   <div class="mode-options">
@@ -158,8 +158,8 @@
     <button data-mode-choice="connect"><i>∞</i><span>Connect</span></button>
   </div>
 </div>
-<div class="signal-strip"><div class="signal"><span>Focus</span><strong>8.2 / 10</strong><small>+0.8 this week</small></div><div class="signal"><span>Energy</span><strong>7.6 / 10</strong><small>stable</small></div><div class="signal"><span>Deep work</span><strong>2.5 h</strong><small>71% of target</small></div><div class="signal"><span>Recovery</span><strong>7h 42m</strong><small>+18 min sleep</small></div></div>
-<div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong>Your cleanest attention</strong><small>Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Advance</span><strong>One visible artifact</strong><small>Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Observe</span><strong>Capture one piece of evidence</strong><small>End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
+<div class="signal-strip"><div class="signal"><span>Focus signal</span><strong id="todaySignalFocus">—</strong><small id="todaySignalFocusMeta">log a pulse when useful</small></div><div class="signal"><span>Energy signal</span><strong id="todaySignalEnergy">—</strong><small id="todaySignalEnergyMeta">no assumption yet</small></div><div class="signal"><span>Week space</span><strong id="todaySignalSpace">—</strong><small id="todaySignalSpaceMeta">compose the week to see capacity</small></div><div class="signal"><span>Evidence</span><strong id="todaySignalEvidence">0 logs</strong><small id="todaySignalEvidenceMeta">rolling seven days</small></div></div>
+<div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong id="todayProtectTitle">Your cleanest attention</strong><small id="todayProtectCopy">Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Advance</span><strong id="todayAdvanceTitle">One visible artifact</strong><small id="todayAdvanceCopy">Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Observe</span><strong id="todayObserveTitle">Capture one piece of evidence</strong><small id="todayObserveCopy">End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
 </div>
 <details class="system-context-details"><summary><span><i>✦</i><b>System context</b><small>Season, patterns, decisions, relationships, and setup</small></span><em>Show context</em></summary><div class="system-context-body"><div class="context-grid"><div class="season-strip" id="seasonStrip"><div><span>Current season</span><strong id="seasonStripTitle">Ship &amp; Simplify</strong><small id="seasonStripIntent">Turn a few active threads into durable finished work.</small></div><div class="season-countdown"><strong id="seasonStripDays">69</strong><span>days left</span></div><button data-page-jump="trajectory">Open trajectory →</button></div>
 <div class="emergence-strip" id="emergenceStrip">
@@ -181,23 +181,17 @@
 <details class="analysis-details"><summary><span><i>↗</i><b>Deeper analysis</b><small>Attention vs. movement across active goals</small></span><em>Open analysis</em></summary><div class="analysis-details-body"><section class="card movement-card" id="movementCard"><div class="movement-copy"><div><span>Movement vs attention · structural lens</span><h2 id="movementTitle">Is your attention producing movement?</h2><p id="movementCopy">Blueprint compares recent activity with the evidence attached to each goal. This is a planning heuristic—not a productivity score.</p></div><div class="movement-verdict"><strong id="movementVerdict">Waiting for enough connected evidence.</strong><small id="movementVerdictMeta">Link experiments, metrics, or rhythms to a goal and the map becomes more useful.</small></div></div><div class="movement-plot" id="movementPlot"><span class="axis-label y">more movement ↑</span><span class="axis-label x">more attention →</span><span class="movement-zone z1">quiet progress</span><span class="movement-zone z2">aligned</span><span class="movement-zone z3">under-supported</span><span class="movement-zone z4">attention-heavy</span></div></section>
 </div></details>
 <div class="grid today-grid">
-<div class="card timeline-card"><div class="card-head"><h2>Today’s architecture</h2><span>5 blocks · 6h 10m</span></div><div class="timeline">
-<div class="time-row"><div class="time">08:00</div><div class="event health"><div class="event-main"><strong>Morning run + mobility</strong><small>45 min · recovery / training</small></div><div class="event-status"><span>done</span><input aria-label="Complete morning run" checked="" class="event-check" type="checkbox"/></div></div></div>
-<div class="time-row"><div class="time">09:30</div><div class="event"><div class="event-main"><strong>Deep work · Blueprint website</strong><small>90 min · project / interface</small></div><div class="event-status"><span>focus</span><input aria-label="Complete deep work" class="event-check" type="checkbox"/></div></div></div>
-<div class="time-row"><div class="time">11:30</div><div class="event lab" data-detail="phone"><div class="event-main"><strong>Experiment check-in</strong><small>15 min · focus score + observation</small></div><div class="event-status"><span>lab</span><input aria-label="Complete experiment check-in" class="event-check" type="checkbox"/></div></div></div>
-<div class="time-row"><div class="time">13:00</div><div class="event" data-detail="atlas"><div class="event-main"><strong>Project Atlas · synthesis sprint</strong><small>120 min · milestone 3</small></div><div class="event-status"><span>project</span><input aria-label="Complete Atlas sprint" class="event-check" type="checkbox"/></div></div></div>
-<div class="time-row"><div class="time">18:00</div><div class="event health"><div class="event-main"><strong>Gym · upper body</strong><small>60 min · training</small></div><div class="event-status"><span>health</span><input aria-label="Complete gym" class="event-check" type="checkbox"/></div></div></div>
-</div></div>
+<div class="card timeline-card"><div class="card-head"><h2>Today’s architecture</h2><span id="todayTimelineMeta">building from your calendar…</span></div><div class="timeline" id="todayTimeline"></div></div>
 <div>
 <div class="card day-orbit-card">
   <div class="card-head"><h2>Day orbit</h2><span id="orbitLabel">build · protected</span></div>
   <div class="day-orbit-body">
-    <div class="orbit-clock" id="orbitClock"><div><strong>6.1h</strong><span>protected</span></div></div>
+    <div class="orbit-clock" id="orbitClock"><div><strong id="orbitProtected">0h</strong><span>protected</span></div></div>
     <div class="orbit-legend">
-      <span><i class="deep"></i><b>Deep</b><small>2h 30m</small></span>
-      <span><i class="body"></i><b>Body</b><small>1h 45m</small></span>
-      <span><i class="lab"></i><b>Lab</b><small>30m</small></span>
-      <span><i class="open"></i><b>Open</b><small>3h 10m</small></span>
+      <span><i class="deep"></i><b>Focus</b><small id="orbitFocus">0h</small></span>
+      <span><i class="body"></i><b>Body</b><small id="orbitBody">0h</small></span>
+      <span><i class="lab"></i><b>Lab</b><small id="orbitLab">0h</small></span>
+      <span><i class="open"></i><b>Open</b><small id="orbitOpen">—</small></span>
     </div>
   </div>
 </div>
@@ -630,5 +624,6 @@
 <script id="v17-week-composer-script" src="assets/week-composer.js"></script>
 
 <script id="v21-attention-connections-script" src="assets/attention-connections.js"></script>
+<script id="v23-adaptive-today-script" src="assets/today.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ const requiredAssets = [
   "assets/app.js",
   "assets/week-composer.js",
   "assets/attention-connections.js",
+  "assets/today.js",
 ];
 for (const asset of requiredAssets) {
   const full = path.join(root, asset);
@@ -24,7 +25,7 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js"]) {
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js", "assets/today.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
 

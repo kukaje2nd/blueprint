@@ -87,9 +87,44 @@
 </header>
 <div class="route-ribbon" id="routeRibbon"><div class="route-context"><div class="route-icon" id="routeIcon">◫</div><div class="route-copy"><span id="routeGroup">Now · orientation</span><strong id="routeSummary">Run the present from one surface.</strong></div></div><div class="route-links" id="routeLinks"></div></div>
 <section class="page hub-page" id="page-plan">
-<div class="hub-hero plan-hub"><div><div class="eyebrow">Plan · direction into reality</div><h1>Decide what deserves a place in your life.</h1><p>Plan connects long-range direction to finite time. Start with a goal, turn it into a project or rhythm, then give it a realistic place on the calendar.</p><div class="hub-actions"><button class="solid-btn" data-page-jump="week">Compose this week</button><button class="soft-btn" data-capture-type="Goal" data-open-capture>＋ New goal</button></div></div><div class="hub-orbit"><span class="orbit-core">PLAN</span><i class="orbit o1"></i><i class="orbit o2"></i><b class="satellite s1">goals</b><b class="satellite s2">time</b><b class="satellite s3">projects</b></div></div>
-<div class="hub-stats"><div><span>Active goals</span><strong id="planGoalCount">3</strong><small>across your horizons</small></div><div><span>Recurring architecture</span><strong id="planScheduleCount">0</strong><small>weekly rails</small></div><div><span>Primary season</span><strong id="planSeasonName">Ship & Simplify</strong><small>temporary direction</small></div></div>
-<div class="hub-grid"><button class="hub-card featured week-hub-card" data-page-jump="week"><span>01</span><div><strong>Weekly Composer</strong><p>Budget capacity, choose the week’s promise, and turn priorities into a realistic seven-day shape.</p></div><em>◫</em></button><button class="hub-card" data-page-jump="goals"><span>02</span><div><strong>Goals</strong><p>Weekly, monthly, quarterly, yearly, directional, or character-based.</p></div><em>◎</em></button><button class="hub-card" data-page-jump="calendar"><span>03</span><div><strong>Calendar</strong><p>Give intention a place without turning every minute into a promise.</p></div><em>▦</em></button><button class="hub-card" data-page-jump="projects"><span>04</span><div><strong>Projects</strong><p>Move outcomes through milestones, constraints, and clear finishes.</p></div><em>◇</em></button><button class="hub-card" data-page-jump="trajectory"><span>05</span><div><strong>Trajectory</strong><p>Separate now, emerging, and later so the future can stay flexible.</p></div><em>≋</em></button><button class="hub-card" data-page-jump="roadmap"><span>06</span><div><strong>Roadmap</strong><p>Sequence the next twelve weeks at the right level of precision.</p></div><em>⇥</em></button><button class="hub-card" data-page-jump="library"><span>07</span><div><strong>Starter architectures</strong><p>Install an editable starting system for business, health, character, creativity, money, or a new quarter.</p></div><em>✣</em></button></div>
+<div class="hub-hero plan-hub"><div><div class="eyebrow">Plan · direction into reality</div><h1 id="planHeroTitle">Turn direction into a week you can actually live.</h1><p id="planHeroCopy">Start with what matters, respect finite capacity, then protect only the commitments that deserve real time.</p><div class="hub-actions"><button class="solid-btn" id="planPrimaryAction" data-page-jump="week">Compose this week</button><button class="soft-btn" data-capture-type="Goal" data-open-capture>＋ New goal</button></div></div><div class="hub-orbit"><span class="orbit-core">PLAN</span><i class="orbit o1"></i><i class="orbit o2"></i><b class="satellite s1">direction</b><b class="satellite s2">capacity</b><b class="satellite s3">time</b></div></div>
+<div class="hub-stats"><div><span>Active goals</span><strong id="planGoalCount">0</strong><small id="planGoalMeta">directions worth protecting</small></div><div><span>This week</span><strong id="planWeekHours">0h</strong><small id="planWeekMeta">intentional capacity claimed</small></div><div><span>Protected blocks</span><strong id="planBlockCount">0</strong><small id="planBlockMeta">draft and calendar commitments</small></div></div>
+
+<section class="plan-flow card" aria-labelledby="planFlowTitle">
+  <div class="plan-flow-head"><div><span class="eyebrow">Planning path</span><h2 id="planFlowTitle">Direction → capacity → time</h2><p>Each layer should answer a different question. Goals say what matters. The week decides what fits. Calendar makes the commitment concrete.</p></div><span class="plan-flow-state" id="planFlowState">reading your system…</span></div>
+  <div class="plan-flow-grid">
+    <article class="plan-stage direction">
+      <div class="plan-stage-top"><span>01 · Direction</span><i>◎</i></div>
+      <strong id="planDirectionSummary">Choose what deserves movement.</strong>
+      <p id="planDirectionCopy">Active goals will appear here with whether they are represented in this week.</p>
+      <div class="plan-goal-list" id="planDirectionList"></div>
+      <button class="text-link" data-page-jump="goals">Open goals →</button>
+    </article>
+    <article class="plan-stage capacity">
+      <div class="plan-stage-top"><span>02 · Capacity</span><i>◫</i></div>
+      <strong id="planWeekSummary">Shape a week before filling it.</strong>
+      <p id="planWeekCopy">Blueprint will show the current promise, boundary, and how much intentional capacity is already claimed.</p>
+      <div class="plan-capacity-track"><i><b id="planCapacityBar"></b></i><span id="planCapacityMeta">0h of 18h</span></div>
+      <div class="plan-boundary" id="planBoundary">No explicit “not this week” boundary yet.</div>
+      <button class="text-link" data-page-jump="week">Open Weekly Composer →</button>
+    </article>
+    <article class="plan-stage time">
+      <div class="plan-stage-top"><span>03 · Time</span><i>▦</i></div>
+      <strong id="planCalendarSummary">Make the plan concrete.</strong>
+      <p id="planCalendarCopy">Committed blocks and recurring rhythms will show where intention has actually earned time.</p>
+      <div class="plan-next-list" id="planNextBlocks"></div>
+      <button class="text-link" data-page-jump="calendar">Open calendar →</button>
+    </article>
+  </div>
+</section>
+
+<section class="plan-lens" id="planLens">
+  <div><span>Planning lens</span><strong id="planAlignmentTitle">Nothing needs interpretation yet.</strong><p id="planAlignmentCopy">Create a goal or compose the week and Blueprint will show where direction and time are connected—or deliberately not connected.</p></div>
+  <div class="plan-lens-actions"><button class="soft-btn" data-page-jump="week">Adjust week</button><button class="soft-btn" data-page-jump="goals">Review goals</button></div>
+</section>
+
+<div class="section-label plan-tools-label"><strong>Planning tools</strong><span class="subtle-note">Go deeper only when the planning path needs more detail.</span></div>
+<div class="hub-grid plan-tools-grid"><button class="hub-card featured week-hub-card" data-page-jump="week"><span>01</span><div><strong>Weekly Composer</strong><p>Budget capacity and turn priorities into a realistic seven-day shape.</p></div><em>◫</em></button><button class="hub-card" data-page-jump="goals"><span>02</span><div><strong>Goals</strong><p>Targets, character practices, systems, and directions with different proof models.</p></div><em>◎</em></button><button class="hub-card" data-page-jump="calendar"><span>03</span><div><strong>Calendar</strong><p>See which intentions have actually earned protected time.</p></div><em>▦</em></button><button class="hub-card" data-page-jump="projects"><span>04</span><div><strong>Projects</strong><p>Move outcomes through milestones, constraints, and clear finishes.</p></div><em>◇</em></button><button class="hub-card" data-page-jump="trajectory"><span>05</span><div><strong>Trajectory</strong><p>Separate now, emerging, and later so future ideas stay flexible.</p></div><em>≋</em></button><button class="hub-card" data-page-jump="library"><span>06</span><div><strong>Starter architectures</strong><p>Install a small editable starting system when a blank page is not useful.</p></div><em>✣</em></button></div>
 </section>
 
 
@@ -625,5 +660,6 @@
 
 <script id="v21-attention-connections-script" src="assets/attention-connections.js"></script>
 <script id="v23-adaptive-today-script" src="assets/today.js"></script>
+<script id="v24-connected-plan-script" src="assets/plan.js"></script>
 </body>
 </html>

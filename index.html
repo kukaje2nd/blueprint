@@ -69,6 +69,9 @@
     <button data-space="reflect" data-page="reflect"><span class="primary-icon">↻</span><span><strong>Reflect</strong><small>Learn + decide</small></span></button>
     <button data-space="you" data-page="you"><span class="primary-icon">✦</span><span><strong>You</strong><small>Identity + context</small></span></button>
   </nav>
+  <button class="experience-toggle" id="experienceToggle" type="button" aria-label="Change Blueprint depth">
+    <span><i>◌</i><b id="experienceToggleLabel">Full system</b></span><small id="experienceToggleHint">All layers visible</small>
+  </button>
   <div class="space-context">
     <div class="space-context-head"><span id="spaceLabel">Today</span><small id="spaceHint">The present moment</small></div>
     <nav class="secondary-nav" id="secondaryNav" aria-label="Current space"></nav>
@@ -120,7 +123,7 @@
 
 <section class="plan-lens" id="planLens">
   <div><span>Planning lens</span><strong id="planAlignmentTitle">Nothing needs interpretation yet.</strong><p id="planAlignmentCopy">Create a goal or compose the week and Blueprint will show where direction and time are connected—or deliberately not connected.</p></div>
-  <div class="plan-lens-actions"><button class="soft-btn" data-page-jump="week">Adjust week</button><button class="soft-btn" data-page-jump="goals">Review goals</button></div>
+  <div class="plan-lens-actions"><button class="soft-btn" data-page-jump="week">Adjust week</button><button class="soft-btn" data-page-jump="goals">Review goals</button><button class="soft-btn" id="planRevealTools" type="button">More tools</button></div>
 </section>
 
 <div class="section-label plan-tools-label"><strong>Planning tools</strong><span class="subtle-note">Go deeper only when the planning path needs more detail.</span></div>
@@ -167,12 +170,20 @@
 
 <section class="page hub-page" id="page-lab">
 <div class="hub-hero lab-hub"><div><div class="eyebrow">Lab · curiosity with evidence</div><h1>Turn self-improvement into experiments, not identity judgments.</h1><p>Try a bounded change, track only the signals that matter, and decide whether the evidence earns a place in your life.</p><div class="hub-actions"><button class="solid-btn" data-capture-type="Experiment" data-open-capture>＋ New experiment</button><button class="soft-btn" data-page-jump="metrics">Build a metric</button></div></div><div class="lab-vessel"><span></span><i></i><b>observe</b><em>adapt</em></div></div>
+<section class="progressive-gate card" id="labProgressGate">
+  <div><span class="eyebrow">When Lab becomes useful</span><h2>Test something when you have a real question.</h2><p>You do not need experiments or metrics to “use Blueprint correctly.” Lab earns its place when a repeated friction, curiosity, or uncertainty is worth testing.</p></div>
+  <div class="progressive-gate-actions"><button class="solid-btn" data-capture-type="Experiment" data-open-capture>Start an experiment</button><button class="soft-btn" data-experience-full>Show full Lab</button></div>
+</section>
 <div class="hub-stats"><div><span>Running experiments</span><strong id="labExperimentCount">3</strong><small>bounded trials</small></div><div><span>Custom metrics</span><strong id="labMetricCount">4</strong><small>signals you chose</small></div><div><span>Evidence</span><strong id="labEvidenceCount">0</strong><small>check-ins captured</small></div></div>
 <div class="hub-grid"><button class="hub-card featured" data-page-jump="experiments"><span>01</span><div><strong>Experiments</strong><p>Hypothesis, protocol, observations, and an end decision.</p></div><em>⌁</em></button><button class="hub-card" data-page-jump="metrics"><span>02</span><div><strong>Metrics</strong><p>Create any signal you care about: duration, scale, yes/no, currency, count.</p></div><em>⌇</em></button><button class="hub-card" data-page-jump="routines"><span>03</span><div><strong>Routines</strong><p>Turn what works into repeatable architecture without over-managing it.</p></div><em>↯</em></button></div>
 <div class="principle-note"><span>Lab principle</span><strong>Evidence is information, not a verdict about you.</strong><p>Blueprint should help customers become more curious about themselves—not more anxious about their scores.</p></div>
 </section>
 <section class="page hub-page" id="page-reflect">
 <div class="hub-hero reflect-hub"><div><div class="eyebrow">Reflect · turn experience into understanding</div><h1>Make the past useful without living inside it.</h1><p>Close loops, surface patterns, revisit important decisions, and let observations become durable lessons instead of forgotten notes.</p><div class="hub-actions"><button class="solid-btn" data-page-jump="review">Start review</button><button class="soft-btn" data-capture-type="Memory" data-open-capture>Plant a memory</button></div></div><div class="reflection-rings"><i></i><i></i><i></i><span>↻</span></div></div>
+<section class="progressive-gate card" id="reflectProgressGate">
+  <div><span class="eyebrow">Reflection needs material</span><h2>Let a few days happen before asking for a pattern.</h2><p>Blueprint will invite deeper reflection after you have pulses, experiment observations, or a week worth comparing. You can still open Review whenever you want.</p></div>
+  <div class="progressive-gate-actions"><button class="solid-btn" data-page-jump="review">Open a light review</button><button class="soft-btn" data-experience-full>Show full Reflect</button></div>
+</section>
 <div class="hub-grid"><button class="hub-card featured" data-page-jump="review"><span>01</span><div><strong>Review</strong><p>Compare intention with reality and deliberately shape the next cycle.</p></div><em>↻</em></button><button class="hub-card" data-page-jump="memory"><span>02</span><div><strong>Memory</strong><p>Let repeated observations earn weight and eventually become protocols.</p></div><em>✺</em></button><button class="hub-card" data-page-jump="compass"><span>03</span><div><strong>Decisions</strong><p>Record important trade-offs, evidence, conviction, and revisit dates.</p></div><em>◈</em></button><button class="hub-card" data-page-jump="inbox"><span>04</span><div><strong>Inbox</strong><p>Clarify what arrived before it silently becomes another obligation.</p></div><em>⌑</em></button><button class="hub-card" data-page-jump="archive"><span>05</span><div><strong>Archive</strong><p>Keep finished work retrievable without keeping it psychologically active.</p></div><em>⊡</em></button></div>
 </section>
 <section class="page hub-page" id="page-you">
@@ -196,6 +207,15 @@
 <div class="signal-strip"><div class="signal"><span>Focus signal</span><strong id="todaySignalFocus">—</strong><small id="todaySignalFocusMeta">log a pulse when useful</small></div><div class="signal"><span>Energy signal</span><strong id="todaySignalEnergy">—</strong><small id="todaySignalEnergyMeta">no assumption yet</small></div><div class="signal"><span>Week space</span><strong id="todaySignalSpace">—</strong><small id="todaySignalSpaceMeta">compose the week to see capacity</small></div><div class="signal"><span>Evidence</span><strong id="todaySignalEvidence">0 logs</strong><small id="todaySignalEvidenceMeta">rolling seven days</small></div></div>
 <div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong id="todayProtectTitle">Your cleanest attention</strong><small id="todayProtectCopy">Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Advance</span><strong id="todayAdvanceTitle">One visible artifact</strong><small id="todayAdvanceCopy">Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Observe</span><strong id="todayObserveTitle">Capture one piece of evidence</strong><small id="todayObserveCopy">End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
 </div>
+<section class="activation-path card" id="activationPath" aria-labelledby="activationPathTitle">
+  <div class="activation-path-head"><div><span class="eyebrow">First loop</span><h2 id="activationPathTitle">Build only enough system to learn from.</h2><p id="activationPathCopy">One direction. One realistic week. One small signal. Reflection can come after reality has something to say.</p></div><button class="text-link" id="activationPathDismiss" type="button">Hide guide</button></div>
+  <div class="activation-steps">
+    <button data-activation-step="direction" data-page-jump="goals"><span>01</span><div><strong>Choose direction</strong><small id="activationDirectionMeta">Name one meaningful change.</small></div><em>→</em></button>
+    <button data-activation-step="week" data-page-jump="week"><span>02</span><div><strong>Protect the week</strong><small id="activationWeekMeta">Give it realistic space.</small></div><em>→</em></button>
+    <button data-activation-step="pulse"><span>03</span><div><strong>Notice today</strong><small id="activationPulseMeta">Log one 45-second pulse.</small></div><em>↓</em></button>
+    <button data-activation-step="learn" data-page-jump="review"><span>04</span><div><strong>Learn later</strong><small id="activationLearnMeta">Reflection becomes useful after evidence exists.</small></div><em>→</em></button>
+  </div>
+</section>
 <details class="system-context-details"><summary><span><i>✦</i><b>System context</b><small>Season, patterns, decisions, relationships, and setup</small></span><em>Show context</em></summary><div class="system-context-body"><div class="context-grid"><div class="season-strip" id="seasonStrip"><div><span>Current season</span><strong id="seasonStripTitle">Ship &amp; Simplify</strong><small id="seasonStripIntent">Turn a few active threads into durable finished work.</small></div><div class="season-countdown"><strong id="seasonStripDays">69</strong><span>days left</span></div><button data-page-jump="trajectory">Open trajectory →</button></div>
 <div class="emergence-strip" id="emergenceStrip">
   <div class="emergence-mark"><span>✺</span></div>
@@ -230,8 +250,8 @@
     </div>
   </div>
 </div>
-<div class="card"><div class="card-head"><h2>Lab pulse</h2><span id="labPulseCount">0 running</span></div><div class="lab-list" id="labPulse"></div></div>
-<div class="card decision-card"><div class="top"><h3>Daily decision</h3><span class="score">low friction</span></div><p>Your next high-value block is already protected. Keep the afternoon deliberately under-scheduled instead of filling the gap.</p><div class="decision-row"><button data-toast="Decision saved">Keep open</button><button data-toast="Added a recovery block">Add recovery</button><button data-page-jump="calendar">Replan</button></div></div><div class="card routine-mini-card">
+<div class="card" id="todayLabCard"><div class="card-head"><h2>Lab pulse</h2><span id="labPulseCount">0 running</span></div><div class="lab-list" id="labPulse"></div></div>
+<div class="card decision-card" id="todayDecisionCard"><div class="top"><h3>Daily decision</h3><span class="score">low friction</span></div><p>Your next high-value block is already protected. Keep the afternoon deliberately under-scheduled instead of filling the gap.</p><div class="decision-row"><button data-toast="Decision saved">Keep open</button><button data-toast="Added a recovery block">Add recovery</button><button data-page-jump="calendar">Replan</button></div></div><div class="card routine-mini-card" id="todayRoutineCard">
 <div class="card-head"><h2>Routine pulse</h2><button class="text-link" data-page-jump="routines">Manage →</button></div>
 <div class="routine-mini-list">
 <button class="routine-mini-row" data-routine-toggle="morning"><span><i></i><b>Morning launch</b><small>07:15 · daily</small></span><em id="today-routine-morning">due</em></button>
@@ -241,13 +261,13 @@
 </div>
 </div>
 
-<div class="card priority-engine">
+<div class="card priority-engine" id="priorityEngineCard">
 <div class="priority-head"><h2>Priority engine</h2><span>urgency × leverage × readiness</span></div>
 <div class="priority-list" id="priorityList"></div>
 </div>
 
-<div class="section-label"><strong>Project momentum</strong><button data-page-jump="projects">View all →</button></div>
-<div class="grid triple">
+<div class="section-label" id="projectMomentumLabel"><strong>Project momentum</strong><button data-page-jump="projects">View all →</button></div>
+<div class="grid triple" id="projectMomentumGrid">
 <div class="card project-card" data-detail="website"><div class="project-top"><span>Product</span><span>Oct 18</span></div><h3>Launch personal website</h3><p>A durable home for projects, writing, experiments, and thinking.</p><div class="project-foot"><div class="progress"><i style="width:68%"></i></div><strong>68%</strong></div></div>
 <div class="card project-card" data-detail="atlas"><div class="project-top"><span>Research</span><span>Nov 04</span></div><h3>Project Atlas</h3><p>Turn scattered material into structured evidence and synthesis.</p><div class="project-foot"><div class="progress"><i style="width:46%"></i></div><strong>46%</strong></div></div>
 <div class="card project-card" data-detail="marathon"><div class="project-top"><span>Health</span><span>12 weeks</span></div><h3>Half-marathon block</h3><p>Build endurance while preserving strength and recovery quality.</p><div class="project-foot"><div class="progress"><i style="width:61%"></i></div><strong>61%</strong></div></div>
@@ -642,6 +662,28 @@
 </div><div class="command" id="command"><div class="command-input-wrap"><span>⌕</span><input autocomplete="off" id="commandInput" placeholder="Search projects, experiments, or commands…"/></div><div class="command-results" id="commandResults"></div></div>
 <div class="zen-overlay" id="zenOverlay"><div class="zen-card"><div class="eyebrow">Focus session</div><div class="zen-time" id="zenTime">50:00</div><h2>Blueprint website · interaction pass</h2><p>One task. No project management inside the focus block. Capture stray thoughts and return to the work.</p><div class="zen-actions"><button class="soft-btn" id="zenPause">Pause</button><button class="solid-btn" id="zenDone">End session</button></div></div></div>
 
+<div class="activation-backdrop" id="activationBackdrop"></div>
+<div class="activation-modal" id="activationModal" role="dialog" aria-modal="true" aria-labelledby="activationTitle">
+  <div class="activation-brand"><div class="brand-mark"></div><span>Blueprint</span></div>
+  <div class="activation-kicker">Start with one change</div>
+  <h2 id="activationTitle">What would make the next few weeks meaningfully better?</h2>
+  <p class="activation-copy">You do not need to configure a life system. Give Blueprint one direction; the rest can reveal itself only when it becomes useful.</p>
+  <label class="activation-outcome-label">One thing worth changing
+    <textarea id="activationOutcome" maxlength="140" placeholder="e.g. Finish my portfolio, train consistently, become more patient under pressure…"></textarea>
+  </label>
+  <div class="activation-shape">
+    <span>What kind of change is it?</span>
+    <div class="activation-shape-grid" id="activationShapeGrid">
+      <button type="button" class="active" data-activation-kind="target"><strong>Reach something</strong><small>A result or finish line</small></button>
+      <button type="button" data-activation-kind="character"><strong>Practice a trait</strong><small>Behavior you want to embody</small></button>
+      <button type="button" data-activation-kind="system"><strong>Make it repeatable</strong><small>A rhythm or reliable system</small></button>
+      <button type="button" data-activation-kind="direction"><strong>Move in a direction</strong><small>Useful when the finish line is unclear</small></button>
+    </div>
+  </div>
+  <div class="activation-actions"><button class="soft-btn" id="activationSkip" type="button">Enter with a blank slate</button><button class="solid-btn" id="activationStart" type="button">Start simple →</button></div>
+  <small class="activation-footnote">Blueprint will begin in Simple view. Nothing is locked, and you can reveal the full system at any time.</small>
+</div>
+
 <div class="setup-backdrop" id="setupBackdrop"></div>
 <div class="setup-modal" id="setupModal" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
   <div class="setup-modal-head"><div><span class="setup-step-label">Personal architecture</span><h2 id="setupTitle">Tune Blueprint to your life.</h2><p>Three small choices. Everything can be changed later.</p></div><button class="icon-btn" id="closeSetup" aria-label="Close setup">×</button></div>
@@ -661,5 +703,6 @@
 <script id="v21-attention-connections-script" src="assets/attention-connections.js"></script>
 <script id="v23-adaptive-today-script" src="assets/today.js"></script>
 <script id="v24-connected-plan-script" src="assets/plan.js"></script>
+<script id="v26-progressive-activation-script" src="assets/activation.js"></script>
 </body>
 </html>

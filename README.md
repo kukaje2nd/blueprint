@@ -12,6 +12,12 @@ Blueprint now separates **capture** from **organization**. The global Catch butt
 
 The previous Reflect Inbox is reframed as **Loose ends** for pinned follow-ups and generated reminders, so raw personal ideas have one clear home.
 
+## Learning Review
+
+Reflect is now an **as-needed learning surface**, not a weekly compliance ritual. It surfaces real workspace evidence—recent Day Designs, experiment observations, saved Week Design context, and Loose ends—without inventing a queue for fresh workspaces. Four optional lenses help the user notice what mattered, compare design with reality, interpret evidence carefully, and carry one useful thing forward.
+
+The existing Keep / Change / Explore weekly snapshot remains compatible, but the interface treats it as a learning note rather than a scorecard. Existing review-state and synthesis data are preserved.
+
 ## Life Guide
 
 Plan is now a **Life Guide**: a flexible place to keep ideas, directions, commitments, questions, and possibilities visible without forcing them into tasks. Guide items live in **Now / Keep warm / Later** and can remain loose indefinitely. When useful, the user can explicitly bring an item into Day Design or Week Design, make it a Goal, or create a Rhythm.
@@ -44,10 +50,10 @@ Fresh workspaces no longer inherit demo goals, experiments, metrics, memories, d
 
 Primary spaces:
 
-1. **Today** — current attention, schedule, weekly promise, daily pulse, and adaptive brief.
-2. **Plan** — goals, projects, calendar, routines, roadmap, weekly composer, and starter architectures.
+1. **Today** — Day Design, fixed anchors, current attention, and adaptive guidance.
+2. **Plan** — Life Guide, Goals, Week Design, Rhythms & Choices, Calendar, projects, and longer horizons.
 3. **Lab** — experiments, custom metrics, protocols, and impact loops.
-4. **Reflect** — weekly reviews, Weekprints, memory, decisions, and long-term evidence.
+4. **Reflect** — Learning Review, Memory, decisions, Loose ends, and long-term evidence.
 5. **You** — personalization, identity, relationships, data vault, connections, and sync controls.
 
 ## Architecture today
@@ -56,7 +62,7 @@ The current application is intentionally dependency-light:
 
 - a static app shell in `index.html`
 - shared design system in `assets/styles.css`
-- application behavior split across `assets/app.js`, `assets/week-composer.js`, and `assets/attention-connections.js`
+- application behavior split across focused modules for core app behavior, Day Design, Week Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
 - static HTML / CSS / JavaScript
 - browser-local persistence
 - local account prototype and per-account namespaces

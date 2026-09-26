@@ -83,7 +83,7 @@
 <button class="location-pill" id="atlasTrigger" aria-label="Open navigation index"><span class="loc-dot"></span><span class="loc-text"><small id="crumbGroup">Now</small><strong id="crumb">Today</strong></span><span class="chev">⌄</span></button>
 <button class="command-trigger" id="commandTrigger"><span>⌕</span><span class="placeholder">Find anything, capture, or run a command…</span><kbd>⌘ K</kbd></button>
 <button class="mode-chip" id="modeChip" title="Cycle day mode"><i></i><span>Build mode</span></button>
-<div class="top-actions"><button aria-label="Open attention center" class="icon-btn attention-bell" id="attentionBell" title="Attention Center">◌<span class="attention-badge" id="attentionBadge"></span></button><button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme">◐</button><button class="solid-btn" id="captureBtn">＋ <span class="label">Capture</span></button></div>
+<div class="top-actions"><button aria-label="Open attention center" class="icon-btn attention-bell" id="attentionBell" title="Attention Center">◌<span class="attention-badge" id="attentionBadge"></span></button><button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme">◐</button><button class="solid-btn" id="captureBtn" title="Quick Catch · C">＋ <span class="label">Catch</span></button></div>
 </header>
 <div class="route-ribbon" id="routeRibbon"><div class="route-context"><div class="route-icon" id="routeIcon">◫</div><div class="route-copy"><span id="routeGroup">Now · orientation</span><strong id="routeSummary">Run the present from one surface.</strong></div></div><div class="route-links" id="routeLinks"></div></div>
 <section class="page hub-page" id="page-plan">
@@ -92,7 +92,7 @@
       <div class="eyebrow">Plan · Life Guide</div>
       <h1>Keep what matters visible without turning everything into a task.</h1>
       <p>Blueprint can hold ideas, directions, commitments, questions, and possibilities before they need a goal, project, habit, or calendar block.</p>
-      <div class="hub-actions"><button class="solid-btn" id="newGuideItem">＋ Add something that matters</button><button class="soft-btn" data-page-jump="week">Design this week</button></div>
+      <div class="hub-actions"><button class="solid-btn" id="openQuickCatchHero" type="button">＋ Catch a thought</button><button class="soft-btn" data-page-jump="week">Design this week</button></div>
     </div>
     <div class="guide-principle">
       <span>Organizing principle</span>
@@ -100,6 +100,16 @@
       <small>Give something more structure only when structure would actually help.</small>
     </div>
   </div>
+
+  <section class="guide-catch-strip">
+    <button class="guide-catch-main" id="openQuickCatch" type="button"><span>＋</span><div><strong>Catch anything</strong><small>Idea, question, commitment, possibility—organize it later.</small></div><kbd>C</kbd></button>
+    <button class="guide-catch-detail" id="newGuideItem" type="button">Add with details →</button>
+  </section>
+
+  <section class="guide-unsorted" id="guideUnsortedSection">
+    <div class="guide-unsorted-head"><div><span class="eyebrow">Unsorted</span><h2>Thoughts waiting for a home.</h2><p>Nothing here is a task. Decide whether each thought belongs in Now, Keep warm, Later, or nowhere.</p></div><strong id="guideUnsortedMeta">0 waiting</strong></div>
+    <div class="guide-unsorted-list" id="guideUnsortedList"></div>
+  </section>
 
   <div class="guide-stats">
     <div><span>Now</span><strong id="guideNowCount">0</strong><small>deserves present attention</small></div>
@@ -161,7 +171,7 @@
         <div class="guide-form-grid">
           <label><span>What is it?</span><select id="guideItemKind"><option value="direction">Direction</option><option value="idea">Idea</option><option value="commitment">Commitment</option><option value="question">Question</option><option value="possibility">Possibility</option></select></label>
           <label><span>Life area</span><select id="guideItemArea"><option>Personal</option><option>Work</option><option>Health</option><option>Relationships</option><option>Home</option><option>Money</option><option>Learning</option><option>Creative</option><option>Other</option></select></label>
-          <label><span>Where should it live?</span><select id="guideItemStage"><option value="now">Now</option><option value="warm">Keep warm</option><option value="later">Later</option></select></label>
+          <label><span>Where should it live?</span><select id="guideItemStage"><option value="inbox">Unsorted</option><option value="now">Now</option><option value="warm">Keep warm</option><option value="later">Later</option></select></label>
         </div>
         <label><span>Why does it matter?</span><textarea id="guideItemWhy" maxlength="260" placeholder="Optional. Enough context that future-you remembers why this belongs here."></textarea></label>
         <label><span>Notes</span><textarea id="guideItemNote" maxlength="360" placeholder="Fragments, context, constraints, possibilities—this does not need to be polished."></textarea></label>
@@ -258,7 +268,7 @@
 </section>
 <section class="page hub-page" id="page-reflect">
 <div class="hub-hero reflect-hub"><div><div class="eyebrow">Reflect · turn experience into understanding</div><h1>Make the past useful without living inside it.</h1><p>Close loops, surface patterns, revisit important decisions, and let observations become durable lessons instead of forgotten notes.</p><div class="hub-actions"><button class="solid-btn" data-page-jump="review">Start review</button><button class="soft-btn" data-capture-type="Memory" data-open-capture>Plant a memory</button></div></div><div class="reflection-rings"><i></i><i></i><i></i><span>↻</span></div></div>
-<div class="hub-grid"><button class="hub-card featured" data-page-jump="review"><span>01</span><div><strong>Review</strong><p>Compare intention with reality and deliberately shape the next cycle.</p></div><em>↻</em></button><button class="hub-card" data-page-jump="memory"><span>02</span><div><strong>Memory</strong><p>Let repeated observations earn weight and eventually become protocols.</p></div><em>✺</em></button><button class="hub-card" data-page-jump="compass"><span>03</span><div><strong>Decisions</strong><p>Record important trade-offs, evidence, conviction, and revisit dates.</p></div><em>◈</em></button><button class="hub-card" data-page-jump="inbox"><span>04</span><div><strong>Inbox</strong><p>Clarify what arrived before it silently becomes another obligation.</p></div><em>⌑</em></button><button class="hub-card" data-page-jump="archive"><span>05</span><div><strong>Archive</strong><p>Keep finished work retrievable without keeping it psychologically active.</p></div><em>⊡</em></button></div>
+<div class="hub-grid"><button class="hub-card featured" data-page-jump="review"><span>01</span><div><strong>Review</strong><p>Compare intention with reality and deliberately shape the next cycle.</p></div><em>↻</em></button><button class="hub-card" data-page-jump="memory"><span>02</span><div><strong>Memory</strong><p>Let repeated observations earn weight and eventually become protocols.</p></div><em>✺</em></button><button class="hub-card" data-page-jump="compass"><span>03</span><div><strong>Decisions</strong><p>Record important trade-offs, evidence, conviction, and revisit dates.</p></div><em>◈</em></button><button class="hub-card" data-page-jump="inbox"><span>04</span><div><strong>Loose ends</strong><p>Revisit pinned follow-ups, generated reminders, and things that still need clarification.</p></div><em>⌑</em></button><button class="hub-card" data-page-jump="archive"><span>05</span><div><strong>Archive</strong><p>Keep finished work retrievable without keeping it psychologically active.</p></div><em>⊡</em></button></div>
 </section>
 <section class="page hub-page" id="page-you">
 <div class="hub-hero you-hub"><div><div class="eyebrow">You · identity without rigidity</div><h1>Understand the person behind the system.</h1><p>Character, relationships, seasons, values, and context belong here. Not to label you—but to help the system adapt around the life you are actually living.</p><div class="hub-actions"><button class="solid-btn" data-page-jump="settings">Personalize Blueprint</button><button class="soft-btn" data-page-jump="constellation">View your field</button></div></div><div class="identity-glyph"><span>YOU</span><i></i><i></i><b>values</b><b>people</b><b>season</b></div></div>
@@ -566,7 +576,7 @@
 </div>
 </section>
 <section class="page" id="page-inbox">
-<div class="page-head"><div><div class="eyebrow">Unsorted material</div><h1>Inbox</h1><p class="subhead">Capture first. Decide later. Items can become a task, project, experiment, note, or simply disappear.</p></div><button class="solid-btn" data-capture-type="Inbox" data-open-capture="">＋ <span class="label">Capture</span></button></div>
+<div class="page-head"><div><div class="eyebrow">Reflect · unresolved follow-ups</div><h1>Loose ends</h1><p class="subhead">Pinned reflections, generated reminders, and follow-ups that still need clarification live here. Raw ideas and thoughts now enter through Life Guide → Unsorted.</p></div><button class="solid-btn" data-capture-type="Inbox" data-open-capture="">＋ <span class="label">Catch thought</span></button></div>
 <div class="card inbox-list" id="inboxList"></div>
 </section>
 <section class="page" id="page-metrics">
@@ -784,6 +794,12 @@
 <button data-space="you" data-page="you"><span>✦</span>You</button>
 </nav>
 <div class="backdrop" id="drawerBackdrop"></div><aside class="drawer" id="drawer"><div class="drawer-top"><span class="crumb">Detail / Blueprint</span><button class="icon-btn" id="closeDrawer">×</button></div><div class="drawer-body" id="drawerBody"></div></aside>
+<div class="quick-catch-backdrop" id="quickCatchBackdrop"></div>
+<div class="quick-catch-modal" id="quickCatchModal" role="dialog" aria-modal="true" aria-labelledby="quickCatchTitle">
+  <div class="quick-catch-head"><div><span>Quick Catch</span><strong id="quickCatchTitle">Catch it before you organize it.</strong><small>One thought is enough. Blueprint will put it in Unsorted—not on a to-do list.</small></div><button id="closeQuickCatch" type="button" aria-label="Close">×</button></div>
+  <textarea id="quickCatchText" maxlength="720" placeholder="What is on your mind?"></textarea>
+  <div class="quick-catch-foot"><span><kbd>⌘</kbd><kbd>Enter</kbd> save · <kbd>Esc</kbd> close</span><div><button class="soft-btn" id="cancelQuickCatch" type="button">Cancel</button><button class="solid-btn" id="saveQuickCatch" type="button">Save to Unsorted</button></div></div>
+</div>
 <div class="backdrop" id="modalBackdrop"></div><div class="modal wide" id="captureModal"><div class="modal-head"><strong id="captureHeading">Quick capture</strong><button class="icon-btn" id="closeModal">×</button></div><div class="modal-body"><input id="captureEditId" type="hidden"/><div class="field"><label>Type</label><select id="captureType"><option>Inbox</option><option>Time block</option><option>Goal</option><option>Experiment</option><option>Schedule</option><option>Memory</option><option>Metric</option><option>Project</option></select></div><div class="field"><label>Title</label><input autocomplete="off" id="captureTitle" placeholder="What do you want to remember or make happen?"/></div><div class="field-grid type-fields" id="scheduleFields"><div class="field"><label>Date</label><input id="captureDate" type="date"/></div><div class="field"><label>Time</label><input id="captureTime" type="time"/></div></div>
 <div class="type-fields" id="goalFields"><div class="field-grid"><div class="field"><label>Goal shape</label><select id="goalKind"><option value="target">Target — reach a measurable outcome</option><option value="character">Character — practice a way of being</option><option value="system">System — build a repeatable pattern</option><option value="direction">Direction — move toward a long horizon</option></select></div><div class="field"><label>Life domain</label><input id="goalDomain" placeholder="Business, Health, Character, Learning…"/></div></div><div class="field-grid"><div class="field"><label>Horizon</label><input id="goalHorizon" placeholder="Weekly, Q4, 1 year, Ongoing…"/></div><div class="field"><label>Confidence</label><select id="goalConfidence"><option value="high">On track</option><option value="watch">Watch</option></select></div></div><div class="field-grid"><div class="field"><label>Evidence of progress</label><input id="goalMetric" placeholder="e.g. promises kept / promises made"/></div><div class="field"><label>Progress</label><input id="goalProgress" type="number" min="0" max="100" value="0"/></div></div></div>
 <div class="type-fields" id="experimentFields"><div class="field-grid"><div class="field"><label>Category</label><input id="experimentCategory" placeholder="Focus, Sleep, Energy…"/></div><div class="field"><label>Duration</label><input id="experimentDuration" type="number" min="1" max="365" value="14"/></div></div><div class="field"><label>Success criterion</label><input id="experimentSuccess" placeholder="Average focus ≥ 8 and adherence ≥ 80%"/></div><div class="field"><label>Protocol</label><textarea id="experimentProtocol" placeholder="One rule per line…"></textarea></div></div>

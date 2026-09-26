@@ -1,7 +1,7 @@
 (()=>{
   const KEY='bp-guide-items-v30';
   const KIND_LABEL={direction:'Direction',idea:'Idea',commitment:'Commitment',question:'Question',possibility:'Possibility'};
-  const STAGE_LABEL={now:'Now',warm:'Keep warm',later:'Later'};
+  const STAGE_LABEL={inbox:'Unsorted',now:'Now',warm:'Keep warm',later:'Later'};
   let items=store.get(KEY,[])||[];
 
   const $id=id=>document.getElementById(id);
@@ -15,6 +15,7 @@
   }
   function counts(){
     return {
+      inbox:items.filter(x=>x.stage==='inbox').length,
       now:items.filter(x=>x.stage==='now').length,
       warm:items.filter(x=>x.stage==='warm').length,
       later:items.filter(x=>x.stage==='later').length
@@ -32,10 +33,10 @@
   }
   function openEditor(item=null,stage='now'){
     const el=$id('guideEditor');if(!el)return;
-    const data=item||{id:'',title:'',kind:'direction',area:'Personal',stage,why:'',note:''};
+    const data=item||{id:'',title:'',kind:'idea',area:'Personal',stage,why:'',note:''};
     $id('guideItemId').value=data.id||'';
     $id('guideItemTitle').value=data.title||'';
-    $id('guideItemKind').value=data.kind||'direction';
+    $id('guideItemKind').value=data.kind||'idea';
     $id('guideItemArea').value=data.area||'Personal';
     $id('guideItemStage').value=data.stage||stage;
     $id('guideItemWhy').value=data.why||'';
@@ -71,7 +72,7 @@
       '<h3>'+esc(item.title)+'</h3>'+
       (item.why?'<p>'+esc(item.why)+'</p>':'')+
       (item.note?'<small>'+esc(item.note)+'</small>':'')+
-      '<footer><select data-guide-stage="'+esc(item.id)+'" aria-label="Move '+esc(item.title)+'"><option value="now" '+(item.stage==='now'?'selected':'')+'>Now</option><option value="warm" '+(item.stage==='warm'?'selected':'')+'>Keep warm</option><option value="later" '+(item.stage==='later'?'selected':'')+'>Later</option></select><button class="text-link" data-guide-edit="'+esc(item.id)+'">Open →</button></footer>'+
+      '<footer><select data-guide-stage="'+esc(item.id)+'" aria-label="Move '+esc(item.title)+'"><option value="inbox" '+(item.stage==='inbox'?'selected':'')+'>Unsorted</option><option value="now" '+(item.stage==='now'?'selected':'')+'>Now</option><option value="warm" '+(item.stage==='warm'?'selected':'')+'>Keep warm</option><option value="later" '+(item.stage==='later'?'selected':'')+'>Later</option></select><button class="text-link" data-guide-edit="'+esc(item.id)+'">Open →</button></footer>'+
       '</article>';
   }
   function emptyCard(stage){
@@ -82,6 +83,51 @@
     }[stage];
     return '<div class="guide-empty"><strong>'+copy[0]+'</strong><span>'+copy[1]+'</span></div>';
   }
+  function ageLabel(value){
+    if(!value)return'captured';
+    const ms=Date.now()-new Date(value).getTime(),days=Math.floor(ms/86400000);
+    if(!Number.isFinite(days)||days<=0)return'captured today';
+    if(days===1)return'1 day ago';
+    return days+' days ago';
+  }
+  function unsortedCard(item){
+    return '<article class="guide-unsorted-card '+esc(item.kind)+'" data-guide-id="'+esc(item.id)+'">'+
+      '<div><span>'+esc(KIND_LABEL[item.kind]||'Thought')+' · '+esc(ageLabel(item.createdAt))+'</span><strong>'+esc(item.title)+'</strong>'+(item.note?'<small>'+esc(item.note)+'</small>':'')+'</div>'+
+      '<div class="guide-unsorted-actions"><button data-guide-sort="'+esc(item.id)+'" data-stage="now">Now</button><button data-guide-sort="'+esc(item.id)+'" data-stage="warm">Keep warm</button><button data-guide-sort="'+esc(item.id)+'" data-stage="later">Later</button><button class="text-link" data-guide-edit="'+esc(item.id)+'">Open</button></div>'+
+      '</article>';
+  }
+  function renderUnsorted(){
+    const root=$id('guideUnsortedList'),section=$id('guideUnsortedSection');if(!root||!section)return;
+    const list=items.filter(x=>x.stage==='inbox');
+    section.hidden=!list.length;
+    root.innerHTML=list.map(unsortedCard).join('');
+    setText('guideUnsortedMeta',list.length+' waiting');
+  }
+  function inferCatchKind(text){
+    const t=String(text||'').trim();
+    if(/[?？]/.test(t))return'question';
+    if(/\b(promised|commit(?:ted)?|need to remember to|must remember to)\b/i.test(t))return'commitment';
+    if(/\b(maybe|someday|what if|could one day|possibly)\b/i.test(t))return'possibility';
+    return'idea';
+  }
+  function openQuickCatch(seed=''){
+    const modal=$id('quickCatchModal'),backdrop=$id('quickCatchBackdrop');if(!modal||!backdrop)return;
+    $id('quickCatchText').value=seed||'';
+    modal.classList.add('open');backdrop.classList.add('open');
+    setTimeout(()=>$id('quickCatchText')?.focus(),40);
+  }
+  function closeQuickCatch(){
+    $id('quickCatchModal')?.classList.remove('open');$id('quickCatchBackdrop')?.classList.remove('open');
+  }
+  function saveQuickCatch(){
+    const text=$id('quickCatchText')?.value.trim();if(!text){showToast('Catch one thought first');return}
+    const lines=text.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+    const first=lines[0]||text;
+    const title=first.length>120?first.slice(0,117).trim()+'…':first;
+    const note=lines.length>1?lines.slice(1).join(' '):(first.length>120?text.slice(120).trim():'');
+    const item={id:uid(),title,kind:inferCatchKind(text),area:'Personal',stage:'inbox',why:'',note,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),capture:'quick'};
+    items.unshift(item);persist();renderPlan();closeQuickCatch();showToast('Caught · organize it when useful');
+  }
   function renderColumns(){
     const c=counts();
     for(const stage of ['now','warm','later']){
@@ -91,7 +137,7 @@
       const meta=$id('guide'+(stage==='warm'?'Warm':stage[0].toUpperCase()+stage.slice(1))+'Meta');
       if(meta)meta.textContent=list.length+' '+(list.length===1?'item':'items');
     }
-    setText('guideNowCount',c.now);setText('guideWarmCount',c.warm);setText('guideLaterCount',c.later);
+    renderUnsorted();setText('guideNowCount',c.now);setText('guideWarmCount',c.warm);setText('guideLaterCount',c.later);
   }
   function renderBridge(){
     const week=currentWeek(),p=week.plan||{},r=rhythms(),anchors=calendarAnchors();
@@ -111,10 +157,19 @@
   }
   function renderInsight(){
     const c=counts(),nowItems=items.filter(x=>x.stage==='now'),questions=nowItems.filter(x=>x.kind==='question'),commitments=nowItems.filter(x=>x.kind==='commitment');
+    const unsorted=items.filter(x=>x.stage==='inbox');
     let title='Start with what you do not want to lose track of.';
     let copy='An idea can stay an idea. A direction can stay broad. Blueprint will suggest structure only when it seems useful.';
     let action='Add something',mode='add';
-    if(c.now>=6){
+    if(unsorted.length>=6){
+      title='Unsorted is becoming a second inbox.';
+      copy='You do not need to process everything, but a quick pass can separate what matters now from what simply deserved to be remembered.';
+      action='Sort a few';mode='unsorted';
+    }else if(unsorted.length){
+      title=unsorted.length+' '+(unsorted.length===1?'thought is':'thoughts are')+' waiting for a home.';
+      copy='No urgency. When you have a moment, decide whether each belongs in Now, Keep warm, Later, or nowhere.';
+      action='Review unsorted';mode='unsorted';
+    }else if(c.now>=6){
       title='Now is getting crowded.';
       copy='Several things are asking for present attention. You might move one to Keep warm rather than making all of them compete.';
       action='Review Now';mode='review';
@@ -184,7 +239,35 @@
     else if(type==='rhythm')makeRhythm(item);
   }
 
-  $id('newGuideItem')?.addEventListener('click',()=>openEditor(null,'now'));
+  $id('openQuickCatch')?.addEventListener('click',()=>openQuickCatch());
+  $id('openQuickCatchHero')?.addEventListener('click',()=>openQuickCatch());
+  $id('closeQuickCatch')?.addEventListener('click',closeQuickCatch);
+  $id('cancelQuickCatch')?.addEventListener('click',closeQuickCatch);
+  $id('quickCatchBackdrop')?.addEventListener('click',closeQuickCatch);
+  $id('saveQuickCatch')?.addEventListener('click',saveQuickCatch);
+  $id('quickCatchText')?.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();saveQuickCatch()}
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&$id('quickCatchModal')?.classList.contains('open')){e.preventDefault();closeQuickCatch()}
+  });
+  document.addEventListener('click',e=>{
+    const sort=e.target.closest('[data-guide-sort]');
+    if(sort){
+      const item=items.find(x=>x.id===sort.dataset.guideSort);if(!item)return;
+      item.stage=sort.dataset.stage;item.updatedAt=new Date().toISOString();persist();renderPlan();showToast('Moved to '+STAGE_LABEL[item.stage]);
+      return;
+    }
+    const edit=e.target.closest('#guideUnsortedList [data-guide-edit]');
+    if(edit){const item=items.find(x=>x.id===edit.dataset.guideEdit);if(item)openEditor(item)}
+  });
+  const detailedOpenCapture=openCapture;
+  openCapture=function(type='Inbox',preset={}){
+    if(type==='Inbox'&&!preset?.id&&!preset?.forceDetailed){openQuickCatch(preset?.title||'');return}
+    return detailedOpenCapture(type,preset);
+  };
+
+  $id('newGuideItem')?.addEventListener('click',()=>openEditor(null,'inbox'));
   document.querySelectorAll('[data-guide-new-stage]').forEach(b=>b.addEventListener('click',()=>openEditor(null,b.dataset.guideNewStage)));
   $id('closeGuideEditor')?.addEventListener('click',closeEditor);
   $id('guideEditor')?.addEventListener('click',e=>{if(e.target.id==='guideEditor')closeEditor()});
@@ -202,14 +285,15 @@
     const b=e.target.closest('[data-guide-edit]');if(!b)return;
     const item=items.find(x=>x.id===b.dataset.guideEdit);if(item)openEditor(item);
   });
-  document.querySelector('.life-guide-board')?.addEventListener('change',e=>{
-    const s=e.target.closest('[data-guide-stage]');if(!s)return;
-    const item=items.find(x=>x.id===s.dataset.guideStage);if(!item)return;
-    item.stage=s.value;item.updatedAt=new Date().toISOString();persist();renderPlan();
+  document.addEventListener('change',e=>{
+    const stageSelect=e.target.closest('[data-guide-stage]');if(!stageSelect)return;
+    const item=items.find(x=>x.id===stageSelect.dataset.guideStage);if(!item)return;
+    item.stage=stageSelect.value;item.updatedAt=new Date().toISOString();persist();renderPlan();
   });
   $id('guideInsightAction')?.addEventListener('click',e=>{
     const mode=e.currentTarget.dataset.guideInsight;
     if(mode==='week')go('week');
+    else if(mode==='unsorted')$id('guideUnsortedSection')?.scrollIntoView({behavior:'smooth',block:'start'});
     else if(mode==='rhythms')go('routines');
     else if(mode==='review')document.querySelector('.guide-column.now')?.scrollIntoView({behavior:'smooth',block:'start'});
     else openEditor(null,'now');
@@ -228,7 +312,8 @@
     topNow,
     openNew:(stage='now')=>openEditor(null,stage),
     open:id=>{const item=items.find(x=>x.id===id);if(item)openEditor(item)},
-    render:renderPlan
+    render:renderPlan,
+    quickCatch:openQuickCatch
   };
   window.renderPlan=renderPlan;
   renderPlan();

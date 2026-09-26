@@ -580,3 +580,44 @@ body.activation-simple #page-plan .guide-deeper{display:none!important}
 body.activation-simple:not(.activation-has-direction) #page-plan .guide-stats,
 body.activation-simple:not(.activation-has-direction) #page-plan .guide-bridge{display:none!important}
 body.activation-simple.activation-has-direction #page-plan .guide-bridge{display:block}
+
+
+/* v31 — Quick Catch + Unsorted */
+.guide-catch-strip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:12px}
+.guide-catch-main,.guide-catch-detail{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;cursor:pointer}
+.guide-catch-main{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:12px 14px;background:linear-gradient(90deg,color-mix(in srgb,var(--blue) 4%,var(--panel)),var(--panel))}
+.guide-catch-main>span{width:32px;height:32px;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;color:var(--blue);font-size:14px}
+.guide-catch-main strong,.guide-catch-main small{display:block}.guide-catch-main strong{font-size:8px}.guide-catch-main small{font-size:6px;color:var(--faint);margin-top:3px}
+.guide-catch-main kbd{font:inherit;font-size:6px;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--panel-2)}
+.guide-catch-main:hover,.guide-catch-detail:hover{border-color:var(--line-strong)}
+.guide-catch-detail{padding:0 14px;font-size:7px;color:var(--muted)}
+.guide-unsorted{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;margin-bottom:12px}
+.guide-unsorted[hidden]{display:none!important}
+.guide-unsorted-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:14px 16px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--amber) 2.5%,var(--panel))}
+.guide-unsorted-head h2{font-family:var(--serif);font-size:18px;font-weight:540;letter-spacing:-.03em;margin:4px 0}
+.guide-unsorted-head p{font-size:7px;line-height:1.5;color:var(--muted);margin:0}
+.guide-unsorted-head>strong{font-size:6px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);white-space:nowrap}
+.guide-unsorted-list{display:grid;gap:0}
+.guide-unsorted-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line)}
+.guide-unsorted-card:last-child{border-bottom:0}
+.guide-unsorted-card>div:first-child span,.guide-unsorted-card>div:first-child strong,.guide-unsorted-card>div:first-child small{display:block}
+.guide-unsorted-card>div:first-child span{font-size:5px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint)}
+.guide-unsorted-card>div:first-child strong{font-family:var(--serif);font-size:14px;font-weight:540;letter-spacing:-.02em;margin:4px 0}
+.guide-unsorted-card>div:first-child small{font-size:6px;line-height:1.45;color:var(--muted)}
+.guide-unsorted-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.guide-unsorted-actions button:not(.text-link){border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:5px 7px;font-size:6px;cursor:pointer}
+.guide-unsorted-actions button:not(.text-link):hover{border-color:var(--line-strong);color:var(--text)}
+.quick-catch-backdrop{position:fixed;inset:0;z-index:2390;background:rgba(10,10,9,.62);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .16s ease}
+.quick-catch-backdrop.open{opacity:1;pointer-events:auto}
+.quick-catch-modal{position:fixed;z-index:2400;left:50%;top:18%;transform:translate(-50%,-8px);width:min(650px,calc(100vw - 28px));background:var(--panel);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 28px 90px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .16s ease,transform .16s ease;overflow:hidden}
+.quick-catch-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.quick-catch-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:17px 18px 14px;border-bottom:1px solid var(--line)}
+.quick-catch-head span,.quick-catch-head strong,.quick-catch-head small{display:block}.quick-catch-head span{font-size:6px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint)}.quick-catch-head strong{font-family:var(--serif);font-size:21px;font-weight:540;letter-spacing:-.035em;margin:4px 0}.quick-catch-head small{font-size:7px;line-height:1.45;color:var(--muted)}
+.quick-catch-head>button{appearance:none;border:0;background:transparent;color:var(--faint);font-size:20px;cursor:pointer;line-height:1}
+.quick-catch-modal textarea{width:100%;min-height:170px;border:0!important;border-radius:0!important;background:transparent!important;resize:none;padding:18px!important;font-family:var(--serif)!important;font-size:22px!important;line-height:1.35!important;letter-spacing:-.025em!important;color:var(--text)!important;box-shadow:none!important}
+.quick-catch-modal textarea::placeholder{color:var(--faint)}
+.quick-catch-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--panel-2) 55%,transparent)}
+.quick-catch-foot>span{font-size:6px;color:var(--faint)}.quick-catch-foot kbd{font:inherit;border:1px solid var(--line);border-radius:5px;padding:2px 4px;margin:0 1px}.quick-catch-foot>div{display:flex;gap:6px}
+body.activation-simple #page-plan .guide-catch-detail{display:none}
+body.activation-simple #page-plan .guide-catch-strip{grid-template-columns:1fr}
+@media(max-width:760px){.guide-catch-strip{grid-template-columns:1fr}.guide-catch-detail{padding:10px 12px}.guide-unsorted-card{grid-template-columns:1fr}.guide-unsorted-actions{justify-content:flex-start}.quick-catch-modal{top:10%}.quick-catch-modal textarea{min-height:145px!important;font-size:18px!important}.quick-catch-foot{align-items:flex-start;flex-direction:column}.quick-catch-foot>div{width:100%;display:grid;grid-template-columns:1fr 1fr}.quick-catch-foot button{width:100%}}

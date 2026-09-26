@@ -194,7 +194,7 @@
   </div>
 </section>
 <div class="today-hero">
-<div class="hero-top"><div><div class="eyebrow">Primary outcome</div><h2 class="hero-title" id="primaryOutcome">Finish the Blueprint interaction pass</h2><p class="hero-copy" id="heroCopy">A good day does not need to be full. Protect enough attention for one meaningful change, then notice what actually happened.</p><div class="hero-actions"><button class="solid-btn" id="startFocus">▶ Start focus</button><button class="soft-btn" data-page-jump="calendar">Open calendar</button></div></div><div class="focus-pill" id="dayReadiness"><span>Day readiness</span><strong id="dayReadinessState">Steady</strong><small id="dayReadinessLabel">waiting for today’s evidence</small><em>planning stance · not a score</em></div></div>
+<div class="hero-top"><div><div class="eyebrow">Primary outcome</div><h2 class="hero-title" id="primaryOutcome">Finish the Blueprint interaction pass</h2><p class="hero-copy" id="heroCopy">A good day does not need to be full. Protect enough attention for one meaningful change, then notice what actually happened.</p><div class="hero-actions"><button class="solid-btn" id="startFocus">▶ Start focus</button><button class="soft-btn" data-page-jump="calendar">Open calendar</button></div></div><div class="focus-pill" id="dayReadiness"><span>Day shape</span><strong id="dayReadinessState">Open</strong><small id="dayReadinessLabel">design only what helps</small><em>flexible by design</em></div></div>
 <div class="mode-deck" aria-label="Day mode">
   <div class="mode-intro"><span>Day mode</span><strong id="modeTitle">Build</strong><small id="modeNarrative">Compress attention around one meaningful outcome.</small></div>
   <div class="mode-options">
@@ -204,8 +204,8 @@
     <button data-mode-choice="connect"><i>∞</i><span>Connect</span></button>
   </div>
 </div>
-<div class="signal-strip"><div class="signal"><span>Focus signal</span><strong id="todaySignalFocus">—</strong><small id="todaySignalFocusMeta">log a pulse when useful</small></div><div class="signal"><span>Energy signal</span><strong id="todaySignalEnergy">—</strong><small id="todaySignalEnergyMeta">no assumption yet</small></div><div class="signal"><span>Week space</span><strong id="todaySignalSpace">—</strong><small id="todaySignalSpaceMeta">compose the week to see capacity</small></div><div class="signal"><span>Evidence</span><strong id="todaySignalEvidence">0 logs</strong><small id="todaySignalEvidenceMeta">rolling seven days</small></div></div>
-<div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong id="todayProtectTitle">Your cleanest attention</strong><small id="todayProtectCopy">Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Advance</span><strong id="todayAdvanceTitle">One visible artifact</strong><small id="todayAdvanceCopy">Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Observe</span><strong id="todayObserveTitle">Capture one piece of evidence</strong><small id="todayObserveCopy">End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
+<div class="signal-strip"><div class="signal"><span>Success conditions</span><strong id="todaySignalFocus">0 / 3</strong><small id="todaySignalFocusMeta">define only what matters</small></div><div class="signal"><span>Fixed reality</span><strong id="todaySignalEnergy">0</strong><small id="todaySignalEnergyMeta">calendar anchors</small></div><div class="signal"><span>Open space</span><strong id="todaySignalSpace">—</strong><small id="todaySignalSpaceMeta">space is part of the design</small></div><div class="signal"><span>Fallback</span><strong id="todaySignalEvidence">Open</strong><small id="todaySignalEvidenceMeta">minimum viable day</small></div></div>
+<div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong id="todayProtectTitle">Your cleanest attention</strong><small id="todayProtectCopy">Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Choose</span><strong id="todayAdvanceTitle">One visible artifact</strong><small id="todayAdvanceCopy">Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Flex</span><strong id="todayObserveTitle">Capture one piece of evidence</strong><small id="todayObserveCopy">End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
 </div>
 <details class="system-context-details"><summary><span><i>✦</i><b>System context</b><small>Season, patterns, decisions, relationships, and setup</small></span><em>Show context</em></summary><div class="system-context-body"><div class="context-grid"><div class="season-strip" id="seasonStrip"><div><span>Current season</span><strong id="seasonStripTitle">Ship &amp; Simplify</strong><small id="seasonStripIntent">Turn a few active threads into durable finished work.</small></div><div class="season-countdown"><strong id="seasonStripDays">69</strong><span>days left</span></div><button data-page-jump="trajectory">Open trajectory →</button></div>
 <div class="emergence-strip" id="emergenceStrip">
@@ -219,7 +219,41 @@
 
 <div class="setup-strip" id="setupStrip"><div class="setup-mark">✣</div><div class="setup-copy"><span>Personal architecture</span><strong id="setupStripTitle">Tune Blueprint around your life</strong><small id="setupStripCopy">Choose the areas you care about, how much structure you want, and an optional starting architecture.</small><div class="setup-chips" id="setupStripChips"></div></div><button class="soft-btn" id="openSetup">Set up →</button></div>
 </div></details>
-<div class="card daily-pulse"><div class="pulse-head"><div><span class="pulse-kicker">Daily pulse · 45 seconds</span><h2>What is true right now?</h2><p>Three lightweight signals and one sentence. Enough evidence to notice patterns later without turning your day into a spreadsheet.</p></div><span class="pulse-status" id="pulseStatus">not logged today</span></div><div class="pulse-layout"><div><div class="pulse-controls"><div class="pulse-control"><label>Energy <output id="pulseEnergyOut">3</output></label><input id="pulseEnergy" type="range" min="1" max="5" value="3" aria-label="Energy"></div><div class="pulse-control"><label>Focus <output id="pulseFocusOut">3</output></label><input id="pulseFocus" type="range" min="1" max="5" value="3" aria-label="Focus"></div><div class="pulse-control"><label>Mood <output id="pulseMoodOut">3</output></label><input id="pulseMood" type="range" min="1" max="5" value="3" aria-label="Mood"></div></div><div class="pulse-note"><input id="pulseNote" maxlength="180" placeholder="One sentence: what seems to be shaping today?"><button class="solid-btn" id="savePulse">Save pulse</button></div></div><div class="pulse-history"><div class="pulse-history-top"><span>Recent signal</span><strong id="pulseAverage">—</strong></div><div class="pulse-bars" id="pulseBars"></div><small id="pulseHistoryCopy">Your first few check-ins will create a quiet seven-day pattern here.</small></div></div></div>
+<section class="card day-design-card" id="dayDesignCard" aria-labelledby="dayDesignTitle">
+  <div class="day-design-head">
+    <div><span class="pulse-kicker">Day design · flexible by default</span><h2 id="dayDesignTitle">What would make today successful?</h2><p>Shape the day around what matters and what is already real. This is a design surface, not a daily performance report.</p></div>
+    <span class="day-design-state" id="dayDesignState">open shape</span>
+  </div>
+  <div class="day-intent-row"><span>What kind of day is this?</span><div class="day-intent-picker" id="dayIntentPicker">
+    <button type="button" class="active" data-day-intent="build">Build</button>
+    <button type="button" data-day-intent="maintain">Maintain</button>
+    <button type="button" data-day-intent="recover">Recover</button>
+    <button type="button" data-day-intent="explore">Explore</button>
+    <button type="button" data-day-intent="connect">Connect</button>
+  </div></div>
+  <div class="day-design-grid">
+    <div class="day-design-main">
+      <div class="day-design-section"><div class="day-design-label"><span>Success conditions</span><small>1–3 things that would make the day feel meaningfully complete.</small></div>
+        <div class="success-condition-list">
+          <label><span>01</span><input id="daySuccess1" maxlength="120" placeholder="One meaningful thing worth moving"></label>
+          <label><span>02</span><input id="daySuccess2" maxlength="120" placeholder="Something for body, home, or people"></label>
+          <label><span>03</span><input id="daySuccess3" maxlength="120" placeholder="Optional — leave blank if two is enough"></label>
+        </div>
+      </div>
+      <div class="day-design-section"><div class="day-design-label"><span>Supports, not streaks</span><small>What conditions or habits would make this day easier to live?</small></div>
+        <div class="support-entry"><input id="daySupportInput" maxlength="80" placeholder="e.g. phone outside room, walk after lunch"><button class="soft-btn" id="addDaySupport" type="button">Add support</button></div>
+        <div class="support-list" id="daySupportList"></div>
+      </div>
+      <div class="day-design-two">
+        <label><span>Boundary</span><small>What does today deliberately not contain?</small><input id="dayBoundary" maxlength="160" placeholder="e.g. no work after dinner"></label>
+        <label><span>Choice rule</span><small>If the day changes, what principle should guide the trade-off?</small><input id="dayChoiceRule" maxlength="180" placeholder="e.g. reduce the task before cancelling it"></label>
+      </div>
+      <label class="minimum-day"><span>Minimum viable day</span><small>If reality changes, what smaller version still counts as successful?</small><textarea id="dayMinimum" maxlength="260" placeholder="A smaller version that protects what matters without pretending the day went to plan."></textarea></label>
+    </div>
+    <aside class="day-design-anchors"><div class="day-design-label"><span>Fixed reality</span><small id="dayDesignAnchorCount">0 anchors</small></div><div id="dayDesignAnchors"></div><button class="text-link" data-page-jump="calendar">Adjust calendar →</button></aside>
+  </div>
+  <div class="day-design-actions"><button class="solid-btn" id="saveDayDesign" type="button">Save today’s shape</button><button class="soft-btn" id="clearDayDesign" type="button">Leave today open</button><span>Nothing here is a streak, score, or obligation.</span></div>
+</section>
 
 <div class="today-action-rails"><section class="card attention-bridge" id="attentionBridge"><div class="attention-bridge-mark">◌</div><div><span>Attention center</span><strong id="attentionBridgeTitle">Nothing urgent is competing for attention.</strong><small id="attentionBridgeCopy">Reviews, shared promises, experiment decisions, and maintenance signals will collect here.</small></div><button class="text-link" data-page-jump="attention">Open attention →</button></section>
 <section class="week-bridge card" id="weekBridge"><div class="week-bridge-mark">◫</div><div><span>Weekly promise</span><strong id="todayWeekPromise">Your week is not composed yet.</strong><small id="todayWeekCapacity">Plan the shape before the calendar fills itself.</small></div><button class="text-link" data-page-jump="week">Compose →</button></section></div>
@@ -670,6 +704,7 @@
 <script id="v17-week-composer-script" src="assets/week-composer.js"></script>
 
 <script id="v21-attention-connections-script" src="assets/attention-connections.js"></script>
+<script id="v27-day-design-script" src="assets/day-design.js"></script>
 <script id="v23-adaptive-today-script" src="assets/today.js"></script>
 <script id="v24-connected-plan-script" src="assets/plan.js"></script>
 <script id="v26-activation-script" src="assets/activation.js"></script>

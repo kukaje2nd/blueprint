@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Day Design
+
+Blueprint's daily surface is a design tool rather than an activity tracker. A day can have an intent, a few success conditions, fixed anchors, supports, boundaries, a choice rule, and a minimum viable version. Calendar blocks are shown as structure rather than completion checkboxes, and habits can be used as supports without streak pressure.
+
+The product loop is moving toward **Design → Live → Adapt → Learn** rather than daily scoring.
+
 ## Progressive activation
 
 New workspaces start in **Start simple** mode. Blueprint keeps the full five-space architecture, but reduces navigation and hides advanced surfaces until they are useful. The first-week loop is: choose one direction → shape the week → capture one observation → let repeated evidence earn reflection. Lab and Reflect unlock from evidence, and the user can reveal Full Blueprint at any time.

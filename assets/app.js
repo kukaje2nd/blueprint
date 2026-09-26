@@ -118,7 +118,7 @@ settings:{name:'Personalize',group:'You',icon:'⚙',color:'var(--amber)',summary
 const pageNames=Object.fromEntries(Object.entries(pageMeta).map(([k,v])=>[k,v.name]));
 const spaceModel={
  today:{label:'Today',hint:'The present moment',pages:['today']},
- plan:{label:'Plan',hint:'Direction into reality',pages:['plan','week','goals','calendar','routines','projects','trajectory','roadmap','library']},
+ plan:{label:'Plan',hint:'Organize what matters',pages:['plan','week','routines','goals','calendar','projects','trajectory','roadmap','library']},
  lab:{label:'Lab',hint:'Try, observe, adapt',pages:['lab','experiments','metrics']},
  reflect:{label:'Reflect',hint:'Learn from what happened',pages:['reflect','review','memory','compass','inbox','archive']},
  you:{label:'You',hint:'Identity, people, context',pages:['you','settings','sync','commons','constellation']}

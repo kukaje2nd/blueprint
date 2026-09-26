@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Rhythms & Choices
+
+Recurring structure is modeled as **rhythms**, not streaks. A rhythm has a purpose, cadence, preferred window, minimum version, and flexibility policy (protect, move freely, or optional). Personal **choice rules** use a When → Choose pattern to reduce repeated decisions. Both can be pulled into Day Design as supports without creating completion history.
+
+Rhythms live under Plan rather than Lab because they shape life architecture; Lab remains for bounded experiments and evidence.
+
 ## Day Design
 
 Blueprint's daily surface is a design tool rather than an activity tracker. A day can have an intent, a few success conditions, fixed anchors, supports, boundaries, a choice rule, and a minimum viable version. Calendar blocks are shown as structure rather than completion checkboxes, and habits can be used as supports without streak pressure.

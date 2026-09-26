@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Quick Catch
+
+Blueprint now separates **capture** from **organization**. The global Catch button and `C` shortcut open a one-field Quick Catch surface. Captured thoughts enter Life Guide **Unsorted** as raw ideas/questions/possibilities without deadlines, scores, or task semantics. The user can later move them to Now / Keep warm / Later or open them for more detail.
+
+The previous Reflect Inbox is reframed as **Loose ends** for pinned follow-ups and generated reminders, so raw personal ideas have one clear home.
+
 ## Life Guide
 
 Plan is now a **Life Guide**: a flexible place to keep ideas, directions, commitments, questions, and possibilities visible without forcing them into tasks. Guide items live in **Now / Keep warm / Later** and can remain loose indefinitely. When useful, the user can explicitly bring an item into Day Design or Week Design, make it a Goal, or create a Rhythm.

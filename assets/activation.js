@@ -33,7 +33,7 @@
   function milestones(){
     const week=currentWeek().plan||{},ownedGoals=hasPersisted('bp-goals-v5')?goals:[];
     const design=window.BlueprintDayDesign?.getToday?.()||{updatedAt:null,boundary:'',minimum:'',choiceRule:'',supports:[]};
-    const direction=ownedGoals.length>0;
+    const guideNow=(window.BlueprintLifeGuide?.get?.()||[]).some(x=>x.stage==='now');const direction=ownedGoals.length>0||guideNow;
     const shapedWeek=!!(week.promise||(week.blocks||[]).length);
     const day=!!design.updatedAt;
     const flex=!!(design.minimum||design.boundary||design.choiceRule||(design.supports||[]).length);
@@ -72,7 +72,7 @@
     },70);
   }
   function performStep(id){
-    if(id==='direction'){openCapture('Goal');return}
+    if(id==='direction'){if(window.BlueprintLifeGuide?.openNew){go('plan');setTimeout(()=>window.BlueprintLifeGuide.openNew('now'),70)}else openCapture('Goal');return}
     if(id==='week'){go('week');return}
     if(id==='day'){scrollToDesign('daySuccess1');return}
     if(id==='flex'){scrollToDesign('dayMinimum');return}
@@ -101,7 +101,7 @@
     const step=currentStep(),a=access();
     if(step){
       const map={
-        direction:['Start smaller than the whole system.','Choose one direction.','A target, character practice, system, or broad direction is enough. You can refine it later.'],
+        direction:['Start smaller than the whole system.','Choose one direction.','An idea, direction, commitment, or possibility is enough. It does not need to become a formal goal.'],
         week:['Direction needs a realistic claim on time.','Give the direction a place this week.','Choose a small amount of protected capacity. The rest can remain open.'],
         day:['A calendar is not a definition of success.','Design today around what matters.','Name a few success conditions, respect fixed reality, and keep open space visible.'],
         flex:['A good plan survives contact with reality.','Give today a smaller version.','Add a boundary, support, choice rule, or minimum viable day so changing the plan does not mean failing it.']

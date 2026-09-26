@@ -81,4 +81,5 @@
   document.addEventListener('blueprint:week-updated',()=>setTimeout(renderAnchors,0));
   window.BlueprintDayDesign={getToday,saveToday,render,exists:()=>!!getToday().updatedAt,anchors};
   render();
+  window.renderAdaptiveToday?.();
 })();

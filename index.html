@@ -155,7 +155,7 @@
     <summary><span>Deeper planning tools</span><small>Projects, trajectory, roadmap, starter architectures</small></summary>
     <div class="hub-grid plan-tools-grid">
       <button class="hub-card" data-page-jump="projects"><span>01</span><div><strong>Projects</strong><p>Use when an outcome needs milestones, constraints, and a clear finish.</p></div><em>◇</em></button>
-      <button class="hub-card" data-page-jump="trajectory"><span>02</span><div><strong>Trajectory</strong><p>Look across horizons when timing and sequencing matter.</p></div><em>≋</em></button>
+      <button class="hub-card" data-page-jump="trajectory"><span>02</span><div><strong>Season Design</strong><p>Shape the longer horizon without turning it into a quarterly scorecard.</p></div><em>≋</em></button>
       <button class="hub-card" data-page-jump="roadmap"><span>03</span><div><strong>Roadmap</strong><p>See longer-range sequencing without forcing distant ideas into this week.</p></div><em>↗</em></button>
       <button class="hub-card" data-page-jump="library"><span>04</span><div><strong>Starter architectures</strong><p>Install a small editable structure when starting from a blank page is not useful.</p></div><em>✣</em></button>
     </div>
@@ -302,7 +302,7 @@
 <div class="signal-strip"><div class="signal"><span>Success conditions</span><strong id="todaySignalFocus">0 / 3</strong><small id="todaySignalFocusMeta">define only what matters</small></div><div class="signal"><span>Fixed reality</span><strong id="todaySignalEnergy">0</strong><small id="todaySignalEnergyMeta">calendar anchors</small></div><div class="signal"><span>Open space</span><strong id="todaySignalSpace">—</strong><small id="todaySignalSpaceMeta">space is part of the design</small></div><div class="signal"><span>Fallback</span><strong id="todaySignalEvidence">Open</strong><small id="todaySignalEvidenceMeta">minimum viable day</small></div></div>
 <div class="day-story"><div class="day-move protect"><span>01 · Protect</span><strong id="todayProtectTitle">Your cleanest attention</strong><small id="todayProtectCopy">Keep the first demanding block free from incoming signals.</small></div><div class="day-move advance"><span>02 · Choose</span><strong id="todayAdvanceTitle">One visible artifact</strong><small id="todayAdvanceCopy">Move the primary outcome far enough that the day has a before and after.</small></div><div class="day-move observe"><span>03 · Flex</span><strong id="todayObserveTitle">Capture one piece of evidence</strong><small id="todayObserveCopy">End with a fact about energy, focus, or the experiment—not just a feeling.</small></div></div>
 </div>
-<details class="system-context-details"><summary><span><i>✦</i><b>System context</b><small>Season, patterns, decisions, relationships, and setup</small></span><em>Show context</em></summary><div class="system-context-body"><div class="context-grid"><div class="season-strip" id="seasonStrip"><div><span>Current season</span><strong id="seasonStripTitle">Ship &amp; Simplify</strong><small id="seasonStripIntent">Turn a few active threads into durable finished work.</small></div><div class="season-countdown"><strong id="seasonStripDays">69</strong><span>days left</span></div><button data-page-jump="trajectory">Open trajectory →</button></div>
+<details class="system-context-details"><summary><span><i>✦</i><b>System context</b><small>Season, patterns, decisions, relationships, and setup</small></span><em>Show context</em></summary><div class="system-context-body"><div class="context-grid"><div class="season-strip" id="seasonStrip"><div><span>Current season</span><strong id="seasonStripTitle">Ship &amp; Simplify</strong><small id="seasonStripIntent">Turn a few active threads into durable finished work.</small></div><div class="season-countdown"><strong id="seasonStripDays">69</strong><span>days left</span></div><button data-page-jump="trajectory">Open season →</button></div>
 <div class="emergence-strip" id="emergenceStrip">
   <div class="emergence-mark"><span>✺</span></div>
   <div class="emergence-copy"><span>Emergence signal</span><strong id="emergenceTitle">A pattern is becoming a practice</strong><small id="emergenceCopy">Blueprint is watching for repeated evidence that deserves to become part of your operating system.</small></div>
@@ -409,7 +409,70 @@
 </section>
 
 <section class="page" id="page-trajectory">
-<div class="page-head"><div><div class="eyebrow">Temporal atlas</div><h1>Trajectory</h1><p class="subhead">A planning view for motion over time. Keep the present concrete, let the next horizon emerge, and protect later ideas from becoming premature obligations.</p></div><button class="solid-btn" data-page-jump="settings">✎ Edit season</button></div>
+<div class="page-head"><div><div class="eyebrow">Longer horizon · flexible by design</div><h1>Season Design</h1><p class="subhead">Give this period enough shape to guide your weeks without turning the future into a quota. Name what matters, what deserves protection, what can pause, and what a smaller viable season would still preserve.</p></div><div class="season-page-actions"><button class="soft-btn" id="seedSeasonFromGuide" type="button">Bring in Life Guide</button><button class="solid-btn" id="saveSeasonDesignTop" type="button">Save season</button></div></div>
+
+<section class="card season-design-card" id="seasonDesignCard">
+  <div class="season-design-head">
+    <div><span class="eyebrow">Season architecture</span><h2 id="seasonDesignHeading">What kind of period are you in?</h2><p>A season is a temporary design choice, not a personality, score, or promise to optimize every week.</p></div>
+    <span class="season-design-state" id="seasonDesignState">open shape</span>
+  </div>
+
+  <div class="season-posture-row"><span>Season posture</span><div class="season-posture-picker" id="seasonPosturePicker">
+    <button type="button" data-season-posture="build">Build</button>
+    <button type="button" data-season-posture="maintain">Maintain</button>
+    <button type="button" data-season-posture="recover">Recover</button>
+    <button type="button" data-season-posture="connect">Connect</button>
+    <button type="button" data-season-posture="explore">Explore</button>
+    <button type="button" data-season-posture="mixed">Mixed</button>
+  </div></div>
+
+  <div class="season-design-grid">
+    <div class="season-design-main">
+      <div class="season-design-two">
+        <label><span>Name this season</span><small>A useful label, not a brand.</small><input id="seasonDesignName" maxlength="80" placeholder="e.g. Rebuild capacity, Ship simply, Open season"></label>
+        <label><span>Optional horizon</span><small>A review edge, not a countdown.</small><input id="seasonDesignEnd" type="date"></label>
+      </div>
+
+      <label class="season-wide-field"><span>What matters in this season?</span><small>The direction you want weeks to keep making room for.</small><textarea id="seasonDesignIntent" maxlength="320" placeholder="What deserves to stay visible across this period?"></textarea></label>
+
+      <div class="season-design-block">
+        <div class="season-design-label"><span>Success conditions</span><small>Up to three conditions that would make the season feel meaningfully lived—not merely completed.</small></div>
+        <div class="season-success-list">
+          <label><span>01</span><input id="seasonSuccess1" maxlength="140" placeholder="A meaningful outcome or condition"></label>
+          <label><span>02</span><input id="seasonSuccess2" maxlength="140" placeholder="Something worth protecting alongside it"></label>
+          <label><span>03</span><input id="seasonSuccess3" maxlength="140" placeholder="Optional — leave blank if two is enough"></label>
+        </div>
+      </div>
+
+      <div class="season-design-two">
+        <label><span>Protect</span><small>What condition should remain defended when the season gets crowded?</small><textarea id="seasonDesignProtect" maxlength="260" placeholder="e.g. unhurried evenings, two clean mornings, family dinner"></textarea></label>
+        <label><span>Pause / not now</span><small>What is allowed to remain unfinished or inactive?</small><textarea id="seasonDesignPause" maxlength="260" placeholder="e.g. no second major launch, no new optimization project"></textarea></label>
+      </div>
+
+      <div class="season-design-two">
+        <label><span>Minimum viable season</span><small>If reality changes, what smaller version would still honor the point?</small><textarea id="seasonDesignMinimum" maxlength="280" placeholder="The smaller version that still preserves what matters."></textarea></label>
+        <label><span>Question to carry</span><small>What do you want this period to teach you?</small><textarea id="seasonDesignQuestion" maxlength="280" placeholder="A question worth living with rather than answering immediately."></textarea></label>
+      </div>
+    </div>
+
+    <aside class="season-design-side">
+      <div class="season-summary-card"><span>Current shape</span><strong id="seasonSummaryTitle">Open season</strong><p id="seasonSummaryCopy">Add only enough structure to make the next few weeks easier to steer.</p><div class="season-summary-chips" id="seasonSummaryChips"></div></div>
+      <div class="season-guide-bridge"><div><span>Life Guide bridge</span><strong id="seasonGuideBridgeTitle">Nothing has to become a season priority.</strong><small>Use Now items only when they genuinely deserve a longer horizon.</small></div><div id="seasonGuideSuggestions"></div></div>
+      <button class="soft-btn" id="seasonToWeek" type="button">Seed Week Design from this season</button>
+    </aside>
+  </div>
+
+  <div class="season-design-actions"><button class="solid-btn" id="saveSeasonDesign" type="button">Save Season Design</button><span>Existing season profile fields and the older Temporal Atlas remain compatible.</span></div>
+</section>
+
+<section class="season-carry card" id="seasonCarryForward">
+  <div><span class="eyebrow">Carry downward</span><h2>A season should make weeks simpler, not heavier.</h2><p id="seasonCarryCopy">Once the shape is useful, bring only the relevant success conditions and posture into Week Design.</p></div>
+  <div class="season-carry-list" id="seasonCarryList"></div>
+</section>
+
+<details class="season-deeper">
+  <summary><span><b>Deeper horizon tools</b><small>Temporal atlas, attention terrain, scenarios, future notes, and drift signals</small></span><em>Open tools</em></summary>
+  <div class="season-deeper-body">
 <div class="card trajectory-hero">
   <div class="season-copy"><span>Current season</span><h2 id="seasonTitle">Ship &amp; Simplify</h2><p id="seasonIntent">Turn a few active threads into durable finished work, without letting the system become denser than the life it is meant to support.</p><div class="anti-goal"><i></i><span>Anti-goal: <b id="seasonAntiGoal">Do not start a second primary project.</b></span></div></div>
   <div class="season-orb"><div><strong id="seasonDaysLeft">69</strong><span>days remaining</span><small id="seasonEndLabel">ends Nov 30</small></div></div>
@@ -422,8 +485,10 @@
   <section class="card future-card"><div class="temporal-card-head"><div><span>Future note</span><strong>Message from the edge of this season</strong></div><small>Reflection generated from the structure you have chosen.</small></div><blockquote class="future-note" id="futureNote"></blockquote><div class="future-meta"><span id="futureMeta">From the end of your current season</span><div class="future-actions"><button class="soft-btn" id="newFutureNote">↻ Another</button><button class="soft-btn" id="pinFutureNote">＋ Pin to inbox</button></div></div></section>
   <section class="card drift-card"><div class="temporal-card-head"><div><span>Drift detector</span><strong>Signals that the system may be pulling apart</strong></div><small>Simple structural checks, not judgments.</small></div><div class="drift-list" id="driftList"></div></section>
 </div>
-</section>
 
+  </div>
+</details>
+</section>
 <section class="page" id="page-calendar">
 <div class="page-head"><div><div class="eyebrow">Time architecture</div><h1>Calendar</h1><p class="subhead">Use the week as a blueprint, not a container. One-off blocks and personalized recurring schedules live together.</p></div><div style="display:flex;gap:7px"><button class="soft-btn" data-capture-type="Schedule" data-open-capture="">＋ Recurring</button><button class="solid-btn" data-capture-type="Time block" data-open-capture="">＋ <span class="label">Time block</span></button></div></div>
 <div class="card calendar-shell"><div class="calendar-toolbar"><strong id="weekLabel">This week</strong><div class="calendar-controls"><button class="soft-btn" id="prevWeek">←</button><button class="soft-btn" id="thisWeek">Today</button><button class="soft-btn" id="nextWeek">→</button></div></div><div class="calendar-wrap"><div class="calendar" id="calendarGrid"></div></div><div class="calendar-hint">Tip: clicking an empty hour pre-fills a new time block. Custom blocks persist in this browser.</div></div>
@@ -852,6 +917,7 @@
 <script id="v28-rhythms-script" src="assets/rhythms.js"></script>
 <script id="v23-adaptive-today-script" src="assets/today.js"></script>
 <script id="v24-connected-plan-script" src="assets/plan.js"></script>
+<script id="v40-season-design-script" src="assets/season-design.js"></script>
 <script id="v26-activation-script" src="assets/activation.js"></script>
 </body>
 </html>

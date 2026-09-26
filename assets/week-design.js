@@ -145,9 +145,9 @@
   function seedFromSystem(){
     setTimeout(()=>{
       const p=plan();if(!p)return;
-      const goals=(window.goals||[]);
+      const ownedGoals=(typeof goals!=='undefined'&&Array.isArray(goals))?goals:[];
       let changed=false;
-      if(!p.success[0]&&goals[0]){p.success[0]=goals[0].title;changed=true}
+      if(!p.success[0]&&ownedGoals[0]){p.success[0]=ownedGoals[0].title;changed=true}
       if(!p.minimum){
         p.minimum=p.success[0]?'Make a smaller but real move on '+p.success[0].toLowerCase()+', keep one recovery window, and let the rest flex.':'Protect one meaningful move and enough recovery to stay adaptable.';
         changed=true;

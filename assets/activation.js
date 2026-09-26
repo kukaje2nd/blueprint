@@ -1,10 +1,10 @@
 (()=>{
   const KEY='bp-activation-v26';
   const DEPTH_PAGES={
-    lab:new Set(['lab','experiments','metrics','routines']),
+    lab:new Set(['lab','experiments','metrics']),
     reflect:new Set(['reflect','review','memory','compass','inbox','archive'])
   };
-  const persistedKeys=['bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-week-plans-v17','bp-day-design-v27','bp-checkins-v3','bp-weekly-syntheses-v14'];
+  const persistedKeys=['bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-week-plans-v17','bp-day-design-v27','bp-rhythms-v28','bp-choice-rules-v28','bp-checkins-v3','bp-weekly-syntheses-v14'];
   const hasPersisted=k=>storage.getItem(k)!==null;
   const getState=()=>{
     let s=store.get(KEY,null);

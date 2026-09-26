@@ -19,6 +19,7 @@ const requiredAssets = [
   "assets/today.js",
   "assets/plan.js",
   "assets/day-design.js",
+  "assets/rhythms.js",
   "assets/activation.js",
 ];
 for (const asset of requiredAssets) {
@@ -28,7 +29,7 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js", "assets/day-design.js", "assets/today.js", "assets/plan.js", "assets/activation.js"]) {
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/activation.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
 
@@ -43,6 +44,10 @@ for (const id of ["activationCard","activationSteps","activationNextAction","com
 
 for (const id of ["dayDesignCard","dayIntentPicker","daySuccess1","dayBoundary","dayMinimum","saveDayDesign"]) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Day Design surface: ${id}`);
+}
+
+for (const id of ["rhythmList","choiceRuleList","weeklyRhythmGrid","rhythmEditor","choiceRuleEditor","newRhythmButton"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Rhythms surface: ${id}`);
 }
 
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];

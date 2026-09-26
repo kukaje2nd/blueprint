@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Week Design
+
+The weekly planning surface is now **Week Design**. A week can carry a posture (Build, Maintain, Recover, Connect, Explore, or Mixed), 1–3 success conditions, visible fixed reality, helpful rhythms, a deliberate boundary, a trade-off rule, a minimum viable week, and an optional light day. Protected-time capacity remains available as a guardrail rather than the definition of success.
+
+Existing weekly drafts and committed calendar blocks continue to use the same storage model; the new fields extend that model without destructive migration.
+
 ## Rhythms & Choices
 
 Recurring structure is modeled as **rhythms**, not streaks. A rhythm has a purpose, cadence, preferred window, minimum version, and flexibility policy (protect, move freely, or optional). Personal **choice rules** use a When → Choose pattern to reduce repeated decisions. Both can be pulled into Day Design as supports without creating completion history.

@@ -55,6 +55,10 @@ for (const id of ["weekModePicker","weekSuccess1","weekRealityGrid","weekRhythmL
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Week Design surface: ${id}`);
 }
 
+for (const id of ["openQuickCatch","guideUnsortedList","guideUnsortedSection","quickCatchModal","quickCatchText","saveQuickCatch"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Quick Catch surface: ${id}`);
+}
+
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
 if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);
 

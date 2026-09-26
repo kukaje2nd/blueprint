@@ -24,6 +24,12 @@ Plan is now a **Life Guide**: a flexible place to keep ideas, directions, commit
 
 The Guide is deliberately non-scoring and non-urgent. Blueprint may surface gentle structural suggestions (for example, when Now becomes crowded), but does not automatically convert important things into productivity objects.
 
+## Season Design
+
+The longer horizon is now **Season Design**. A season can have a posture (Build, Maintain, Recover, Connect, Explore, or Mixed), an optional review edge, up to three success conditions, something to protect, something explicitly allowed to pause, a minimum viable season, and a question to carry.
+
+Season Design can pull current Life Guide items into the horizon and can seed Week Design with only the relevant posture and success conditions. Existing profile season fields and the older Temporal Atlas remain compatible, so the change adds a clearer layer without destructive migration.
+
 ## Week Design
 
 The weekly planning surface is now **Week Design**. A week can carry a posture (Build, Maintain, Recover, Connect, Explore, or Mixed), 1–3 success conditions, visible fixed reality, helpful rhythms, a deliberate boundary, a trade-off rule, a minimum viable week, and an optional light day. Protected-time capacity remains available as a guardrail rather than the definition of success.
@@ -51,7 +57,7 @@ Fresh workspaces no longer inherit demo goals, experiments, metrics, memories, d
 Primary spaces:
 
 1. **Today** — Day Design, fixed anchors, current attention, and adaptive guidance.
-2. **Plan** — Life Guide, Goals, Week Design, Rhythms & Choices, Calendar, projects, and longer horizons.
+2. **Plan** — Life Guide, Season Design, Goals, Week Design, Rhythms & Choices, Calendar, projects, and longer horizons.
 3. **Lab** — experiments, custom metrics, protocols, and impact loops.
 4. **Reflect** — Learning Review, Memory, decisions, Loose ends, and long-term evidence.
 5. **You** — personalization, identity, relationships, data vault, connections, and sync controls.
@@ -62,7 +68,7 @@ The current application is intentionally dependency-light:
 
 - a static app shell in `index.html`
 - shared design system in `assets/styles.css`
-- application behavior split across focused modules for core app behavior, Day Design, Week Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
+- application behavior split across focused modules for core app behavior, Day Design, Week Design, Season Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
 - static HTML / CSS / JavaScript
 - browser-local persistence
 - local account prototype and per-account namespaces

@@ -22,6 +22,7 @@ const requiredAssets = [
   "assets/day-design.js",
   "assets/rhythms.js",
   "assets/activation.js",
+  "assets/season-design.js",
 ];
 for (const asset of requiredAssets) {
   const full = path.join(root, asset);
@@ -30,7 +31,7 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/activation.js"]) {
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/season-design.js", "assets/activation.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
 
@@ -58,6 +59,11 @@ for (const id of ["weekModePicker","weekSuccess1","weekRealityGrid","weekRhythmL
 for (const id of ["openQuickCatch","guideUnsortedList","guideUnsortedSection","quickCatchModal","quickCatchText","saveQuickCatch"]) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Quick Catch surface: ${id}`);
 }
+
+for (const id of ["seasonDesignCard","seasonPosturePicker","seasonDesignName","seasonSuccess1","seasonDesignProtect","seasonDesignPause","seasonDesignMinimum","seasonToWeek"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Season Design surface: ${id}`);
+}
+if (!html.includes('src="assets/season-design.js"')) throw new Error("index.html is not wired to assets/season-design.js");
 
 for (const id of ["learningReviewHeadline","learningReviewCopy","learningReviewQueue","reviewProgressText","reviewProgressBar"]) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Learning Review surface: ${id}`);

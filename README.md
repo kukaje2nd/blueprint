@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Progressive activation
+
+New workspaces start in **Start simple** mode. Blueprint keeps the full five-space architecture, but reduces navigation and hides advanced surfaces until they are useful. The first-week loop is: choose one direction → shape the week → capture one observation → let repeated evidence earn reflection. Lab and Reflect unlock from evidence, and the user can reveal Full Blueprint at any time.
+
+Fresh workspaces no longer inherit demo goals, experiments, metrics, memories, decisions, relationships, or inbox items. Existing persisted workspace data is preserved.
+
 Primary spaces:
 
 1. **Today** — current attention, schedule, weekly promise, daily pulse, and adaptive brief.

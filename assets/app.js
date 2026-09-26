@@ -48,7 +48,7 @@ const baseInbox=[
   {title:'Write a short note on “attention residue”',meta:'Note · research'},
   {title:'Decide whether Atlas needs a mobile capture flow',meta:'Decision · project'}
 ];
-let inbox=store.get('bp-inbox-v2',baseInbox);
+let inbox=store.get('bp-inbox-v2',[]);
 let customEvents=store.get('bp-events-v2',[]);
 let routineDone=store.get('bp-routines-v3',{});
 let checkins=store.get('bp-checkins-v3',[]);
@@ -64,9 +64,9 @@ const defaultExperiments=[
 {id:'caffeine',title:'Caffeine Cutoff',category:'Energy',hypothesis:'Does stopping caffeine after noon improve sleep without hurting afternoon energy?',duration:14,success:'Shorter sleep latency without meaningful energy decline.',protocol:'No caffeine after 12:00\nTrack afternoon energy\nTrack sleep onset',startedAt:'2026-09-14',status:'active'}
 ];
 const defaultProfile={name:'',role:'Private · local workspace',northStar:'Build a life with more deliberate attention, stronger output, and enough recovery to sustain both.',focus:'Finish the Blueprint interaction pass',note:'Protect enough attention to make one meaningful change, then leave enough space to recover.',dayStart:'08:00',dayEnd:'18:00',mode:'build',seasonName:'Ship & Simplify',seasonEnd:'2026-11-30',seasonIntent:'Turn a few active threads into durable finished work, without letting the system become denser than the life it is meant to support.',seasonAnti:'Do not start a second primary project.'};
-let goals=store.get('bp-goals-v5',defaultGoals);
+let goals=store.get('bp-goals-v5',[]);
 let goalJourneys=store.get('bp-goal-journeys-v15',{});
-let experiments=store.get('bp-experiments-v5',defaultExperiments);
+let experiments=store.get('bp-experiments-v5',[]);
 let schedules=store.get('bp-schedules-v5',[]);
 let profile=store.get('bp-profile-v5',defaultProfile);
 const defaultMetrics=[
@@ -74,14 +74,14 @@ const defaultMetrics=[
 {id:'m-deep',title:'Deep work',type:'duration',unit:'hours',target:'≥ 2.5 / weekday',direction:'up',frequency:'Daily',value:'2.1'},{id:'m-sleep',title:'Sleep duration',type:'duration',unit:'hours',target:'≥ 7.5',direction:'up',frequency:'Daily',value:'7.5'},
 {id:'m-promises',title:'Promises kept',type:'boolean',unit:'%',target:'≥ 85%',direction:'up',frequency:'Weekly',value:'86'}
 ];
-let customMetrics=store.get('bp-custom-metrics-v12',defaultMetrics);
+let customMetrics=store.get('bp-custom-metrics-v12',[]);
 const defaultMemories=[
 {id:'memory-attention',title:'Inputs have a longer half-life than I expect',text:'Mornings with fewer incoming signals feel quieter for several hours, not just until the first work block ends.',kind:'bloom',resonance:5,source:'No Phone Until 10',createdAt:'2026-09-18'},
 {id:'memory-open-space',title:'Open space is part of the plan',text:'Leaving one unscheduled afternoon window reduced re-planning and made the important block easier to protect.',kind:'lesson',resonance:4,source:'Weekly review',createdAt:'2026-09-19'},
 {id:'memory-recovery',title:'Recovery works better when it has a start ritual',text:'A short landing sequence after the last work block makes evening recovery more deliberate and reduces accidental spillover.',kind:'seed',resonance:3,source:'Energy notes',createdAt:'2026-09-20'},
 {id:'memory-evidence',title:'An experiment without observations becomes a story',text:'The protocol matters less than making the evidence visible enough to challenge the narrative I already prefer.',kind:'lesson',resonance:4,source:'Experiment review',createdAt:'2026-09-17'}
 ];
-let memories=store.get('bp-memories-v8',defaultMemories);
+let memories=store.get('bp-memories-v8',[]);
 let installedProtocols=store.get('bp-protocols-v8',[]);
 let memoryFilter='all';
 
@@ -201,7 +201,7 @@ function renderWorkspace(){const name=profile.name?.trim()||'Your workspace',rol
 function renderAccountSettings(){const badge=$('#accountSettingsAvatar'),email=$('#accountSettingsEmail'),meta=$('#accountSettingsMeta'),cloud=$('#accountCloudState');if(!badge||!email||!meta)return;badge.textContent=initials(activeAccount?.guest?'Guest':(activeAccount?.name||profile.name));if(activeAccount?.guest){email.textContent='Guest workspace';meta.textContent='This workspace is isolated locally, but it is not attached to a recoverable account.';cloud.textContent='Guest · local only';$('#signOutBtn').textContent='Exit guest';$('#switchAccountBtn').textContent='Create account';$('#deleteAccountBtn').textContent='Clear guest data';}else{email.textContent=activeAccount?.email||'Local account';meta.textContent=`${activeAccount?.name||profile.name||'Blueprint user'} · account created ${activeAccount?.createdAt?new Date(activeAccount.createdAt).toLocaleDateString(): 'on this browser'}`;cloud.textContent='Account · sync foundation ready';$('#signOutBtn').textContent='Sign out';$('#switchAccountBtn').textContent='Switch account';$('#deleteAccountBtn').textContent='Delete account';}}
 function populateProfileForm(){$('#settingsName').value=profile.name||'';$('#settingsRole').value=profile.role||'';$('#settingsNorthStar').value=profile.northStar||'';$('#settingsFocus').value=profile.focus||'';$('#settingsNote').value=profile.note||'';$('#settingsDayStart').value=profile.dayStart||'08:00';$('#settingsDayEnd').value=profile.dayEnd||'18:00';$('#settingsMode').value=profile.mode||store.get('bp-mode-v6','build');$('#settingsSeasonName').value=profile.seasonName||defaultProfile.seasonName;$('#settingsSeasonEnd').value=profile.seasonEnd||defaultProfile.seasonEnd;$('#settingsSeasonIntent').value=profile.seasonIntent||defaultProfile.seasonIntent;$('#settingsSeasonAnti').value=profile.seasonAnti||defaultProfile.seasonAnti}
 $('#profileForm').onsubmit=e=>{e.preventDefault();profile={name:$('#settingsName').value.trim(),role:$('#settingsRole').value.trim(),northStar:$('#settingsNorthStar').value.trim()||defaultProfile.northStar,focus:$('#settingsFocus').value.trim()||defaultProfile.focus,note:$('#settingsNote').value.trim()||defaultProfile.note,dayStart:$('#settingsDayStart').value||'08:00',dayEnd:$('#settingsDayEnd').value||'18:00',mode:$('#settingsMode').value||'build',seasonName:$('#settingsSeasonName').value.trim()||defaultProfile.seasonName,seasonEnd:$('#settingsSeasonEnd').value||defaultProfile.seasonEnd,seasonIntent:$('#settingsSeasonIntent').value.trim()||defaultProfile.seasonIntent,seasonAnti:$('#settingsSeasonAnti').value.trim()||defaultProfile.seasonAnti};store.set('bp-profile-v5',profile);setDayMode(profile.mode);renderWorkspace();renderCalendar();renderConstellation();renderTemporal();showToast('Workspace personalized')};
-$('#resetWorkspace').onclick=()=>{['bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-profile-v5','bp-mode-v6','bp-memories-v8','bp-protocols-v8','bp-principles-v9','bp-decisions-v9','bp-council-v9','bp-week-plans-v17','bp-week-snapshots-v17'].forEach(k=>storage.removeItem(k));goals=structuredClone(defaultGoals);experiments=structuredClone(defaultExperiments);schedules=[];profile={...defaultProfile};memories=structuredClone(defaultMemories);installedProtocols=[];principles=structuredClone(defaultPrinciples);decisions=structuredClone(defaultDecisions);council=structuredClone(defaultCouncil);renderGoals();renderExperiments();renderSchedules();populateProfileForm();renderWorkspace();renderAccountSettings();renderCheckins();renderCalendar();setDayMode('build');renderConstellation();renderMemory();renderDecisionArchitecture();showToast('Personalized data reset')};
+$('#resetWorkspace').onclick=()=>{['bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-profile-v5','bp-mode-v6','bp-memories-v8','bp-protocols-v8','bp-principles-v9','bp-decisions-v9','bp-council-v9','bp-week-plans-v17','bp-week-snapshots-v17'].forEach(k=>storage.removeItem(k));goals=[];experiments=[];schedules=[];profile={...defaultProfile};memories=[];installedProtocols=[];principles=structuredClone(defaultPrinciples);decisions=[];council=structuredClone(defaultCouncil);renderGoals();renderExperiments();renderSchedules();populateProfileForm();renderWorkspace();renderAccountSettings();renderCheckins();renderCalendar();setDayMode('build');renderConstellation();renderMemory();renderDecisionArchitecture();showToast('Personalized data reset')};
 renderExperiments();renderSchedules();populateProfileForm();renderWorkspace();renderAccountSettings();
 $('#signOutBtn')?.addEventListener('click',()=>clearSession());
 $('#switchAccountBtn')?.addEventListener('click',()=>{if(activeAccount?.guest)rawSet('bp-auth-upgrade-guest-v18',true);rawStorage.removeItem(AUTH_SESSION_KEY);location.reload()});
@@ -469,7 +469,7 @@ const defaultDecisions=[
 ];
 let principles=store.get('bp-principles-v9',defaultPrinciples);
 let council=store.get('bp-council-v9',defaultCouncil);
-let decisions=store.get('bp-decisions-v9',defaultDecisions);
+let decisions=store.get('bp-decisions-v9',[]);
 let consultedDecisionId=null;
 
 function safeDateLabel(v){if(!v)return 'No review date';const d=new Date(v+'T12:00:00');return Number.isNaN(d.getTime())?'No review date':new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d)}
@@ -510,8 +510,8 @@ const defaultCommitments=[
 {id:'com-sam',personId:'sam',title:'Confirm Saturday long-run route',direction:'shared',dueDate:'2026-09-25',goalId:'endurance',note:'Choose a route that allows an early exit if recovery is poor.',status:'open',createdAt:'2026-09-20'},
 {id:'com-theo',personId:'theo',title:'Atlas source review',direction:'waiting',dueDate:'2026-09-28',goalId:'body',note:'Waiting for comments on the evidence taxonomy before the synthesis pass.',status:'open',createdAt:'2026-09-18'}
 ];
-let people=store.get('bp-people-v10',defaultPeople);
-let commitments=store.get('bp-commitments-v10',defaultCommitments);
+let people=store.get('bp-people-v10',[]);
+let commitments=store.get('bp-commitments-v10',[]);
 let commonsFilter='all',selectedPersonId='';
 function commonsToday(){return ymd(new Date())}
 function dateDiffDays(a,b){const aa=new Date(a+'T12:00:00'),bb=new Date(b+'T12:00:00');return Math.round((bb-aa)/86400000)}

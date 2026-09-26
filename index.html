@@ -74,7 +74,7 @@
     <nav class="secondary-nav" id="secondaryNav" aria-label="Current space"></nav>
   </div>
 </div>
-<div class="sidebar-bottom"><div class="focus-mini" id="focusMini"><div class="kicker">Current focus</div><strong>Blueprint website</strong><p>One uninterrupted block. Finish the interaction pass.</p></div><button class="profile profile-button" data-page="settings"><div class="avatar" id="profileAvatar">BP</div><div><strong id="profileSidebarName">Your workspace</strong><span id="profileSidebarRole">Private · local workspace</span></div></button></div>
+<div class="sidebar-bottom"><div class="focus-mini" id="focusMini"><div class="kicker">Current focus</div><strong>Blueprint website</strong><p>One uninterrupted block. Finish the interaction pass.</p></div><button class="complexity-toggle" id="complexityToggle" type="button"><span>Interface depth</span><strong id="complexityToggleLabel">Start simple</strong></button><button class="profile profile-button" data-page="settings"><div class="avatar" id="profileAvatar">BP</div><div><strong id="profileSidebarName">Your workspace</strong><span id="profileSidebarRole">Private · local workspace</span></div></button></div>
 </aside>
 <main class="main primary-route">
 <header class="topbar">
@@ -182,6 +182,17 @@
 </section>
 <section class="page active" id="page-today">
 <div class="page-head"><div><div class="eyebrow" id="todayEyebrow">Monday · Week 39</div><h1 id="greeting">Good evening.</h1><p class="subhead">A quiet operating brief for what matters now. You can go deeper only when you need to.</p></div><div class="date-chip" id="todayDate">September 21, 2026</div></div>
+<section class="activation-card card" id="activationCard" aria-labelledby="activationTitle">
+  <div class="activation-head">
+    <div><span class="eyebrow">Your first week</span><h2 id="activationTitle">Start with one useful loop.</h2><p id="activationCopy">Blueprint will reveal more only when there is enough evidence for the extra structure to become useful.</p></div>
+    <div class="activation-progress-ring" id="activationProgressRing"><strong id="activationProgressValue">0/4</strong><span>foundation</span></div>
+  </div>
+  <div class="activation-steps" id="activationSteps"></div>
+  <div class="activation-next">
+    <div><span id="activationNextKicker">Next useful move</span><strong id="activationNextTitle">Choose one direction.</strong><small id="activationNextCopy">What would make the next few weeks meaningfully better?</small></div>
+    <div class="activation-actions"><button class="solid-btn" id="activationNextAction">Choose direction</button><button class="soft-btn" id="activationFullAction">Show full Blueprint</button></div>
+  </div>
+</section>
 <div class="today-hero">
 <div class="hero-top"><div><div class="eyebrow">Primary outcome</div><h2 class="hero-title" id="primaryOutcome">Finish the Blueprint interaction pass</h2><p class="hero-copy" id="heroCopy">A good day does not need to be full. Protect enough attention for one meaningful change, then notice what actually happened.</p><div class="hero-actions"><button class="solid-btn" id="startFocus">▶ Start focus</button><button class="soft-btn" data-page-jump="calendar">Open calendar</button></div></div><div class="focus-pill" id="dayReadiness"><span>Day readiness</span><strong id="dayReadinessState">Steady</strong><small id="dayReadinessLabel">waiting for today’s evidence</small><em>planning stance · not a score</em></div></div>
 <div class="mode-deck" aria-label="Day mode">
@@ -661,5 +672,6 @@
 <script id="v21-attention-connections-script" src="assets/attention-connections.js"></script>
 <script id="v23-adaptive-today-script" src="assets/today.js"></script>
 <script id="v24-connected-plan-script" src="assets/plan.js"></script>
+<script id="v26-activation-script" src="assets/activation.js"></script>
 </body>
 </html>

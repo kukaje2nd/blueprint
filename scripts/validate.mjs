@@ -35,8 +35,8 @@ for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-desi
 }
 
 
-for (const id of ["planFlowTitle","planDirectionList","planCapacityBar","planNextBlocks","planAlignmentTitle"]) {
-  if (!html.includes(`id="${id}"`)) throw new Error(`Missing connected Plan surface: ${id}`);
+for (const id of ["guideNowList","guideWarmList","guideLaterList","guideInsight","guideBridgeState","guideEditor"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Life Guide surface: ${id}`);
 }
 
 for (const id of ["activationCard","activationSteps","activationNextAction","complexityToggle","complexityToggleLabel"]) {

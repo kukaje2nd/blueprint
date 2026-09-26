@@ -574,3 +574,9 @@ body.activation-simple.activation-has-design #page-today .today-hero .signal-str
 .guide-editor-card .modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:3px}.guide-editor-card #deleteGuideItem{margin-right:auto}
 @media(max-width:1000px){.guide-hero{grid-template-columns:1fr}.life-guide-board{grid-template-columns:1fr}.guide-column{min-height:0}.guide-bridge-grid{grid-template-columns:1fr 1fr}.guide-bridge-grid>button{border-bottom:1px solid var(--line)}}
 @media(max-width:760px){.guide-hero>div{padding:18px 15px}.guide-hero h1{font-size:31px}.guide-stats{grid-template-columns:1fr 1fr}.guide-insight,.guide-bridge-head{align-items:flex-start;flex-direction:column}.guide-bridge-grid{grid-template-columns:1fr}.guide-bridge-grid>button{border-right:0}.guide-form-grid{grid-template-columns:1fr}.guide-deeper summary{align-items:flex-start;flex-direction:column}}
+
+
+body.activation-simple #page-plan .guide-deeper{display:none!important}
+body.activation-simple:not(.activation-has-direction) #page-plan .guide-stats,
+body.activation-simple:not(.activation-has-direction) #page-plan .guide-bridge{display:none!important}
+body.activation-simple.activation-has-direction #page-plan .guide-bridge{display:block}

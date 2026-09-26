@@ -66,13 +66,13 @@
   }
   function renderCapacity(snapshot){
     const p=snapshot.plan,used=snapshot.minutes,total=snapshot.capacityMinutes,pct=total?Math.round(used/total*100):0,open=Math.max(0,total-used);
-    const hasShape=!!((p.blocks||[]).length||p.promise||p.boundary);
+    const hasShape=!!((p.blocks||[]).length||p.promise||p.boundary||(p.success||[]).some(Boolean)||p.minimum||p.choiceRule||p.lightDay!=='');
     setText('planWeekHours',minsText(used));
-    setText('planWeekMeta',hasShape?(pct+'% of '+minsText(total)+' capacity · '+minsText(open)+' open'):'week not composed yet');
+    setText('planWeekMeta',hasShape?(minsText(used)+' protected · '+minsText(open)+' guardrail open'):'week not designed yet');
     setText('planBlockCount',(p.blocks||[]).length);
     setText('planBlockMeta',p.committedAt?'committed to Calendar':hasShape?'draft · not on Calendar':'no protected blocks');
-    setText('planWeekSummary',p.promise||((p.blocks||[]).length?((p.blocks||[]).length+' protected blocks are shaping the week.'):'Shape a week before filling it.'));
-    setText('planWeekCopy',p.committedAt?'This composition has crossed into Calendar. Edit the draft deliberately before replacing the committed version.':hasShape?'This is still a draft. Capacity remains editable until you explicitly commit it to Calendar.':'Choose a weekly promise and a few protected blocks before reactive work decides the shape for you.');
+    setText('planWeekSummary',p.promise||(p.success||[]).find(Boolean)||((p.blocks||[]).length?((p.blocks||[]).length+' protected blocks are shaping the week.'):'Give the week enough shape to stay flexible.'));
+    setText('planWeekCopy',p.committedAt?'The protected blocks have crossed into Calendar. The rest of Week Design can still stay flexible.':hasShape?'This is still a design, not a prediction. Success conditions, boundaries, rhythms, and open space can change without forcing a calendar rewrite.':'Define what would make the week successful, see what is fixed, and protect only what needs real time.');
     const bar=document.getElementById('planCapacityBar');if(bar)bar.style.width=Math.min(100,pct)+'%';
     setText('planCapacityMeta',minsText(used)+' of '+minsText(total)+' · '+minsText(open)+' intentionally open');
     const boundary=document.getElementById('planBoundary');if(boundary)boundary.textContent=p.boundary?('Not this week · '+p.boundary):'No explicit “not this week” boundary yet.';
@@ -85,13 +85,13 @@
     const staleCalendar=!snapshot.plan.committedAt&&composerOnCalendar.length>0;
     if(staleCalendar){
       setText('planCalendarSummary','Calendar still holds the last committed shape.');
-      setText('planCalendarCopy','The Weekly Composer draft has changed since that commit. Nothing will overwrite Calendar until you commit again.');
+      setText('planCalendarCopy','The Week Design draft has changed since that commit. Nothing will overwrite Calendar until you commit again.');
     }else if(snapshot.plan.committedAt){
       setText('planCalendarSummary','The current week is protected in time.');
       setText('planCalendarCopy','Committed weekly blocks and recurring rhythms are visible together here. Open space remains part of the architecture.');
     }else if(events.length){
       setText('planCalendarSummary','Some time is protected, but the week draft is still separate.');
-      setText('planCalendarCopy','Calendar already contains one-off blocks or recurring rhythms. Weekly Composer remains provisional until you commit it.');
+      setText('planCalendarCopy','Calendar already contains one-off blocks or recurring rhythms. Week Design remains provisional until you commit it.');
     }else{
       setText('planCalendarSummary','Make the plan concrete only when it earns time.');
       setText('planCalendarCopy','Nothing is protected on this week’s Calendar yet. That can be intentional; a draft does not need to become a commitment.');
@@ -125,7 +125,7 @@
       copy='Each active goal is represented by protected time or a linked rhythm, and the current composition has been committed to Calendar.';
     }else if((goals||[]).length&&!capacity.hasShape){
       title='Direction exists, but this week has no explicit shape.';
-      copy='Use Weekly Composer only if deciding capacity in advance would reduce reactive scheduling. Otherwise, leave the week light.';
+      copy='Use Week Design when a little structure would reduce reactive scheduling. Otherwise, leaving the week light is a valid design.';
     }else if(capacity.hasShape&&!snapshot.plan.committedAt){
       title='The week has a shape, but it is still provisional.';
       copy='Keep editing until the draft feels worthy of real calendar space. Drafting is thinking; committing is a separate decision.';
@@ -154,8 +154,8 @@
       if(action)action.textContent='Review week draft';
     }else{
       setText('planHeroTitle','Turn direction into a week you can actually live.');
-      setText('planHeroCopy','Start with what matters, respect finite capacity, then protect only the commitments that deserve real time.');
-      if(action)action.textContent='Compose this week';
+      setText('planHeroCopy','Start with what matters, see what is already true, and add only enough structure to make good choices easier.');
+      if(action)action.textContent='Design this week';
     }
     if(action){action.removeAttribute('data-capture-type');action.removeAttribute('data-open-capture');action.setAttribute('data-page-jump','week');}
   }
@@ -175,7 +175,7 @@
     const result=window.BlueprintWeek?.addGoal?.(btn.dataset.planAddGoal);
     if(result?.ok){showToast('Goal protected in this week');renderPlan();}
     else if(result?.reason==='exists')showToast('Goal is already represented this week');
-    else showToast('Open Weekly Composer to place this goal');
+    else showToast('Open Week Design to place this goal');
   });
   document.addEventListener('blueprint:week-updated',renderPlan);
 

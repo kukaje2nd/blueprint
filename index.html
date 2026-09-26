@@ -129,35 +129,72 @@
 
 
 <section class="page" id="page-week">
-  <div class="page-head composer-head"><div><div class="eyebrow">Weekly Composer · capacity before ambition</div><h1>Give the week a shape you can actually live.</h1><p class="subhead">Choose what this week is for, protect finite capacity, and place only the work that deserves a real claim on your time. Nothing enters the calendar until you commit it.</p></div><div class="composer-head-actions"><button class="soft-btn" id="weekAutoCompose">✦ Draft from my system</button><button class="solid-btn" id="weekCommit">Commit to calendar</button></div></div>
+  <div class="page-head week-design-head"><div><div class="eyebrow">Week Design · structure without overfilling</div><h1>Design the week before the week designs you.</h1><p class="subhead">Define what would make the week successful, respect fixed reality, keep helpful rhythms visible, and protect only the time that genuinely deserves a calendar claim.</p></div><div class="composer-head-actions"><button class="soft-btn" id="weekAutoCompose">✦ Draft from my system</button><button class="solid-btn" id="weekCommit">Commit protected blocks</button></div></div>
 
   <div class="week-nav-shell">
-    <div class="week-nav-left"><button class="history-btn" id="composerPrev" aria-label="Previous week">←</button><div><span>Composition window</span><strong id="composerWeekLabel">This week</strong></div><button class="history-btn" id="composerNext" aria-label="Next week">→</button></div>
-    <div class="week-weather" id="weekWeather"><i></i><span><small>Load weather</small><strong>Open</strong></span></div>
+    <div class="week-nav-left"><button class="history-btn" id="composerPrev" aria-label="Previous week">←</button><div><span>Week</span><strong id="composerWeekLabel">This week</strong></div><button class="history-btn" id="composerNext" aria-label="Next week">→</button></div>
+    <div class="week-weather" id="weekWeather"><i></i><span><small>Shape</small><strong>Open</strong></span></div>
   </div>
 
-  <section class="composer-intent card">
-    <div class="intent-copy"><span class="eyebrow">The promise</span><h2>This week is for…</h2><input id="weekPromise" maxlength="120" placeholder="e.g. Finish the offer, keep training simple, leave Friday spacious."></div>
-    <div class="intent-boundary"><span>Not this week</span><textarea id="weekBoundary" maxlength="220" placeholder="Name what you are deliberately refusing to carry this week."></textarea></div>
-    <div class="capacity-dial"><div class="capacity-ring" id="capacityRing"><div><strong id="capacityUsed">0h</strong><span>of <b id="capacityTotalLabel">18h</b></span></div></div><label>Intentional capacity <input id="capacityTotal" type="range" min="4" max="50" step="1" value="18"><small><b id="capacityInputOut">18</b> hours · excludes sleep and ordinary life</small></label></div>
+  <section class="card week-design-brief">
+    <div class="week-design-intro"><span class="eyebrow">01 · Intention</span><h2>What kind of week is this?</h2><p>Choose a posture, not a productivity target. The same calendar can mean something very different in a build week versus a recovery week.</p>
+      <div class="week-mode-picker" id="weekModePicker">
+        <button type="button" data-week-mode="build">Build</button>
+        <button type="button" data-week-mode="maintain">Maintain</button>
+        <button type="button" data-week-mode="recover">Recover</button>
+        <button type="button" data-week-mode="connect">Connect</button>
+        <button type="button" data-week-mode="explore">Explore</button>
+        <button type="button" data-week-mode="mixed" class="active">Mixed</button>
+      </div>
+    </div>
+    <div class="week-promise-field"><label><span>This week is for…</span><input id="weekPromise" maxlength="140" placeholder="e.g. Finish the offer, keep evenings light, protect family time."></label></div>
   </section>
 
-  <div class="composer-layout">
+  <section class="week-design-success card">
+    <div class="week-design-section-head"><div><span class="eyebrow">02 · Success conditions</span><h2>What would make the week feel meaningfully complete?</h2><p>One to three conditions are enough. These are not tasks; they are the outcomes or qualities you want the week to protect.</p></div><span id="weekSuccessCount">0 / 3 defined</span></div>
+    <div class="week-success-list">
+      <label><span>01</span><input id="weekSuccess1" maxlength="140" placeholder="One meaningful outcome or condition"></label>
+      <label><span>02</span><input id="weekSuccess2" maxlength="140" placeholder="Something for health, home, relationships, or recovery"></label>
+      <label><span>03</span><input id="weekSuccess3" maxlength="140" placeholder="Optional — leave this blank if two is enough"></label>
+    </div>
+  </section>
+
+  <section class="week-reality-layout">
+    <div class="card week-fixed-card">
+      <div class="week-design-section-head"><div><span class="eyebrow">03 · Fixed reality</span><h2>What is already true?</h2><p>Calendar anchors are constraints, not failures of flexibility. See them before adding more.</p></div><span id="weekAnchorCount">0 anchors</span></div>
+      <div class="week-reality-grid" id="weekRealityGrid"></div>
+    </div>
+    <div class="card week-rhythm-card">
+      <div class="week-design-section-head"><div><span class="eyebrow">04 · Helpful rhythms</span><h2>What recurring support belongs in the background?</h2><p>Rhythms stay visible without automatically becoming calendar appointments.</p></div><button class="text-link" data-page-jump="routines">Edit rhythms →</button></div>
+      <div class="week-rhythm-list" id="weekRhythmList"></div>
+    </div>
+  </section>
+
+  <section class="card week-flex-card">
+    <div class="week-design-section-head"><div><span class="eyebrow">05 · Flexibility</span><h2>Design how the week should bend.</h2><p>A resilient plan says what can shrink, what stays out, and where you want deliberate breathing room.</p></div><span id="weekFlexState">open</span></div>
+    <div class="week-flex-grid">
+      <label><span>Not this week</span><small>Name what you are deliberately refusing to carry.</small><textarea id="weekBoundary" maxlength="240" placeholder="e.g. new projects, optional meetings, late-night work"></textarea></label>
+      <label><span>Minimum viable week</span><small>If the week gets disrupted, what smaller version still counts?</small><textarea id="weekMinimum" maxlength="280" placeholder="e.g. finish one client deliverable, train twice, keep Sunday open"></textarea></label>
+      <label><span>Trade-off rule</span><small>When two good things compete, what should win?</small><input id="weekChoiceRule" maxlength="200" placeholder="e.g. protect sleep before adding evening work"></label>
+      <label><span>Deliberately light day</span><small>Optional. Choose a day you want the system to avoid crowding.</small><select id="weekLightDay"><option value="">No designated light day</option></select></label>
+    </div>
+  </section>
+
+  <div class="composer-layout week-design-layout">
     <div class="composer-main">
-      <section class="card week-canvas-card"><div class="composer-section-head"><div><span class="eyebrow">Seven-day composition</span><h2>Protected blocks</h2></div><div class="composer-legend"><span><i class="focus"></i>Focus</span><span><i class="body"></i>Body</span><span><i class="lab"></i>Lab</span><span><i class="life"></i>Life</span><span><i class="recover"></i>Recovery</span></div></div><div class="week-canvas" id="weekCanvas"></div></section>
-      <section class="card quick-block-card"><div class="composer-section-head"><div><span class="eyebrow">Add a claim on time</span><h2>Place one block</h2></div><small>Small enough to edit. Specific enough to protect.</small></div><form id="weekBlockForm" class="week-block-form"><input id="weekBlockTitle" required maxlength="90" placeholder="What deserves protected time?"><select id="weekBlockDay" aria-label="Day"></select><input id="weekBlockTime" type="time" value="09:00" aria-label="Start time"><select id="weekBlockDuration" aria-label="Duration"><option value="30">30m</option><option value="45">45m</option><option value="60" selected>1h</option><option value="90">1h 30m</option><option value="120">2h</option><option value="180">3h</option></select><select id="weekBlockKind" aria-label="Block type"><option value="focus">Focus</option><option value="body">Body</option><option value="lab">Lab</option><option value="life">Life</option><option value="recover">Recovery</option></select><button class="solid-btn" type="submit">Place block</button></form></section>
+      <section class="card week-canvas-card"><div class="composer-section-head"><div><span class="eyebrow">06 · Protected time</span><h2>Only what deserves a calendar claim</h2><p>Blocks are explicit commitments. Rhythms and success conditions can exist without becoming appointments.</p></div><div class="composer-legend"><span><i class="focus"></i>Focus</span><span><i class="body"></i>Body</span><span><i class="lab"></i>Lab</span><span><i class="life"></i>Life</span><span><i class="recover"></i>Recovery</span></div></div><div class="week-canvas" id="weekCanvas"></div></section>
+      <section class="card quick-block-card"><div class="composer-section-head"><div><span class="eyebrow">Protect something</span><h2>Add one real claim on time</h2></div><small>Specific enough to defend. Small enough to move.</small></div><form id="weekBlockForm" class="week-block-form"><input id="weekBlockTitle" required maxlength="90" placeholder="What deserves protected time?"><select id="weekBlockDay" aria-label="Day"></select><input id="weekBlockTime" type="time" value="09:00" aria-label="Start time"><select id="weekBlockDuration" aria-label="Duration"><option value="30">30m</option><option value="45">45m</option><option value="60" selected>1h</option><option value="90">1h 30m</option><option value="120">2h</option><option value="180">3h</option></select><select id="weekBlockKind" aria-label="Block type"><option value="focus">Focus</option><option value="body">Body</option><option value="lab">Lab</option><option value="life">Life</option><option value="recover">Recovery</option></select><button class="solid-btn" type="submit">Protect block</button></form></section>
     </div>
 
     <aside class="composer-side">
-      <section class="card capacity-card"><div class="composer-section-head"><div><span class="eyebrow">Capacity budget</span><h2>Where the week goes</h2></div><strong id="capacityState">0% allocated</strong></div><div class="capacity-bars" id="capacityBars"></div><p class="capacity-note" id="capacityNote">A useful week leaves some capacity unclaimed.</p></section>
-      <section class="card suggestion-card"><div class="composer-section-head"><div><span class="eyebrow">Signal shelf</span><h2>What might deserve time?</h2></div><small>Suggestions, not obligations.</small></div><div class="suggestion-list" id="weekSuggestions"></div></section>
-      <section class="card week-story-card"><span class="eyebrow">Week story</span><h2 id="weekStoryTitle">The week has room to breathe.</h2><p id="weekStoryCopy">Place a few meaningful blocks and Blueprint will describe the shape you are creating.</p><div class="week-story-meta"><span><b id="weekBlockCount">0</b> protected blocks</span><span><b id="weekOpenHours">18</b>h still open</span></div><div class="commit-state" id="weekCommitState">Draft · not on calendar yet</div></section>
+      <section class="card capacity-card week-guardrail-card"><div class="composer-section-head"><div><span class="eyebrow">Protected-time guardrail</span><h2>How much explicit structure is enough?</h2></div><strong id="capacityState">0% allocated</strong></div><div class="capacity-dial compact"><div class="capacity-ring" id="capacityRing"><div><strong id="capacityUsed">0h</strong><span>of <b id="capacityTotalLabel">18h</b></span></div></div><label>Weekly guide <input id="capacityTotal" type="range" min="4" max="50" step="1" value="18"><small><b id="capacityInputOut">18</b> hours · a guardrail, not a quota</small></label></div><div class="capacity-bars" id="capacityBars"></div><p class="capacity-note" id="capacityNote">Open time is part of the plan.</p></section>
+      <section class="card suggestion-card"><div class="composer-section-head"><div><span class="eyebrow">Possibilities</span><h2>What might deserve protection?</h2></div><small>Suggestions, not obligations.</small></div><div class="suggestion-list" id="weekSuggestions"></div></section>
+      <section class="card week-story-card"><span class="eyebrow">Week story</span><h2 id="weekStoryTitle">The week has room to breathe.</h2><p id="weekStoryCopy">Define a few conditions, see fixed reality, and protect only what needs a real claim on time.</p><div class="week-story-meta"><span><b id="weekBlockCount">0</b> protected blocks</span><span><b id="weekOpenHours">18</b>h still open</span></div><div class="commit-state" id="weekCommitState">Draft · protected blocks not on calendar yet</div></section>
     </aside>
   </div>
 
-  <section class="composer-footer card"><div><span class="eyebrow">Planning principle</span><strong>Capacity is not empty space waiting to be filled.</strong><p>Blueprint treats unallocated time as resilience: room for ordinary life, recovery, surprise, and work that takes longer than expected.</p></div><button class="soft-btn" data-page-jump="calendar">Open calendar →</button></section>
+  <section class="composer-footer card"><div><span class="eyebrow">Week Design principle</span><strong>The goal is not to predict the week perfectly.</strong><p>A useful week design gives choices a shape, keeps constraints visible, and leaves enough slack that reality can still participate.</p></div><button class="soft-btn" data-page-jump="calendar">Open calendar →</button></section>
 </section>
-
 <section class="page" id="page-library">
 <div class="page-head"><div><div class="eyebrow">Starter architectures</div><h1>Begin with a shape, not a blank page.</h1><p class="subhead">Starter kits are editable scaffolds. Install one to create a coherent goal, a few signals, a bounded experiment, and one useful rhythm—then change or delete anything.</p></div><button class="solid-btn" id="openSetupFromLibrary">Tune my Blueprint</button></div>
 <div class="template-intro"><div class="template-manifesto"><span class="eyebrow">Blueprint library</span><h2>Good defaults should disappear as you learn what is actually yours.</h2><p>These architectures are designed to get a customer moving in minutes without pretending every business, body, character practice, or creative life works the same way.</p></div><div class="template-rules"><div><i>01</i><span><strong>Editable by design</strong>Everything installed becomes ordinary customer-owned data.</span></div><div><i>02</i><span><strong>Small enough to understand</strong>No kit installs a 40-item productivity system.</span></div><div><i>03</i><span><strong>Evidence before optimization</strong>Each kit creates only a few signals worth learning from.</span></div></div></div>

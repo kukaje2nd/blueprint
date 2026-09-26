@@ -90,7 +90,7 @@ function setDateUI(){const d=new Date();const hour=d.getHours(),first=(profile?.
 setDateUI();
 
 const pageMeta={
-today:{name:'Today',group:'Today',icon:'◫',color:'var(--sage)',summary:'Run the present: protect, advance, observe.',related:['plan','lab','reflect']},
+today:{name:'Today',group:'Today',icon:'◫',color:'var(--sage)',summary:'Design a day around what matters, what is fixed, and what can flex.',related:['plan','routines','reflect']},
 plan:{name:'Plan',group:'Plan',icon:'◎',color:'var(--blue)',summary:'Turn direction into realistic commitments across goals, projects, and time.',related:['goals','calendar','trajectory']},
 week:{name:'Weekly Composer',group:'Plan',icon:'◫',color:'var(--blue)',summary:'Turn priorities into a realistic seven-day composition before they become calendar promises.',related:['plan','calendar','goals']},
 calendar:{name:'Calendar',group:'Plan',icon:'▦',color:'var(--blue)',summary:'Give intention a place in time without making every minute a promise.',related:['plan','routines','roadmap']},

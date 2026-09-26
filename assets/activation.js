@@ -68,6 +68,7 @@
       setTimeout(()=>document.querySelector('.daily-pulse')?.scrollIntoView({behavior:'smooth',block:'center'}),60);
       return;
     }
+    if(id==='lab'||id==='reflect'){go(id);return}
     if(id==='learn'){
       if(access().reflect)go('reflect');
       else{
@@ -124,6 +125,9 @@
     const a=access(),simple=activation.mode==='simple';
     document.body.classList.toggle('activation-simple',simple);
     document.body.classList.toggle('activation-full',!simple);
+    document.body.classList.toggle('activation-has-pulse',a.milestones.pulse);
+    document.body.classList.toggle('activation-has-week',a.milestones.week);
+    document.body.classList.toggle('activation-has-direction',a.milestones.direction);
     for(const [space,allowed] of [['lab',a.lab],['reflect',a.reflect]]){
       const btn=document.querySelector('#primaryNav [data-space="'+space+'"]');if(!btn)continue;
       btn.classList.toggle('activation-locked',simple&&!allowed);

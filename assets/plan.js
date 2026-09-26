@@ -1,189 +1,235 @@
 (()=>{
-  const pad=n=>String(n).padStart(2,'0');
-  const dateOnly=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-  const minsText=n=>{n=Math.max(0,Math.round(Number(n)||0));if(!n)return'0h';const h=Math.floor(n/60),m=n%60;return ((h?h+'h':'')+(m?' '+m+'m':'')).trim()};
-  const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+  const KEY='bp-guide-items-v30';
+  const KIND_LABEL={direction:'Direction',idea:'Idea',commitment:'Commitment',question:'Question',possibility:'Possibility'};
+  const STAGE_LABEL={now:'Now',warm:'Keep warm',later:'Later'};
+  let items=store.get(KEY,[])||[];
 
-  function monday(){
-    const d=new Date();d.setHours(12,0,0,0);const day=d.getDay();d.setDate(d.getDate()+(day===0?-6:1-day));return d;
+  const $id=id=>document.getElementById(id);
+  const esc=v=>escapeHTML(String(v??''));
+  const uid=()=>('guide-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7));
+  const setText=(id,value)=>{const el=$id(id);if(el)el.textContent=value};
+
+  function persist(){
+    store.set(KEY,items);
+    document.dispatchEvent(new CustomEvent('blueprint:guide-updated'));
   }
-  function weekKey(){return dateOnly(monday())}
-  function weekDates(){
-    const m=monday();return Array.from({length:7},(_,i)=>{const d=new Date(m);d.setDate(m.getDate()+i);return d});
+  function counts(){
+    return {
+      now:items.filter(x=>x.stage==='now').length,
+      warm:items.filter(x=>x.stage==='warm').length,
+      later:items.filter(x=>x.stage==='later').length
+    };
   }
+  function topNow(){return items.find(x=>x.stage==='now')||null}
   function currentWeek(){
-    if(window.BlueprintWeek?.getCurrent)return window.BlueprintWeek.getCurrent();
-    const key=weekKey(),plans=store.get('bp-week-plans-v17',{})||{};
-    const plan=plans[key]||{capacity:18,promise:'',boundary:'',blocks:[],committedAt:null};
-    const minutes=(plan.blocks||[]).reduce((a,b)=>a+(Number(b.duration)||0),0);
-    return {key,plan,minutes,capacityMinutes:(Number(plan.capacity)||18)*60};
+    return window.BlueprintWeek?.getCurrent?.()||{plan:{blocks:[],success:[],committedAt:null},minutes:0,capacityMinutes:1080};
   }
-  function linkedRhythm(goal){
-    const links=goalJourneys?.[goal.id]?.links?.schedules||[];
-    return links.some(id=>(schedules||[]).some(s=>String(s.id)===String(id)));
+  function rhythms(){return window.BlueprintRhythms?.get?.()||store.get('bp-rhythms-v28',[])||[]}
+  function calendarAnchors(){
+    const today=new Date(),day=today.getDay(),m=new Date(today);m.setHours(12,0,0,0);m.setDate(m.getDate()+(day===0?-6:1-day));
+    const pad=n=>String(n).padStart(2,'0'),keys=Array.from({length:7},(_,i)=>{const d=new Date(m);d.setDate(m.getDate()+i);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())});
+    return (schedules||[]).length+(customEvents||[]).filter(x=>keys.includes(x.date)).length;
   }
-  function goalWeekState(goal,plan){
-    if((plan.blocks||[]).some(b=>b.sourceType==='goal'&&String(b.sourceId)===String(goal.id)))return'week';
-    if(linkedRhythm(goal))return'rhythm';
-    return'unplaced';
+  function openEditor(item=null,stage='now'){
+    const el=$id('guideEditor');if(!el)return;
+    const data=item||{id:'',title:'',kind:'direction',area:'Personal',stage,why:'',note:''};
+    $id('guideItemId').value=data.id||'';
+    $id('guideItemTitle').value=data.title||'';
+    $id('guideItemKind').value=data.kind||'direction';
+    $id('guideItemArea').value=data.area||'Personal';
+    $id('guideItemStage').value=data.stage||stage;
+    $id('guideItemWhy').value=data.why||'';
+    $id('guideItemNote').value=data.note||'';
+    $id('guideEditorTitle').textContent=data.id?'Edit guide item':'Something that matters';
+    $id('deleteGuideItem').hidden=!data.id;
+    $id('guideStructureActions').hidden=!data.id;
+    el.classList.add('open');el.setAttribute('aria-hidden','false');
+    setTimeout(()=>$id('guideItemTitle')?.focus(),40);
   }
-  function weekEvents(){
-    const dates=weekDates(),start=dateOnly(dates[0]),end=dateOnly(dates[6]),key=weekKey();
-    const oneOff=(customEvents||[]).filter(x=>x.date>=start&&x.date<=end).map((x,i)=>({
-      id:'event:'+(x.id||x.weekComposerId||i),date:x.date,time:x.time||'09:00',title:x.title,
-      kind:x.weekComposerKey===key?'week':'calendar',duration:Number(x.duration)||60
-    }));
-    const recurring=[];
-    (schedules||[]).forEach(s=>{
-      (s.days||[]).forEach(di=>{
-        const d=dates[Number(di)];if(!d)return;
-        recurring.push({id:'schedule:'+s.id+':'+di,date:dateOnly(d),time:s.time||'09:00',title:s.title,kind:'rhythm',duration:Number(s.duration)||60});
-      });
-    });
-    const seen=new Set();
-    return [...oneOff,...recurring].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).filter(x=>{
-      const k=x.date+'|'+x.time+'|'+String(x.title).toLowerCase();if(seen.has(k))return false;seen.add(k);return true;
-    });
+  function closeEditor(){
+    const el=$id('guideEditor');if(!el)return;
+    el.classList.remove('open');el.setAttribute('aria-hidden','true');
   }
-  function renderDirection(plan){
-    const root=document.getElementById('planDirectionList');if(!root)return;
-    const items=(goals||[]).slice(0,4);
-    if(!items.length){
-      root.innerHTML='<div class="plan-flow-empty"><strong>No direction yet.</strong><span>Create one goal worth learning from before adding more structure.</span></div>';
-      setText('planDirectionSummary','Choose one direction worth protecting.');
-      setText('planDirectionCopy','Blueprint can hold targets, character practices, systems, or broader directions without forcing them into one progress model.');
-      return;
+  function itemFromForm(){
+    const existing=items.find(x=>x.id===$id('guideItemId').value);
+    return {
+      ...(existing||{}),
+      id:$id('guideItemId').value||uid(),
+      title:$id('guideItemTitle').value.trim(),
+      kind:$id('guideItemKind').value,
+      area:$id('guideItemArea').value,
+      stage:$id('guideItemStage').value,
+      why:$id('guideItemWhy').value.trim(),
+      note:$id('guideItemNote').value.trim(),
+      createdAt:existing?.createdAt||new Date().toISOString(),
+      updatedAt:new Date().toISOString()
+    };
+  }
+  function card(item){
+    return '<article class="guide-item-card '+esc(item.kind)+'" data-guide-id="'+esc(item.id)+'">'+
+      '<div class="guide-item-top"><span>'+esc(KIND_LABEL[item.kind]||item.kind)+' · '+esc(item.area||'Personal')+'</span><button data-guide-edit="'+esc(item.id)+'" aria-label="Edit '+esc(item.title)+'">•••</button></div>'+
+      '<h3>'+esc(item.title)+'</h3>'+
+      (item.why?'<p>'+esc(item.why)+'</p>':'')+
+      (item.note?'<small>'+esc(item.note)+'</small>':'')+
+      '<footer><select data-guide-stage="'+esc(item.id)+'" aria-label="Move '+esc(item.title)+'"><option value="now" '+(item.stage==='now'?'selected':'')+'>Now</option><option value="warm" '+(item.stage==='warm'?'selected':'')+'>Keep warm</option><option value="later" '+(item.stage==='later'?'selected':'')+'>Later</option></select><button class="text-link" data-guide-edit="'+esc(item.id)+'">Open →</button></footer>'+
+      '</article>';
+  }
+  function emptyCard(stage){
+    const copy={
+      now:['Nothing needs present attention yet.','Put something here when you want it visible without necessarily turning it into a goal.'],
+      warm:['Nothing is being kept warm.','This is a good place for important threads that should not become obligations yet.'],
+      later:['Nothing saved for later.','Future possibilities can live here without leaking pressure into the present.']
+    }[stage];
+    return '<div class="guide-empty"><strong>'+copy[0]+'</strong><span>'+copy[1]+'</span></div>';
+  }
+  function renderColumns(){
+    const c=counts();
+    for(const stage of ['now','warm','later']){
+      const root=$id('guide'+(stage==='warm'?'Warm':stage[0].toUpperCase()+stage.slice(1))+'List');
+      const list=items.filter(x=>x.stage===stage);
+      if(root)root.innerHTML=list.length?list.map(card).join(''):emptyCard(stage);
+      const meta=$id('guide'+(stage==='warm'?'Warm':stage[0].toUpperCase()+stage.slice(1))+'Meta');
+      if(meta)meta.textContent=list.length+' '+(list.length===1?'item':'items');
     }
-    const represented=items.filter(g=>goalWeekState(g,plan)!=='unplaced').length;
-    setText('planDirectionSummary',represented?represented+' of '+items.length+' visible goals touch this week.':'Your goals exist; none are asking for time this week yet.');
-    setText('planDirectionCopy','A goal can be represented by a protected weekly block or by a recurring rhythm already linked to its journey.');
-    root.innerHTML=items.map(g=>{
-      const state=goalWeekState(g,plan);
-      const label=state==='week'?'protected this week':state==='rhythm'?'supported by rhythm':'not placed';
-      const action=state==='unplaced'?'<button data-plan-add-goal="'+escapeHTML(g.id)+'">Protect this week</button>':'<button disabled>'+label+'</button>';
-      return '<div class="plan-goal-row '+state+'"><div><span>'+escapeHTML((g.kind||'goal')+' · '+(g.domain||'Personal'))+'</span><strong>'+escapeHTML(g.title)+'</strong></div><div><em>'+label+'</em>'+action+'</div></div>';
-    }).join('');
+    setText('guideNowCount',c.now);setText('guideWarmCount',c.warm);setText('guideLaterCount',c.later);
   }
-  function renderCapacity(snapshot){
-    const p=snapshot.plan,used=snapshot.minutes,total=snapshot.capacityMinutes,pct=total?Math.round(used/total*100):0,open=Math.max(0,total-used);
-    const hasShape=!!((p.blocks||[]).length||p.promise||p.boundary||(p.success||[]).some(Boolean)||p.minimum||p.choiceRule||p.lightDay!=='');
-    setText('planWeekHours',minsText(used));
-    setText('planWeekMeta',hasShape?(minsText(used)+' protected · '+minsText(open)+' guardrail open'):'week not designed yet');
-    setText('planBlockCount',(p.blocks||[]).length);
-    setText('planBlockMeta',p.committedAt?'committed to Calendar':hasShape?'draft · not on Calendar':'no protected blocks');
-    setText('planWeekSummary',p.promise||(p.success||[]).find(Boolean)||((p.blocks||[]).length?((p.blocks||[]).length+' protected blocks are shaping the week.'):'Give the week enough shape to stay flexible.'));
-    setText('planWeekCopy',p.committedAt?'The protected blocks have crossed into Calendar. The rest of Week Design can still stay flexible.':hasShape?'This is still a design, not a prediction. Success conditions, boundaries, rhythms, and open space can change without forcing a calendar rewrite.':'Define what would make the week successful, see what is fixed, and protect only what needs real time.');
-    const bar=document.getElementById('planCapacityBar');if(bar)bar.style.width=Math.min(100,pct)+'%';
-    setText('planCapacityMeta',minsText(used)+' of '+minsText(total)+' · '+minsText(open)+' intentionally open');
-    const boundary=document.getElementById('planBoundary');if(boundary)boundary.textContent=p.boundary?('Not this week · '+p.boundary):'No explicit “not this week” boundary yet.';
-    return {pct,open,hasShape};
+  function renderBridge(){
+    const week=currentWeek(),p=week.plan||{},r=rhythms(),anchors=calendarAnchors();
+    const structured=(goals||[]).length+r.length+(p.blocks||[]).length;
+    setText('guideStructuredCount',structured);
+    setText('guideGoalSummary',(goals||[]).length+' '+((goals||[]).length===1?'formal direction':'formal directions'));
+    setText('guideRhythmSummary',r.length+' '+(r.length===1?'recurring support':'recurring supports'));
+    const success=(p.success||[]).filter(Boolean);
+    setText('guideWeekSummary',p.promise||success[0]||((p.blocks||[]).length?((p.blocks||[]).length+' protected blocks'):'week is open'));
+    setText('guideCalendarSummary',anchors+' '+(anchors===1?'protected anchor':'protected anchors'));
+    const state=$id('guideBridgeState');
+    if(state){
+      if(!items.length)state.textContent='nothing needs more structure yet';
+      else if(items.some(x=>x.stage==='now')&&!structured)state.textContent='your guide can stay loose';
+      else state.textContent='structure exists where you chose it';
+    }
   }
-  function renderCalendarStage(snapshot){
-    const root=document.getElementById('planNextBlocks');if(!root)return {events:[],staleCalendar:false};
-    const events=weekEvents(),today=dateOnly(new Date()),upcoming=events.filter(x=>x.date>=today).slice(0,4);
-    const composerOnCalendar=(customEvents||[]).filter(x=>x.weekComposerKey===snapshot.key);
-    const staleCalendar=!snapshot.plan.committedAt&&composerOnCalendar.length>0;
-    if(staleCalendar){
-      setText('planCalendarSummary','Calendar still holds the last committed shape.');
-      setText('planCalendarCopy','The Week Design draft has changed since that commit. Nothing will overwrite Calendar until you commit again.');
-    }else if(snapshot.plan.committedAt){
-      setText('planCalendarSummary','The current week is protected in time.');
-      setText('planCalendarCopy','Committed weekly blocks and recurring rhythms are visible together here. Open space remains part of the architecture.');
-    }else if(events.length){
-      setText('planCalendarSummary','Some time is protected, but the week draft is still separate.');
-      setText('planCalendarCopy','Calendar already contains one-off blocks or recurring rhythms. Week Design remains provisional until you commit it.');
-    }else{
-      setText('planCalendarSummary','Make the plan concrete only when it earns time.');
-      setText('planCalendarCopy','Nothing is protected on this week’s Calendar yet. That can be intentional; a draft does not need to become a commitment.');
+  function renderInsight(){
+    const c=counts(),nowItems=items.filter(x=>x.stage==='now'),questions=nowItems.filter(x=>x.kind==='question'),commitments=nowItems.filter(x=>x.kind==='commitment');
+    let title='Start with what you do not want to lose track of.';
+    let copy='An idea can stay an idea. A direction can stay broad. Blueprint will suggest structure only when it seems useful.';
+    let action='Add something',mode='add';
+    if(c.now>=6){
+      title='Now is getting crowded.';
+      copy='Several things are asking for present attention. You might move one to Keep warm rather than making all of them compete.';
+      action='Review Now';mode='review';
+    }else if(items.length&&c.now===0){
+      title='Your guide has no “Now” item.';
+      copy='That can be deliberate. If you want a little orientation, choose one thing that deserves present visibility—not necessarily action.';
+      action='Choose something';mode='add';
+    }else if(questions.length){
+      title='One of your important threads is still a question.';
+      copy='It may be more useful to keep the uncertainty visible than to prematurely convert it into a goal.';
+      action='Keep it open';mode='review';
+    }else if(commitments.length&&!rhythms().length){
+      title='A recurring commitment may want a lighter default.';
+      copy='If one of these repeats often, a Rhythm can reduce the number of times you have to decide how it fits.';
+      action='See rhythms';mode='rhythms';
+    }else if(c.now>0&&c.now<=3){
+      title='Your present field is relatively clear.';
+      copy='A few visible priorities with warm and later space around them is enough. You do not need to formalize everything.';
+      action='Design this week';mode='week';
     }
-    if(!upcoming.length){
-      root.innerHTML='<div class="plan-flow-empty compact"><strong>No upcoming protected blocks.</strong><span>Open time is not automatically a problem to solve.</span></div>';
-    }else{
-      root.innerHTML=upcoming.map(x=>{
-        const d=new Date(x.date+'T12:00:00');
-        const label=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-        return '<div class="plan-next-row"><time>'+escapeHTML(label+' · '+x.time)+'</time><strong>'+escapeHTML(x.title)+'</strong><span>'+escapeHTML(x.kind)+'</span></div>';
-      }).join('');
-    }
-    return {events,staleCalendar};
-  }
-  function renderLens(snapshot,capacity,calendar){
-    const states=(goals||[]).map(g=>goalWeekState(g,snapshot.plan));
-    const represented=states.filter(x=>x!=='unplaced').length,unplaced=states.filter(x=>x==='unplaced').length;
-    let title='Nothing needs interpretation yet.',copy='Create a goal or compose the week and Blueprint will show where direction and time are connected—or deliberately not connected.';
-    if(capacity.pct>100){
-      title='The draft claims more than the capacity you chose.';
-      copy='That is a planning constraint, not a performance judgment. Shorten, defer, or remove a claim before treating the week as concrete.';
-    }else if(calendar.staleCalendar){
-      title='The draft and Calendar are temporarily different.';
-      copy='You changed the week after its last commit. The older calendar shape is being preserved until you explicitly replace it.';
-    }else if((goals||[]).length&&unplaced){
-      title=unplaced+' active '+(unplaced===1?'goal is':'goals are')+' not asking for time this week.';
-      copy='That can be deliberate. A goal does not need a calendar block every week; Blueprint is simply keeping the gap visible so it remains a choice.';
-    }else if((goals||[]).length&&represented===(goals||[]).length&&snapshot.plan.committedAt){
-      title='Direction and time are connected this week.';
-      copy='Each active goal is represented by protected time or a linked rhythm, and the current composition has been committed to Calendar.';
-    }else if((goals||[]).length&&!capacity.hasShape){
-      title='Direction exists, but this week has no explicit shape.';
-      copy='Use Week Design when a little structure would reduce reactive scheduling. Otherwise, leaving the week light is a valid design.';
-    }else if(capacity.hasShape&&!snapshot.plan.committedAt){
-      title='The week has a shape, but it is still provisional.';
-      copy='Keep editing until the draft feels worthy of real calendar space. Drafting is thinking; committing is a separate decision.';
-    }
-    setText('planAlignmentTitle',title);setText('planAlignmentCopy',copy);
-    setText('planGoalMeta',(goals||[]).length?(represented+' represented this week'):'create a direction when useful');
-    const flow=document.getElementById('planFlowState');
-    if(flow)flow.textContent=snapshot.plan.committedAt?'week committed':capacity.hasShape?'week in draft':(goals||[]).length?'direction exists · week open':'start with direction';
-  }
-  function renderHero(snapshot,capacity){
-    const action=document.getElementById('planPrimaryAction');
-    if(!(goals||[]).length){
-      setText('planHeroTitle','Choose a direction before building the week.');
-      setText('planHeroCopy','Planning becomes useful when it protects something real. Start with one target, character practice, system, or direction—then decide whether it deserves time.');
-      if(action)action.textContent='Create a goal';
-      if(action){action.removeAttribute('data-page-jump');action.setAttribute('data-capture-type','Goal');action.setAttribute('data-open-capture','');}
-      return;
-    }
-    if(snapshot.plan.committedAt){
-      setText('planHeroTitle','Your plan is concrete. Keep enough room for reality.');
-      setText('planHeroCopy','The current week has crossed into Calendar. Use Plan to see whether direction, capacity, and protected time still tell the same story.');
-      if(action)action.textContent='Review committed week';
-    }else if(capacity.hasShape){
-      setText('planHeroTitle','Your week has a shape. Decide whether it deserves the calendar.');
-      setText('planHeroCopy','The draft is doing its job: making trade-offs visible before they become appointments. Commit only the version you actually want to live.');
-      if(action)action.textContent='Review week draft';
-    }else{
-      setText('planHeroTitle','Turn direction into a week you can actually live.');
-      setText('planHeroCopy','Start with what matters, see what is already true, and add only enough structure to make good choices easier.');
-      if(action)action.textContent='Design this week';
-    }
-    if(action){action.removeAttribute('data-capture-type');action.removeAttribute('data-open-capture');action.setAttribute('data-page-jump','week');}
+    setText('guideInsightTitle',title);setText('guideInsightCopy',copy);
+    const b=$id('guideInsightAction');if(b){b.textContent=action;b.dataset.guideInsight=mode}
   }
   function renderPlan(){
-    if(!document.getElementById('page-plan'))return;
-    const snapshot=currentWeek();
-    const capacity=renderCapacity(snapshot);
-    renderDirection(snapshot.plan);
-    const calendar=renderCalendarStage(snapshot);
-    renderLens(snapshot,capacity,calendar);
-    renderHero(snapshot,capacity);
-    setText('planGoalCount',(goals||[]).length);
+    renderColumns();renderBridge();renderInsight();
+    window.renderAdaptiveToday?.();
+  }
+  function useToday(item){
+    const api=window.BlueprintDayDesign;if(!api){showToast('Day Design is unavailable');return}
+    const d=api.getToday(),success=Array.isArray(d.success)?[...d.success]:['','',''];
+    const existing=success.some(x=>String(x).toLowerCase()===item.title.toLowerCase());
+    if(existing){showToast('Already part of today');go('today');return}
+    const idx=success.findIndex(x=>!String(x||'').trim());
+    if(idx<0){showToast('Today already has three success conditions');go('today');return}
+    success[idx]=item.title;d.success=success;api.saveToday(d);api.render();closeEditor();go('today');
+    setTimeout(()=>document.getElementById('dayDesignCard')?.scrollIntoView({behavior:'smooth',block:'start'}),70);
+    showToast('Added to today without creating a task');
+  }
+  function useWeek(item){
+    const snap=window.BlueprintWeek?.getCurrent?.();if(!snap){showToast('Week Design is unavailable');return}
+    const p=snap.plan;p.success=Array.isArray(p.success)?[...p.success.slice(0,3),...Array(3).fill('')].slice(0,3):['','',''];
+    if(p.success.some(x=>String(x).toLowerCase()===item.title.toLowerCase())){showToast('Already part of this week');go('week');return}
+    const idx=p.success.findIndex(x=>!String(x||'').trim());
+    if(idx<0){showToast('This week already has three success conditions');go('week');return}
+    p.success[idx]=item.title;p.committedAt=null;
+    window.BlueprintWeek?.saveViewed?.();
+    document.dispatchEvent(new CustomEvent('blueprint:week-design-updated'));
+    closeEditor();go('week');showToast('Brought into Week Design without claiming calendar time');
+  }
+  function makeGoal(item){
+    closeEditor();
+    openCapture('Goal',{title:item.title,desc:item.why||item.note,domain:item.area||'Personal',kind:item.kind==='direction'?'direction':'target',horizon:'Flexible'});
+  }
+  function makeRhythm(item){
+    closeEditor();
+    if(window.BlueprintRhythms?.openNew){
+      window.BlueprintRhythms.openNew({title:item.title,area:item.area||'Personal',purpose:item.why||item.note});
+      return;
+    }
+    go('routines');showToast('Open Rhythms to give this a recurring shape');
+  }
+  function structureAction(type){
+    const id=$id('guideItemId').value,item=items.find(x=>x.id===id);if(!item)return;
+    if(type==='today')useToday(item);
+    else if(type==='week')useWeek(item);
+    else if(type==='goal')makeGoal(item);
+    else if(type==='rhythm')makeRhythm(item);
   }
 
-  document.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-plan-add-goal]');if(!btn)return;
-    const result=window.BlueprintWeek?.addGoal?.(btn.dataset.planAddGoal);
-    if(result?.ok){showToast('Goal protected in this week');renderPlan();}
-    else if(result?.reason==='exists')showToast('Goal is already represented this week');
-    else showToast('Open Week Design to place this goal');
+  $id('newGuideItem')?.addEventListener('click',()=>openEditor(null,'now'));
+  document.querySelectorAll('[data-guide-new-stage]').forEach(b=>b.addEventListener('click',()=>openEditor(null,b.dataset.guideNewStage)));
+  $id('closeGuideEditor')?.addEventListener('click',closeEditor);
+  $id('guideEditor')?.addEventListener('click',e=>{if(e.target.id==='guideEditor')closeEditor()});
+  $id('guideForm')?.addEventListener('submit',e=>{
+    e.preventDefault();const item=itemFromForm();if(!item.title)return;
+    const i=items.findIndex(x=>x.id===item.id);if(i>=0)items[i]=item;else items.unshift(item);
+    persist();renderPlan();openEditor(item);showToast(i>=0?'Guide item updated':'Added to your Life Guide');
   });
-  document.addEventListener('blueprint:week-updated',renderPlan);
+  $id('deleteGuideItem')?.addEventListener('click',()=>{
+    const id=$id('guideItemId').value;if(!id)return;
+    items=items.filter(x=>x.id!==id);persist();closeEditor();renderPlan();showToast('Removed from Life Guide');
+  });
+  $id('guideStructureActions')?.addEventListener('click',e=>{const b=e.target.closest('[data-guide-use]');if(b)structureAction(b.dataset.guideUse)});
+  document.querySelector('.life-guide-board')?.addEventListener('click',e=>{
+    const b=e.target.closest('[data-guide-edit]');if(!b)return;
+    const item=items.find(x=>x.id===b.dataset.guideEdit);if(item)openEditor(item);
+  });
+  document.querySelector('.life-guide-board')?.addEventListener('change',e=>{
+    const s=e.target.closest('[data-guide-stage]');if(!s)return;
+    const item=items.find(x=>x.id===s.dataset.guideStage);if(!item)return;
+    item.stage=s.value;item.updatedAt=new Date().toISOString();persist();renderPlan();
+  });
+  $id('guideInsightAction')?.addEventListener('click',e=>{
+    const mode=e.currentTarget.dataset.guideInsight;
+    if(mode==='week')go('week');
+    else if(mode==='rhythms')go('routines');
+    else if(mode==='review')document.querySelector('.guide-column.now')?.scrollIntoView({behavior:'smooth',block:'start'});
+    else openEditor(null,'now');
+  });
 
-  const baseGoals=renderGoals;renderGoals=function(){const out=baseGoals.apply(this,arguments);renderPlan();return out};
-  const baseSchedules=renderSchedules;renderSchedules=function(){const out=baseSchedules.apply(this,arguments);renderPlan();return out};
-  const baseCalendar=renderCalendar;renderCalendar=function(){const out=baseCalendar.apply(this,arguments);renderPlan();return out};
-  const baseHubs=renderV12Hubs;renderV12Hubs=function(){const out=baseHubs.apply(this,arguments);renderPlan();return out};
+  document.addEventListener('blueprint:week-updated',renderBridge);
+  document.addEventListener('blueprint:rhythms-updated',renderBridge);
+  document.addEventListener('blueprint:day-design-updated',()=>window.renderAdaptiveToday?.());
 
+  const baseGoals=renderGoals;renderGoals=function(){const out=baseGoals.apply(this,arguments);renderBridge();return out};
+  const baseSchedules=renderSchedules;renderSchedules=function(){const out=baseSchedules.apply(this,arguments);renderBridge();return out};
+  const baseCalendar=renderCalendar;renderCalendar=function(){const out=baseCalendar.apply(this,arguments);renderBridge();return out};
+
+  window.BlueprintLifeGuide={
+    get:()=>items,
+    topNow,
+    openNew:(stage='now')=>openEditor(null,stage),
+    open:id=>{const item=items.find(x=>x.id===id);if(item)openEditor(item)},
+    render:renderPlan
+  };
   window.renderPlan=renderPlan;
   renderPlan();
 })();

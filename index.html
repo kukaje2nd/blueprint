@@ -87,44 +87,92 @@
 </header>
 <div class="route-ribbon" id="routeRibbon"><div class="route-context"><div class="route-icon" id="routeIcon">◫</div><div class="route-copy"><span id="routeGroup">Now · orientation</span><strong id="routeSummary">Run the present from one surface.</strong></div></div><div class="route-links" id="routeLinks"></div></div>
 <section class="page hub-page" id="page-plan">
-<div class="hub-hero plan-hub"><div><div class="eyebrow">Plan · direction into reality</div><h1 id="planHeroTitle">Turn direction into a week you can actually live.</h1><p id="planHeroCopy">Start with what matters, respect finite capacity, then protect only the commitments that deserve real time.</p><div class="hub-actions"><button class="solid-btn" id="planPrimaryAction" data-page-jump="week">Design this week</button><button class="soft-btn" data-capture-type="Goal" data-open-capture>＋ New goal</button></div></div><div class="hub-orbit"><span class="orbit-core">PLAN</span><i class="orbit o1"></i><i class="orbit o2"></i><b class="satellite s1">direction</b><b class="satellite s2">capacity</b><b class="satellite s3">time</b></div></div>
-<div class="hub-stats"><div><span>Active goals</span><strong id="planGoalCount">0</strong><small id="planGoalMeta">directions worth protecting</small></div><div><span>This week</span><strong id="planWeekHours">0h</strong><small id="planWeekMeta">intentional capacity claimed</small></div><div><span>Protected blocks</span><strong id="planBlockCount">0</strong><small id="planBlockMeta">draft and calendar commitments</small></div></div>
-
-<section class="plan-flow card" aria-labelledby="planFlowTitle">
-  <div class="plan-flow-head"><div><span class="eyebrow">Planning path</span><h2 id="planFlowTitle">Direction → capacity → time</h2><p>Each layer should answer a different question. Goals say what matters. The week decides what fits. Calendar makes the commitment concrete.</p></div><span class="plan-flow-state" id="planFlowState">reading your system…</span></div>
-  <div class="plan-flow-grid">
-    <article class="plan-stage direction">
-      <div class="plan-stage-top"><span>01 · Direction</span><i>◎</i></div>
-      <strong id="planDirectionSummary">Choose what deserves movement.</strong>
-      <p id="planDirectionCopy">Active goals will appear here with whether they are represented in this week.</p>
-      <div class="plan-goal-list" id="planDirectionList"></div>
-      <button class="text-link" data-page-jump="goals">Open goals →</button>
-    </article>
-    <article class="plan-stage capacity">
-      <div class="plan-stage-top"><span>02 · Capacity</span><i>◫</i></div>
-      <strong id="planWeekSummary">Shape a week before filling it.</strong>
-      <p id="planWeekCopy">Blueprint will show the current promise, boundary, and how much intentional capacity is already claimed.</p>
-      <div class="plan-capacity-track"><i><b id="planCapacityBar"></b></i><span id="planCapacityMeta">0h of 18h</span></div>
-      <div class="plan-boundary" id="planBoundary">No explicit “not this week” boundary yet.</div>
-      <button class="text-link" data-page-jump="week">Open Week Design →</button>
-    </article>
-    <article class="plan-stage time">
-      <div class="plan-stage-top"><span>03 · Time</span><i>▦</i></div>
-      <strong id="planCalendarSummary">Make the plan concrete.</strong>
-      <p id="planCalendarCopy">Committed blocks and recurring rhythms will show where intention has actually earned time.</p>
-      <div class="plan-next-list" id="planNextBlocks"></div>
-      <button class="text-link" data-page-jump="calendar">Open calendar →</button>
-    </article>
+  <div class="guide-hero">
+    <div>
+      <div class="eyebrow">Plan · Life Guide</div>
+      <h1>Keep what matters visible without turning everything into a task.</h1>
+      <p>Blueprint can hold ideas, directions, commitments, questions, and possibilities before they need a goal, project, habit, or calendar block.</p>
+      <div class="hub-actions"><button class="solid-btn" id="newGuideItem">＋ Add something that matters</button><button class="soft-btn" data-page-jump="week">Design this week</button></div>
+    </div>
+    <div class="guide-principle">
+      <span>Organizing principle</span>
+      <strong>Important does not automatically mean urgent.</strong>
+      <small>Give something more structure only when structure would actually help.</small>
+    </div>
   </div>
-</section>
 
-<section class="plan-lens" id="planLens">
-  <div><span>Planning lens</span><strong id="planAlignmentTitle">Nothing needs interpretation yet.</strong><p id="planAlignmentCopy">Create a goal or compose the week and Blueprint will show where direction and time are connected—or deliberately not connected.</p></div>
-  <div class="plan-lens-actions"><button class="soft-btn" data-page-jump="week">Adjust week</button><button class="soft-btn" data-page-jump="goals">Review goals</button></div>
-</section>
+  <div class="guide-stats">
+    <div><span>Now</span><strong id="guideNowCount">0</strong><small>deserves present attention</small></div>
+    <div><span>Keep warm</span><strong id="guideWarmCount">0</strong><small>important, not demanding action</small></div>
+    <div><span>Later</span><strong id="guideLaterCount">0</strong><small>worth remembering without obligation</small></div>
+    <div><span>Structured systems</span><strong id="guideStructuredCount">0</strong><small>goals + rhythms + protected week</small></div>
+  </div>
 
-<div class="section-label plan-tools-label"><strong>Planning tools</strong><span class="subtle-note">Go deeper only when the planning path needs more detail.</span></div>
-<div class="hub-grid plan-tools-grid"><button class="hub-card featured week-hub-card" data-page-jump="week"><span>01</span><div><strong>Week Design</strong><p>Budget capacity and turn priorities into a realistic seven-day shape.</p></div><em>◫</em></button><button class="hub-card" data-page-jump="goals"><span>02</span><div><strong>Goals</strong><p>Targets, character practices, systems, and directions with different proof models.</p></div><em>◎</em></button><button class="hub-card" data-page-jump="calendar"><span>03</span><div><strong>Calendar</strong><p>See which intentions have actually earned protected time.</p></div><em>▦</em></button><button class="hub-card" data-page-jump="projects"><span>04</span><div><strong>Projects</strong><p>Move outcomes through milestones, constraints, and clear finishes.</p></div><em>◇</em></button><button class="hub-card" data-page-jump="trajectory"><span>05</span><div><strong>Trajectory</strong><p>Separate now, emerging, and later so future ideas stay flexible.</p></div><em>≋</em></button><button class="hub-card" data-page-jump="routines"><span>06</span><div><strong>Rhythms & Choices</strong><p>Shape recurring supports, minimum versions, and defaults for common trade-offs.</p></div><em>↯</em></button></div>
+  <section class="guide-insight" id="guideInsight">
+    <div><span>Guide note</span><strong id="guideInsightTitle">Start with what you do not want to lose track of.</strong><p id="guideInsightCopy">An idea can stay an idea. A direction can stay broad. Blueprint will suggest structure only when it seems useful.</p></div>
+    <button class="soft-btn" id="guideInsightAction" type="button">Add something</button>
+  </section>
+
+  <section class="life-guide-board" aria-label="Life Guide">
+    <div class="guide-column now">
+      <header><div><span>Now</span><strong>Worth present attention</strong></div><small id="guideNowMeta">0 items</small></header>
+      <div class="guide-list" id="guideNowList"></div>
+      <button class="guide-column-add" data-guide-new-stage="now" type="button">＋ Add to Now</button>
+    </div>
+    <div class="guide-column warm">
+      <header><div><span>Keep warm</span><strong>Important without pressure</strong></div><small id="guideWarmMeta">0 items</small></header>
+      <div class="guide-list" id="guideWarmList"></div>
+      <button class="guide-column-add" data-guide-new-stage="warm" type="button">＋ Keep something warm</button>
+    </div>
+    <div class="guide-column later">
+      <header><div><span>Later</span><strong>Remember without committing</strong></div><small id="guideLaterMeta">0 items</small></header>
+      <div class="guide-list" id="guideLaterList"></div>
+      <button class="guide-column-add" data-guide-new-stage="later" type="button">＋ Save for later</button>
+    </div>
+  </section>
+
+  <section class="guide-bridge card">
+    <div class="guide-bridge-head"><div><span class="eyebrow">Give structure only when useful</span><h2>Your guide can stay loose. These systems are optional expressions of it.</h2><p>A Goal clarifies evidence. A Rhythm reduces repeated decisions. Week Design gives something temporary shape. Calendar protects exact time.</p></div><span id="guideBridgeState">nothing needs more structure yet</span></div>
+    <div class="guide-bridge-grid">
+      <button data-page-jump="goals"><i>◎</i><span><strong>Goals</strong><small id="guideGoalSummary">0 formal directions</small></span><em>clarify proof →</em></button>
+      <button data-page-jump="routines"><i>↯</i><span><strong>Rhythms & Choices</strong><small id="guideRhythmSummary">0 recurring supports</small></span><em>reduce decisions →</em></button>
+      <button data-page-jump="week"><i>◫</i><span><strong>Week Design</strong><small id="guideWeekSummary">week is open</small></span><em>shape the near term →</em></button>
+      <button data-page-jump="calendar"><i>▦</i><span><strong>Calendar</strong><small id="guideCalendarSummary">0 protected anchors</small></span><em>protect exact time →</em></button>
+    </div>
+  </section>
+
+  <details class="guide-deeper">
+    <summary><span>Deeper planning tools</span><small>Projects, trajectory, roadmap, starter architectures</small></summary>
+    <div class="hub-grid plan-tools-grid">
+      <button class="hub-card" data-page-jump="projects"><span>01</span><div><strong>Projects</strong><p>Use when an outcome needs milestones, constraints, and a clear finish.</p></div><em>◇</em></button>
+      <button class="hub-card" data-page-jump="trajectory"><span>02</span><div><strong>Trajectory</strong><p>Look across horizons when timing and sequencing matter.</p></div><em>≋</em></button>
+      <button class="hub-card" data-page-jump="roadmap"><span>03</span><div><strong>Roadmap</strong><p>See longer-range sequencing without forcing distant ideas into this week.</p></div><em>↗</em></button>
+      <button class="hub-card" data-page-jump="library"><span>04</span><div><strong>Starter architectures</strong><p>Install a small editable structure when starting from a blank page is not useful.</p></div><em>✣</em></button>
+    </div>
+  </details>
+
+  <div class="modal guide-editor" id="guideEditor" aria-hidden="true">
+    <div class="modal-card guide-editor-card">
+      <button class="modal-close" id="closeGuideEditor" type="button">×</button>
+      <div class="eyebrow">Life Guide</div><h2 id="guideEditorTitle">Something that matters</h2>
+      <form id="guideForm">
+        <input type="hidden" id="guideItemId">
+        <label><span>What do you want to keep visible?</span><input id="guideItemTitle" maxlength="120" required placeholder="An idea, direction, commitment, question, or possibility"></label>
+        <div class="guide-form-grid">
+          <label><span>What is it?</span><select id="guideItemKind"><option value="direction">Direction</option><option value="idea">Idea</option><option value="commitment">Commitment</option><option value="question">Question</option><option value="possibility">Possibility</option></select></label>
+          <label><span>Life area</span><select id="guideItemArea"><option>Personal</option><option>Work</option><option>Health</option><option>Relationships</option><option>Home</option><option>Money</option><option>Learning</option><option>Creative</option><option>Other</option></select></label>
+          <label><span>Where should it live?</span><select id="guideItemStage"><option value="now">Now</option><option value="warm">Keep warm</option><option value="later">Later</option></select></label>
+        </div>
+        <label><span>Why does it matter?</span><textarea id="guideItemWhy" maxlength="260" placeholder="Optional. Enough context that future-you remembers why this belongs here."></textarea></label>
+        <label><span>Notes</span><textarea id="guideItemNote" maxlength="360" placeholder="Fragments, context, constraints, possibilities—this does not need to be polished."></textarea></label>
+        <div class="guide-structure-actions" id="guideStructureActions">
+          <span>Give this more structure</span>
+          <div><button class="soft-btn" data-guide-use="today" type="button">Use today</button><button class="soft-btn" data-guide-use="week" type="button">Bring into week</button><button class="soft-btn" data-guide-use="goal" type="button">Make a goal</button><button class="soft-btn" data-guide-use="rhythm" type="button">Create rhythm</button></div>
+        </div>
+        <div class="modal-actions"><button class="soft-btn" id="deleteGuideItem" type="button">Remove</button><button class="solid-btn" type="submit">Save to guide</button></div>
+      </form>
+    </div>
+  </div>
 </section>
 
 

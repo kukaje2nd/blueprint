@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## Life Guide
+
+Plan is now a **Life Guide**: a flexible place to keep ideas, directions, commitments, questions, and possibilities visible without forcing them into tasks. Guide items live in **Now / Keep warm / Later** and can remain loose indefinitely. When useful, the user can explicitly bring an item into Day Design or Week Design, make it a Goal, or create a Rhythm.
+
+The Guide is deliberately non-scoring and non-urgent. Blueprint may surface gentle structural suggestions (for example, when Now becomes crowded), but does not automatically convert important things into productivity objects.
+
 ## Week Design
 
 The weekly planning surface is now **Week Design**. A week can carry a posture (Build, Maintain, Recover, Connect, Explore, or Mixed), 1–3 success conditions, visible fixed reality, helpful rhythms, a deliberate boundary, a trade-off rule, a minimum viable week, and an optional light day. Protected-time capacity remains available as a guardrail rather than the definition of success.

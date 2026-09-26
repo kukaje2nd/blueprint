@@ -4,7 +4,7 @@
     lab:new Set(['lab','experiments','metrics','routines']),
     reflect:new Set(['reflect','review','memory','compass','inbox','archive'])
   };
-  const persistedKeys=['bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-week-plans-v17','bp-day-design-v27','bp-checkins-v3','bp-weekly-syntheses-v14'];
+  const persistedKeys=['bp-guide-items-v30','bp-goals-v5','bp-experiments-v5','bp-schedules-v5','bp-week-plans-v17','bp-day-design-v27','bp-checkins-v3','bp-weekly-syntheses-v14'];
   const hasPersisted=k=>storage.getItem(k)!==null;
   const getState=()=>{
     let s=store.get(KEY,null);
@@ -33,7 +33,7 @@
   function milestones(){
     const week=currentWeek().plan||{},ownedGoals=hasPersisted('bp-goals-v5')?goals:[];
     const design=window.BlueprintDayDesign?.getToday?.()||{updatedAt:null,boundary:'',minimum:'',choiceRule:'',supports:[]};
-    const direction=ownedGoals.length>0;
+    const guideNow=(window.BlueprintLifeGuide?.get?.()||[]).some(x=>x.stage==='now');const direction=ownedGoals.length>0||guideNow;
     const shapedWeek=!!(week.promise||(week.blocks||[]).length);
     const day=!!design.updatedAt;
     const flex=!!(design.minimum||design.boundary||design.choiceRule||(design.supports||[]).length);
@@ -72,7 +72,7 @@
     },70);
   }
   function performStep(id){
-    if(id==='direction'){openCapture('Goal');return}
+    if(id==='direction'){if(window.BlueprintLifeGuide?.openNew){go('plan');setTimeout(()=>window.BlueprintLifeGuide.openNew('now'),70)}else openCapture('Goal');return}
     if(id==='week'){go('week');return}
     if(id==='day'){scrollToDesign('daySuccess1');return}
     if(id==='flex'){scrollToDesign('dayMinimum');return}
@@ -81,11 +81,11 @@
   }
   function renderFocusMini(){
     const box=document.getElementById('focusMini');if(!box)return;
-    const owned=hasPersisted('bp-goals-v5')?goals:[],first=owned[0];
+    const owned=hasPersisted('bp-goals-v5')?goals:[],first=owned[0],guide=window.BlueprintLifeGuide?.topNow?.();
     const d=window.BlueprintDayDesign?.getToday?.();
     const firstSuccess=(d?.success||[]).find(Boolean);
-    const title=firstSuccess||profile?.focus||first?.title||'No primary direction yet';
-    const copy=d?.boundary?('Boundary · '+d.boundary):(first?'Keep the current direction small enough to protect.':'Choose one direction before building more structure.');
+    const title=firstSuccess||guide?.title||profile?.focus||first?.title||'Nothing needs to be primary yet';
+    const copy=d?.boundary?('Boundary · '+d.boundary):(guide?.why||(first?'Keep the current direction visible without over-structuring it.':'Add something to your Life Guide when you want it remembered.'));
     box.querySelector('strong').textContent=title;
     box.querySelector('p').textContent=copy;
   }
@@ -101,7 +101,7 @@
     const step=currentStep(),a=access();
     if(step){
       const map={
-        direction:['Start smaller than the whole system.','Choose one direction.','A target, character practice, system, or broad direction is enough. You can refine it later.'],
+        direction:['Start smaller than the whole system.','Choose one direction.','An idea, direction, commitment, or possibility is enough. It does not need to become a formal goal.'],
         week:['Direction needs a realistic claim on time.','Give the direction a place this week.','Choose a small amount of protected capacity. The rest can remain open.'],
         day:['A calendar is not a definition of success.','Design today around what matters.','Name a few success conditions, respect fixed reality, and keep open space visible.'],
         flex:['A good plan survives contact with reality.','Give today a smaller version.','Add a boundary, support, choice rule, or minimum viable day so changing the plan does not mean failing it.']
@@ -167,6 +167,7 @@
 
   document.addEventListener('blueprint:week-updated',()=>setTimeout(renderActivation,0));
   document.addEventListener('blueprint:day-design-updated',()=>setTimeout(renderActivation,0));
+  document.addEventListener('blueprint:guide-updated',()=>setTimeout(renderActivation,0));
   document.addEventListener('click',e=>{if(e.target.closest('#saveCapture,[data-delete-goal],[data-delete-experiment]'))setTimeout(renderActivation,80)});
 
   if(typeof renderGoals==='function'){const base=renderGoals;renderGoals=function(){const out=base.apply(this,arguments);setTimeout(renderActivation,0);return out}}

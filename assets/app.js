@@ -91,7 +91,7 @@ setDateUI();
 
 const pageMeta={
 today:{name:'Today',group:'Today',icon:'◫',color:'var(--sage)',summary:'Run the present: protect, advance, observe.',related:['plan','lab','reflect']},
-plan:{name:'Plan',group:'Plan',icon:'◎',color:'var(--blue)',summary:'Turn direction into realistic commitments across goals, projects, and time.',related:['goals','calendar','trajectory']},
+plan:{name:'Plan',group:'Plan',icon:'◎',color:'var(--blue)',summary:'Keep ideas and important directions visible, then add structure only when it helps.',related:['week','routines','goals']},
 week:{name:'Week Design',group:'Plan',icon:'◫',color:'var(--blue)',summary:'Shape success, fixed reality, rhythms, flexibility, and only the protected time that deserves a calendar claim.',related:['plan','routines','calendar']},
 calendar:{name:'Calendar',group:'Plan',icon:'▦',color:'var(--blue)',summary:'Give intention a place in time without making every minute a promise.',related:['plan','routines','roadmap']},
 trajectory:{name:'Trajectory',group:'Plan',icon:'≋',color:'var(--blue)',summary:'Separate what is committed now from what is emerging and what can remain later.',related:['plan','goals','roadmap']},
@@ -350,7 +350,7 @@ $('#calendarGrid').onclick=e=>{const cell=e.target.closest('.cal-cell');if(cell&
 const commands=[
 {icon:'⌘',title:'Open Blueprint index',sub:'Jump anywhere in the five-space system',action:openAtlas,key:'G'},
 {icon:'◫',title:'Go to Today',sub:'Run the present from one calm brief',action:()=>go('today'),key:'Alt 1'},
-{icon:'◎',title:'Go to Plan',sub:'Week Design, goals, calendar, projects, trajectory, roadmap',action:()=>go('plan'),key:'Alt 2'},
+{icon:'◎',title:'Go to Plan',sub:'Life Guide, Week Design, rhythms, goals, calendar',action:()=>go('plan'),key:'Alt 2'},
 {icon:'◫',title:'Compose this week',sub:'Budget capacity and turn priorities into a realistic seven-day shape',action:()=>go('week')},
 {icon:'⌁',title:'Go to Lab',sub:'Experiments, custom metrics, evidence',action:()=>go('lab'),key:'Alt 3'},
 {icon:'↻',title:'Go to Reflect',sub:'Review, memory, decisions, inbox, archive',action:()=>go('reflect'),key:'Alt 4'},

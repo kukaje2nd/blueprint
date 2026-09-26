@@ -69,7 +69,7 @@
     setText('dayReadinessState',intent);
     setText('dayReadinessLabel',d.updatedAt?(d.boundary||d.choiceRule||'a shape you can revise'):'design only what would help');
 
-    setText('primaryOutcome',success[0]||profile?.focus||'What would make today successful?');
+    const guideNow=window.BlueprintLifeGuide?.topNow?.();setText('primaryOutcome',success[0]||guideNow?.title||profile?.focus||'What would make today successful?');
     let hero='You do not need to optimize the whole day. Define what matters, respect what is fixed, and leave room for reality.';
     if(d.minimum)hero='Today has a fallback. If reality changes, protect the smaller version instead of turning the whole day into a failure.';
     else if(d.boundary)hero='A boundary is part of the plan. Protect it as deliberately as the things you put on the calendar.';

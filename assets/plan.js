@@ -149,7 +149,7 @@
     if(existing){showToast('Already part of today');go('today');return}
     const idx=success.findIndex(x=>!String(x||'').trim());
     if(idx<0){showToast('Today already has three success conditions');go('today');return}
-    success[idx]=item.title;d.success=success;api.saveToday(d);api.render();go('today');
+    success[idx]=item.title;d.success=success;api.saveToday(d);api.render();closeEditor();go('today');
     setTimeout(()=>document.getElementById('dayDesignCard')?.scrollIntoView({behavior:'smooth',block:'start'}),70);
     showToast('Added to today without creating a task');
   }
@@ -162,7 +162,7 @@
     p.success[idx]=item.title;p.committedAt=null;
     window.BlueprintWeek?.saveViewed?.();
     document.dispatchEvent(new CustomEvent('blueprint:week-design-updated'));
-    go('week');showToast('Brought into Week Design without claiming calendar time');
+    closeEditor();go('week');showToast('Brought into Week Design without claiming calendar time');
   }
   function makeGoal(item){
     closeEditor();

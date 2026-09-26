@@ -168,6 +168,21 @@
   document.addEventListener('blueprint:week-updated',renderWeeklyMap);
   document.addEventListener('blueprint:rhythms-updated',()=>window.renderPlan?.());
 
-  window.BlueprintRhythms={get:()=>rhythms,getRules:()=>rules,render,useRhythm,useRule};
+  window.BlueprintRhythms={
+    get:()=>rhythms,
+    getRules:()=>rules,
+    render,
+    useRhythm,
+    useRule,
+    openNew:(prefill={})=>{
+      resetRhythmForm();
+      if(prefill.title)$id('rhythmTitle').value=prefill.title;
+      if(prefill.area&&[...$id('rhythmArea').options].some(o=>o.value===prefill.area))$id('rhythmArea').value=prefill.area;
+      if(prefill.purpose)$id('rhythmPurpose').value=prefill.purpose;
+      if(prefill.minimum)$id('rhythmMinimum').value=prefill.minimum;
+      openModal('rhythmEditor');
+      setTimeout(()=>$id('rhythmTitle')?.focus(),50);
+    }
+  };
   render();
 })();

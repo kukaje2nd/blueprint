@@ -59,6 +59,13 @@ for (const id of ["openQuickCatch","guideUnsortedList","guideUnsortedSection","q
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Quick Catch surface: ${id}`);
 }
 
+for (const id of ["learningReviewHeadline","learningReviewCopy","learningReviewQueue","reviewProgressText","reviewProgressBar"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Learning Review surface: ${id}`);
+}
+for (const stale of ["Weekly review · 18 minutes","Your system has three open loops worth closing."]) {
+  if (html.includes(stale)) throw new Error(`Stale review language remains: ${stale}`);
+}
+
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
 if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);
 

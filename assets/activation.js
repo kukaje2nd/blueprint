@@ -85,7 +85,7 @@
     const d=window.BlueprintDayDesign?.getToday?.();
     const firstSuccess=(d?.success||[]).find(Boolean);
     const title=firstSuccess||guide?.title||profile?.focus||first?.title||'Nothing needs to be primary yet';
-    const copy=d?.boundary?('Boundary · '+d.boundary):(guide?.why||first?'Keep the current direction visible without over-structuring it.':'Add something to your Life Guide when you want it remembered.');
+    const copy=d?.boundary?('Boundary · '+d.boundary):(guide?.why||(first?'Keep the current direction visible without over-structuring it.':'Add something to your Life Guide when you want it remembered.'));
     box.querySelector('strong').textContent=title;
     box.querySelector('p').textContent=copy;
   }

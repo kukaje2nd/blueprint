@@ -76,7 +76,7 @@
     set('seasonDesignName',x.name);set('seasonDesignIntent',x.intent);
     x.success.forEach((v,i)=>set('seasonSuccess'+(i+1),v));
     set('seasonDesignProtect',x.protect);set('seasonDesignPause',x.pause);set('seasonDesignMinimum',x.minimum);set('seasonDesignQuestion',x.question);
-    document.querySelectorAll('[data-season-posture]').forEach(b=>b.classList.toggle('active',b.dataset.seasonPosture===x.posture));
+    document.querySelector('[data-season-posture="'+x.posture+'"]')?.click();
     $id('seasonDesignName')?.focus();
     toast('Season example loaded as a draft — save only what feels true');
   }

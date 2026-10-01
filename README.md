@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## New-user visual system
+
+Blueprint 0.50 introduces a substantial interface refresh focused on clarity for first-time users. Typography, spacing, navigation, controls, card hierarchy, authentication, and empty states are larger and easier to scan. **Start simple** now visually suppresses advanced chrome and analytics so the first experience centers on one direction, one week, one flexible day, and one obvious next action.
+
+The visual layer is isolated in `assets/visual-refresh.css` so the redesign is reversible without changing stored user data or core feature behavior.
+
 ## Quick Catch
 
 Blueprint now separates **capture** from **organization**. The global Catch button and `C` shortcut open a one-field Quick Catch surface. Captured thoughts enter Life Guide **Unsorted** as raw ideas/questions/possibilities without deadlines, scores, or task semantics. The user can later move them to Now / Keep warm / Later or open them for more detail.

@@ -6,6 +6,12 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 This repository begins from the consolidated **Blueprint v22** prototype.
 
+## New-user visual system
+
+Blueprint 0.50 introduces a substantial interface refresh focused on clarity for first-time users. Typography, spacing, navigation, controls, card hierarchy, authentication, and empty states are larger and easier to scan. **Start simple** now visually suppresses advanced chrome and analytics so the first experience centers on one direction, one week, one flexible day, and one obvious next action.
+
+The visual layer is isolated in `assets/visual-refresh.css` so the redesign is reversible without changing stored user data or core feature behavior.
+
 ## Quick Catch
 
 Blueprint now separates **capture** from **organization**. The global Catch button and `C` shortcut open a one-field Quick Catch surface. Captured thoughts enter Life Guide **Unsorted** as raw ideas/questions/possibilities without deadlines, scores, or task semantics. The user can later move them to Now / Keep warm / Later or open them for more detail.
@@ -23,6 +29,12 @@ The existing Keep / Change / Explore weekly snapshot remains compatible, but the
 Plan is now a **Life Guide**: a flexible place to keep ideas, directions, commitments, questions, and possibilities visible without forcing them into tasks. Guide items live in **Now / Keep warm / Later** and can remain loose indefinitely. When useful, the user can explicitly bring an item into Day Design or Week Design, make it a Goal, or create a Rhythm.
 
 The Guide is deliberately non-scoring and non-urgent. Blueprint may surface gentle structural suggestions (for example, when Now becomes crowded), but does not automatically convert important things into productivity objects.
+
+## Season Design
+
+The longer horizon is now **Season Design**. A season can have a posture (Build, Maintain, Recover, Connect, Explore, or Mixed), an optional review edge, up to three success conditions, something to protect, something explicitly allowed to pause, a minimum viable season, and a question to carry.
+
+Season Design can pull current Life Guide items into the horizon and can seed Week Design with only the relevant posture and success conditions. Existing profile season fields and the older Temporal Atlas remain compatible, so the change adds a clearer layer without destructive migration.
 
 ## Week Design
 
@@ -51,7 +63,7 @@ Fresh workspaces no longer inherit demo goals, experiments, metrics, memories, d
 Primary spaces:
 
 1. **Today** — Day Design, fixed anchors, current attention, and adaptive guidance.
-2. **Plan** — Life Guide, Goals, Week Design, Rhythms & Choices, Calendar, projects, and longer horizons.
+2. **Plan** — Life Guide, Season Design, Goals, Week Design, Rhythms & Choices, Calendar, projects, and longer horizons.
 3. **Lab** — experiments, custom metrics, protocols, and impact loops.
 4. **Reflect** — Learning Review, Memory, decisions, Loose ends, and long-term evidence.
 5. **You** — personalization, identity, relationships, data vault, connections, and sync controls.
@@ -62,7 +74,7 @@ The current application is intentionally dependency-light:
 
 - a static app shell in `index.html`
 - shared design system in `assets/styles.css`
-- application behavior split across focused modules for core app behavior, Day Design, Week Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
+- application behavior split across focused modules for core app behavior, Day Design, Week Design, Season Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
 - static HTML / CSS / JavaScript
 - browser-local persistence
 - local account prototype and per-account namespaces

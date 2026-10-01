@@ -13,6 +13,7 @@ for (const id of requiredPages) {
 
 const requiredAssets = [
   "assets/styles.css",
+  "assets/visual-refresh.css",
   "assets/app.js",
   "assets/week-composer.js",
   "assets/week-design.js",
@@ -22,6 +23,7 @@ const requiredAssets = [
   "assets/day-design.js",
   "assets/rhythms.js",
   "assets/activation.js",
+  "assets/season-design.js",
 ];
 for (const asset of requiredAssets) {
   const full = path.join(root, asset);
@@ -30,7 +32,8 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/activation.js"]) {
+if (!html.includes('href="assets/visual-refresh.css"')) throw new Error("index.html is not wired to assets/visual-refresh.css");
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/season-design.js", "assets/activation.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
 
@@ -59,12 +62,19 @@ for (const id of ["openQuickCatch","guideUnsortedList","guideUnsortedSection","q
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Quick Catch surface: ${id}`);
 }
 
+for (const id of ["seasonDesignCard","seasonPosturePicker","seasonDesignName","seasonSuccess1","seasonDesignProtect","seasonDesignPause","seasonDesignMinimum","seasonToWeek"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing Season Design surface: ${id}`);
+}
+if (!html.includes('src="assets/season-design.js"')) throw new Error("index.html is not wired to assets/season-design.js");
+
 for (const id of ["learningReviewHeadline","learningReviewCopy","learningReviewQueue","reviewProgressText","reviewProgressBar"]) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing Learning Review surface: ${id}`);
 }
 for (const stale of ["Weekly review · 18 minutes","Your system has three open loops worth closing."]) {
   if (html.includes(stale)) throw new Error(`Stale review language remains: ${stale}`);
 }
+
+if (!html.includes('class="activation-orientation"')) throw new Error("Missing new-user orientation cue");
 
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
 if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);

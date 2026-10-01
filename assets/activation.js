@@ -57,10 +57,10 @@
   function stepModel(){
     const m=milestones();
     return [
-      {id:'direction',done:m.direction,title:'Choose one direction',copy:'What would make the next few weeks meaningfully better?',action:'Choose direction'},
-      {id:'week',done:m.week,title:'Give it a place',copy:'Protect a small amount of real capacity before the calendar fills itself.',action:'Shape this week'},
-      {id:'day',done:m.day,title:'Design a successful day',copy:'Define success conditions, fixed reality, and enough open space for the day to stay human.',action:'Design today'},
-      {id:'flex',done:m.flex,title:'Make the plan flexible',copy:'Add a boundary, support, choice rule, or minimum viable version so reality can change the day without breaking it.',action:'Add flexibility'}
+      {id:'direction',done:m.direction,title:'Choose one thing that matters',copy:'A direction, commitment, question, or possibility is enough.',action:'Choose direction'},
+      {id:'week',done:m.week,title:'Make room for it this week',copy:'Give it a little real capacity without filling the whole calendar.',action:'Shape this week'},
+      {id:'day',done:m.day,title:'Define a good day',copy:'Name what would make today worthwhile and leave room for reality.',action:'Design today'},
+      {id:'flex',done:m.flex,title:'Add a fallback',copy:'Choose a smaller version so a changed day does not become a failed day.',action:'Add flexibility'}
     ];
   }
   function currentStep(){return stepModel().find(x=>!x.done)||null}
@@ -101,24 +101,24 @@
     const step=currentStep(),a=access();
     if(step){
       const map={
-        direction:['Start smaller than the whole system.','Choose one direction.','An idea, direction, commitment, or possibility is enough. It does not need to become a formal goal.'],
-        week:['Direction needs a realistic claim on time.','Give the direction a place this week.','Choose a small amount of protected capacity. The rest can remain open.'],
-        day:['A calendar is not a definition of success.','Design today around what matters.','Name a few success conditions, respect fixed reality, and keep open space visible.'],
-        flex:['A good plan survives contact with reality.','Give today a smaller version.','Add a boundary, support, choice rule, or minimum viable day so changing the plan does not mean failing it.']
+        direction:['First step','Choose one thing that matters.','That is enough to begin. You can decide later whether it needs a goal, project, or schedule.'],
+        week:['Next step','Make a little room for it this week.','Protect enough capacity to make progress and leave the rest of the week breathable.'],
+        day:['Next step','Define what a good day looks like.','Choose a few success conditions and respect what is already fixed.'],
+        flex:['Last foundation step','Give the plan a fallback.','Create a smaller viable version so reality can change without turning the day into a failure.']
       }[step.id];
       document.getElementById('activationNextKicker').textContent=map[0];
       document.getElementById('activationNextTitle').textContent=map[1];
       document.getElementById('activationNextCopy').textContent=map[2];
       const btn=document.getElementById('activationNextAction');btn.textContent=step.action;btn.dataset.activationAction=step.id;
-      document.getElementById('activationTitle').textContent='Start with one useful design loop.';
-      document.getElementById('activationCopy').textContent=a.lab?'Your foundation is taking shape. Deeper tools appear when they solve a real question.':'Blueprint will reveal more only when the extra structure becomes useful.';
+      document.getElementById('activationTitle').textContent='Build your Blueprint one step at a time.';
+      document.getElementById('activationCopy').textContent=a.lab?'Your foundation is taking shape. Deeper tools can stay optional.':'The rest of Blueprint stays out of the way until it becomes useful.';
     }else{
       document.getElementById('activationNextKicker').textContent='Foundation complete';
-      document.getElementById('activationNextTitle').textContent='You can design without over-managing.';
-      document.getElementById('activationNextCopy').textContent='Direction, weekly capacity, a successful-day shape, and flexibility now connect. Deeper tools can stay optional.';
+      document.getElementById('activationNextTitle').textContent='You are ready to use Blueprint normally.';
+      document.getElementById('activationNextCopy').textContent='Your direction, week, day, and fallback now connect. Open deeper tools only when they answer a real question.';
       const btn=document.getElementById('activationNextAction');btn.textContent=a.lab?'Open Lab':'Review today';btn.dataset.activationAction=a.lab?'lab':'day';
-      document.getElementById('activationTitle').textContent='Your first design loop is alive.';
-      document.getElementById('activationCopy').textContent='The system now helps structure choices without turning daily life into a performance dashboard.';
+      document.getElementById('activationTitle').textContent='Your foundation is ready.';
+      document.getElementById('activationCopy').textContent='Blueprint can now support your choices without asking you to manage the system itself.';
     }
   }
   function renderNavigation(){

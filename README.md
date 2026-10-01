@@ -4,13 +4,19 @@ Blueprint is a personal operating system for deliberate self-improvement: planni
 
 ## Current product
 
-This repository begins from the consolidated **Blueprint v22** prototype.
+This repository evolves from the consolidated **Blueprint v22** foundation.
 
 ## New-user visual system
 
 Blueprint 0.50 introduces a substantial interface refresh focused on clarity for first-time users. Typography, spacing, navigation, controls, card hierarchy, authentication, and empty states are larger and easier to scan. **Start simple** now visually suppresses advanced chrome and analytics so the first experience centers on one direction, one week, one flexible day, and one obvious next action.
 
 The visual layer is isolated in `assets/visual-refresh.css` so the redesign is reversible without changing stored user data or core feature behavior.
+
+## Plain-language navigation
+
+Blueprint 0.52 simplifies visible product terminology and removes demo-looking deeper screens. The five top-level spaces are now **Today, Plan, Experiments, Review, and Profile**. Secondary navigation shows only the most useful destinations; advanced pages remain available from overviews and global search.
+
+Fresh workspaces no longer show invented project/roadmap examples or arbitrary system/coherence scores. Projects and Roadmap use honest empty states until real user data deserves those views. Constellation is presented as **System Map**, Compass as **Decisions**, Memory Garden as **Patterns & Notes**, and Sync Center as **Data & Sync**. The previously unreachable Connections page is now part of Profile navigation and routing.
 
 ## Guided starts
 
@@ -83,7 +89,7 @@ The current application is intentionally dependency-light:
 - application behavior split across focused modules for core app behavior, Day Design, Week Design, Season Design, Life Guide, Rhythms, activation, Today, Plan, and attention/connections
 - static HTML / CSS / JavaScript
 - browser-local persistence
-- local account prototype and per-account namespaces
+- local account layer and per-account namespaces
 - export/import data vault
 - local-first sync architecture and revision journal
 - standard iCalendar import/export
@@ -92,7 +98,7 @@ The repository is now the source of truth. Future product updates should be comm
 
 ## Run locally
 
-No build step is required for the current prototype.
+No build step is required for the current static application.
 
 Open `index.html` directly, or serve the repository with any static HTTP server.
 

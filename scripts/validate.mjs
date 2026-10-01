@@ -13,6 +13,7 @@ for (const id of requiredPages) {
 
 const requiredAssets = [
   "assets/styles.css",
+  "assets/visual-refresh.css",
   "assets/app.js",
   "assets/week-composer.js",
   "assets/week-design.js",
@@ -31,6 +32,7 @@ for (const asset of requiredAssets) {
 }
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
+if (!html.includes('href="assets/visual-refresh.css"')) throw new Error("index.html is not wired to assets/visual-refresh.css");
 for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/season-design.js", "assets/activation.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
@@ -71,6 +73,8 @@ for (const id of ["learningReviewHeadline","learningReviewCopy","learningReviewQ
 for (const stale of ["Weekly review · 18 minutes","Your system has three open loops worth closing."]) {
   if (html.includes(stale)) throw new Error(`Stale review language remains: ${stale}`);
 }
+
+if (!html.includes('class="activation-orientation"')) throw new Error("Missing new-user orientation cue");
 
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
 if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);

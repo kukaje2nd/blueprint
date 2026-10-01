@@ -12,6 +12,12 @@ Blueprint 0.50 introduces a substantial interface refresh focused on clarity for
 
 The visual layer is isolated in `assets/visual-refresh.css` so the redesign is reversible without changing stored user data or core feature behavior.
 
+## Guided starts
+
+Blueprint 0.51 adds **example-driven empty states** to Life Guide, Day Design, Week Design, and Season Design. These examples are deliberately lightweight: they show what useful input can look like without silently installing fake goals, plans, or personal history.
+
+Life Guide and Day/Season examples open as editable drafts. Week Design starters are explicit one-click templates that fill editable week fields but do not add calendar blocks.
+
 ## Quick Catch
 
 Blueprint now separates **capture** from **organization**. The global Catch button and `C` shortcut open a one-field Quick Catch surface. Captured thoughts enter Life Guide **Unsorted** as raw ideas/questions/possibilities without deadlines, scores, or task semantics. The user can later move them to Now / Keep warm / Later or open them for more detail.

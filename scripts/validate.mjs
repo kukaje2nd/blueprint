@@ -76,6 +76,12 @@ for (const stale of ["Weekly review · 18 minutes","Your system has three open l
 }
 
 if (!html.includes('class="activation-orientation"')) throw new Error("Missing new-user orientation cue");
+for (const label of [">Experiments</strong>",">Review</strong>",">Profile</strong>"]) {
+  if (!html.includes(label)) throw new Error(`Missing simplified primary navigation label: ${label}`);
+}
+for (const stale of ["Launch personal website","Project Atlas","Half-marathon block","Memory Garden","Sync Center","Your constellation","choice<br/>coherence","Lab principle"]) {
+  if (html.includes(stale)) throw new Error(`Prototype-facing content remains in production HTML: ${stale}`);
+}
 for (const id of ["guideStarterGuidance","dayStarterGuidance","weekStarterGuidance","seasonStarterGuidance"]) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Missing guided-start surface: ${id}`);
 }
@@ -100,6 +106,9 @@ for (const asset of requiredAssets.filter((x) => x.endsWith(".js"))) {
 const css = read("assets/styles.css");
 if (!css.includes(":root") || !css.includes(".app")) throw new Error("Core design-system selectors are missing");
 
+if (!read("assets/app.js").includes("integrations:{name:'Connections'")) throw new Error("Connections route metadata is missing");
+if (!read("assets/app.js").includes("navPages:['plan','week','calendar','routines','trajectory']")) throw new Error("Simplified Plan navigation is missing");
+
 console.log(
-  `Blueprint validation passed: ${ids.length} DOM IDs, ${requiredAssets.length} external assets, no inline app scripts.`
+  `Blueprint validation passed: ${ids.length} DOM IDs, ${requiredAssets.length} external assets, plain-language navigation, no inline app scripts.`
 );

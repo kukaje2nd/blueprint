@@ -24,6 +24,7 @@ const requiredAssets = [
   "assets/rhythms.js",
   "assets/activation.js",
   "assets/season-design.js",
+  "assets/starter-guidance.js",
 ];
 for (const asset of requiredAssets) {
   const full = path.join(root, asset);
@@ -33,7 +34,7 @@ for (const asset of requiredAssets) {
 
 if (!html.includes('href="assets/styles.css"')) throw new Error("index.html is not wired to assets/styles.css");
 if (!html.includes('href="assets/visual-refresh.css"')) throw new Error("index.html is not wired to assets/visual-refresh.css");
-for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/season-design.js", "assets/activation.js"]) {
+for (const src of ["assets/app.js", "assets/week-composer.js", "assets/week-design.js", "assets/attention-connections.js", "assets/day-design.js", "assets/rhythms.js", "assets/today.js", "assets/plan.js", "assets/season-design.js", "assets/starter-guidance.js", "assets/activation.js"]) {
   if (!html.includes(`src="${src}"`)) throw new Error(`index.html is not wired to ${src}`);
 }
 
@@ -75,6 +76,10 @@ for (const stale of ["Weekly review · 18 minutes","Your system has three open l
 }
 
 if (!html.includes('class="activation-orientation"')) throw new Error("Missing new-user orientation cue");
+for (const id of ["guideStarterGuidance","dayStarterGuidance","weekStarterGuidance","seasonStarterGuidance"]) {
+  if (!html.includes(`id="${id}"`)) throw new Error(`Missing guided-start surface: ${id}`);
+}
+if (!html.includes('src="assets/starter-guidance.js"')) throw new Error("index.html is not wired to assets/starter-guidance.js");
 
 const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
 if (inlineScripts.length) throw new Error(`Unexpected inline scripts remain: ${inlineScripts.length}`);

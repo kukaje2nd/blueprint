@@ -483,3 +483,29 @@ body.activation-simple #guideStarterGuidance{
   .starter-guidance-actions{width:100%;display:grid;grid-template-columns:1fr}
   .starter-guidance-actions button{width:100%;min-height:42px;text-align:left;padding:0 12px}
 }
+
+
+/* v52 — plain language + honest empty states */
+.product-empty-state{
+  min-height:310px;
+  padding:34px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:22px;
+  align-items:center;
+  border-radius:26px;
+  background:
+    radial-gradient(360px 240px at 100% 0%,color-mix(in srgb,var(--blue) 7%,transparent),transparent 74%),
+    var(--panel);
+}
+.product-empty-icon{width:58px;height:58px;border-radius:18px;border:1px solid var(--line);display:grid;place-items:center;background:var(--panel-2);font-size:22px;color:var(--muted)}
+.product-empty-state span{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--blue);font-weight:750}
+.product-empty-state h2{font-size:28px;letter-spacing:-.04em;margin:7px 0 8px}
+.product-empty-state p{font-size:12px;line-height:1.65;color:var(--muted);max-width:680px;margin:0}
+.product-empty-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.secondary-nav button span{font-size:10px}
+@media(max-width:760px){
+  .product-empty-state{grid-template-columns:1fr;padding:22px;min-height:0}
+  .product-empty-actions{justify-content:flex-start;display:grid}
+  .product-empty-actions button{width:100%;justify-content:center}
+}

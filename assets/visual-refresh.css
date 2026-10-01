@@ -1,0 +1,435 @@
+/* Blueprint v50 — new-user visual system
+   This layer intentionally overrides the dense prototype presentation
+   without changing feature behavior or stored data. */
+
+:root{
+  --sidebar:264px;
+  --topbar:76px;
+  --radius:20px;
+  --radius-lg:30px;
+  --shadow:0 28px 90px rgba(0,0,0,.28);
+  --shadow-sm:0 12px 34px rgba(0,0,0,.15);
+}
+
+body{
+  line-height:1.45;
+  background:
+    radial-gradient(900px 560px at 78% -12%,color-mix(in srgb,var(--blue) 6%,transparent),transparent 64%),
+    radial-gradient(760px 500px at 20% 112%,color-mix(in srgb,var(--mint) 4%,transparent),transparent 68%),
+    var(--bg);
+}
+body:before{opacity:.5}
+
+.sidebar{
+  padding:22px 16px 16px;
+  background:color-mix(in srgb,var(--bg) 96%,transparent);
+  border-right-color:color-mix(in srgb,var(--line-strong) 72%,transparent);
+}
+.brand{height:48px;padding:0 8px;margin-bottom:16px;gap:12px}
+.brand-mark{width:32px;height:32px;border-radius:10px}
+.brand strong{font-size:16px}
+.brand small{font-size:9px;letter-spacing:.08em;text-transform:none;margin-top:1px}
+.atlas-launch{min-height:46px;border-radius:13px;padding:0 10px;margin-bottom:12px}
+.atlas-launch strong{font-size:11px}
+.atlas-launch small{font-size:9px;line-height:1.25}
+.atlas-launch kbd{font-size:9px}
+
+.primary-nav{display:grid;gap:5px}
+.primary-nav button{
+  min-height:56px;
+  border-radius:14px;
+  padding:8px 10px;
+  gap:11px;
+}
+.primary-nav .primary-icon{
+  width:31px;
+  height:31px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  background:color-mix(in srgb,var(--panel-2) 82%,transparent);
+  border:1px solid var(--line);
+}
+.primary-nav button strong{font-size:12px;letter-spacing:-.01em}
+.primary-nav button small{font-size:9px;line-height:1.25;margin-top:2px}
+.primary-nav button.active{
+  background:linear-gradient(120deg,color-mix(in srgb,var(--page-color,var(--blue)) 8%,var(--panel)),var(--panel));
+  box-shadow:inset 0 0 0 1px var(--line);
+}
+.primary-nav button.active .primary-icon{
+  border-color:color-mix(in srgb,var(--page-color,var(--blue)) 34%,var(--line));
+  background:color-mix(in srgb,var(--page-color,var(--blue)) 10%,var(--panel-2));
+}
+.primary-nav button.activation-locked{opacity:.42}
+
+.space-context{margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
+.space-context-head{padding:0 8px 8px}
+.space-context-head span{font-size:10px}
+.space-context-head small{font-size:9px}
+.secondary-nav button{min-height:38px;border-radius:10px;font-size:10px}
+.secondary-nav button i{font-size:11px}
+.focus-mini{padding:14px;border-radius:16px}
+.focus-mini .kicker{font-size:9px}.focus-mini strong{font-size:12px}.focus-mini p{font-size:10px}
+.complexity-toggle{min-height:43px;border-radius:12px;padding:8px 10px}
+.complexity-toggle span{font-size:9px}.complexity-toggle strong{font-size:10px}
+.profile{min-height:48px;border-radius:12px}
+.avatar{width:34px;height:34px}
+.profile strong{font-size:11px}.profile span{font-size:9px}
+
+.topbar{
+  height:var(--topbar);
+  padding:0 34px;
+  gap:10px;
+  background:color-mix(in srgb,var(--bg) 94%,transparent);
+  border-bottom-color:var(--line);
+}
+.history-btn,.icon-btn{width:40px;height:40px;border-radius:12px}
+.location-pill{height:42px;border-radius:12px;padding:0 11px}
+.location-pill small{font-size:8px}.location-pill strong{font-size:11px}
+.command-trigger{
+  height:42px;
+  max-width:520px;
+  border-radius:12px;
+  background:color-mix(in srgb,var(--panel) 88%,transparent);
+  padding:0 12px;
+}
+.command-trigger .placeholder{font-size:11px}
+.command-trigger kbd{font-size:9px}
+.mode-chip{height:40px;border-radius:12px}
+.solid-btn,.soft-btn{
+  min-height:40px;
+  height:auto;
+  border-radius:12px;
+  padding:0 13px;
+  font-size:10px;
+}
+.solid-btn{font-size:11px}
+.top-actions .solid-btn{min-height:42px}
+
+.route-ribbon{
+  min-height:52px;
+  padding:9px 34px;
+  background:color-mix(in srgb,var(--panel) 58%,var(--bg));
+}
+.route-copy span{font-size:8px}
+.route-copy strong{font-size:10px}
+.route-links button{font-size:9px;min-height:30px;border-radius:9px}
+
+.page{
+  max-width:1320px;
+  padding:44px 44px 96px;
+}
+.page-head{margin-bottom:30px;align-items:flex-start}
+.eyebrow{font-size:10px;letter-spacing:.12em}
+.page h1{
+  font-size:clamp(38px,4.6vw,56px);
+  letter-spacing:-.055em;
+  line-height:1;
+  margin:10px 0 10px;
+  max-width:860px;
+}
+.subhead{font-size:13px;line-height:1.65;max-width:760px}
+.date-chip{font-size:10px;padding:8px 12px}
+.section-label{margin:32px 2px 13px}
+.section-label strong{font-size:10px}
+.section-label button{font-size:10px}
+
+.card{
+  border-radius:20px;
+  border-color:color-mix(in srgb,var(--line-strong) 72%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,.025),0 14px 42px rgba(0,0,0,.055);
+}
+.card-pad{padding:20px}
+.card-head{min-height:58px;padding:17px 18px 12px}
+.card-head h2{font-size:12px}.card-head span{font-size:9px}
+
+input,select,textarea{
+  font-size:12px;
+}
+.field label{font-size:10px}
+.field input,.field select,.field textarea{
+  min-height:44px;
+  border-radius:11px;
+  padding:10px 12px;
+}
+
+/* Authentication becomes a clear first decision instead of a wall of information. */
+body.auth-required .auth-shell{
+  grid-template-columns:minmax(0,1fr) minmax(400px,.68fr);
+}
+.auth-story{padding:clamp(42px,6vw,88px)}
+.auth-copy{max-width:760px;margin:60px 0 42px}
+.auth-copy .eyebrow{margin-bottom:14px}
+.auth-copy h1{
+  font-size:clamp(48px,6.4vw,82px);
+  line-height:.96;
+  letter-spacing:-.065em;
+}
+.auth-copy>p{font-size:15px;line-height:1.7;max-width:610px;margin-top:22px}
+.auth-principles{gap:18px}
+.auth-principle{padding-top:15px}
+.auth-principle span{font-size:9px}
+.auth-principle strong{font-size:12px;margin:7px 0 5px}
+.auth-principle p{font-size:10px;line-height:1.55}
+.auth-panel{width:min(100%,480px);padding:28px;border-radius:28px}
+.auth-panel-head span{font-size:9px}
+.auth-panel-head h2{font-size:30px;margin:8px 0}
+.auth-panel-head p{font-size:11px}
+.auth-tab{height:40px;font-size:10px}
+.auth-form input{height:48px;font-size:13px}
+.auth-submit{height:48px;font-size:12px}
+.guest-btn{height:44px;font-size:11px}
+.auth-note{font-size:9px}
+.known-accounts>span,.known-account{font-size:9px}
+
+/* Start-simple is deliberately sparse: orient first, reveal depth later. */
+body.activation-simple .route-ribbon{display:none!important}
+body.activation-simple .sidebar .atlas-launch,
+body.activation-simple .sidebar .space-context,
+body.activation-simple .sidebar .focus-mini{display:none!important}
+body.activation-simple .sidebar-bottom{gap:10px}
+body.activation-simple .main{min-height:100vh}
+body.activation-simple #page-today .system-context-details,
+body.activation-simple #page-today .today-action-rails,
+body.activation-simple #page-today .week-signal,
+body.activation-simple #page-today .analysis-details,
+body.activation-simple #page-today .today-grid{display:none!important}
+body.activation-simple #page-today .mode-deck,
+body.activation-simple #page-today .signal-strip,
+body.activation-simple #page-today .day-story{display:none!important}
+body.activation-simple:not(.activation-has-direction) #page-plan .guide-column.warm,
+body.activation-simple:not(.activation-has-direction) #page-plan .guide-column.later{display:none!important}
+body.activation-simple:not(.activation-has-direction) #page-plan .life-guide-board{
+  grid-template-columns:minmax(0,760px);
+  justify-content:start;
+}
+body.activation-simple .topbar .history-controls{display:none}
+body.activation-simple .topbar{padding-left:34px}
+
+/* First-run card: one obvious next action. */
+.activation-card{
+  position:relative;
+  overflow:hidden;
+  padding:0!important;
+  margin-bottom:22px;
+  border-radius:28px;
+  background:
+    radial-gradient(440px 260px at 100% 0%,color-mix(in srgb,var(--lime) 12%,transparent),transparent 70%),
+    linear-gradient(145deg,color-mix(in srgb,var(--blue) 5%,var(--panel)),var(--panel));
+  box-shadow:0 22px 70px rgba(0,0,0,.14);
+}
+.activation-orientation{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  column-gap:12px;
+  row-gap:2px;
+  align-items:center;
+  padding:13px 20px;
+  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--blue) 5%,transparent);
+}
+.activation-orientation span{
+  grid-row:1/3;
+  border:1px solid color-mix(in srgb,var(--blue) 32%,var(--line));
+  color:var(--blue);
+  background:color-mix(in srgb,var(--blue) 8%,transparent);
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:9px;
+  font-weight:750;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.activation-orientation strong{font-size:11px}
+.activation-orientation small{font-size:10px;color:var(--muted)}
+.activation-head{padding:24px 24px 18px!important}
+.activation-head h2{font-size:clamp(25px,3vw,34px)!important;letter-spacing:-.04em!important;margin:8px 0!important}
+.activation-head p{font-size:12px!important;line-height:1.6!important;max-width:720px!important}
+.activation-progress-ring{width:76px!important;height:76px!important}
+.activation-progress-ring strong{font-size:18px!important}
+.activation-progress-ring span{font-size:8px!important}
+.activation-steps{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:8px!important;
+  padding:0 24px 20px!important;
+}
+.activation-step{
+  min-height:116px!important;
+  padding:14px!important;
+  border-radius:16px!important;
+  text-align:left!important;
+  align-items:flex-start!important;
+  background:color-mix(in srgb,var(--panel-2) 76%,transparent)!important;
+}
+.activation-step>span{
+  width:30px!important;height:30px!important;border-radius:10px!important;
+  font-size:9px!important;
+}
+.activation-step strong{font-size:11px!important;line-height:1.3!important}
+.activation-step small{font-size:9px!important;line-height:1.45!important;margin-top:5px!important}
+.activation-step.done{opacity:.58}
+.activation-next{
+  margin:0!important;
+  padding:20px 24px 24px!important;
+  border-top:1px solid var(--line)!important;
+  background:color-mix(in srgb,var(--bg) 18%,transparent)!important;
+}
+.activation-next span{font-size:9px!important}
+.activation-next strong{font-size:20px!important;line-height:1.15!important;margin-top:5px!important}
+.activation-next small{font-size:11px!important;line-height:1.55!important;max-width:680px!important}
+.activation-actions{gap:8px!important}
+.activation-actions .solid-btn{min-height:46px;font-size:12px;padding:0 17px}
+.activation-actions .soft-btn{min-height:46px}
+
+/* Today becomes a welcoming operating surface rather than a dense dashboard. */
+.today-hero{
+  padding:28px;
+  border-radius:30px;
+  background:
+    radial-gradient(360px 260px at 100% 0%,color-mix(in srgb,var(--lime) 10%,transparent),transparent 74%),
+    linear-gradient(135deg,color-mix(in srgb,var(--panel) 94%,var(--blue) 6%),var(--panel));
+}
+.hero-title{font-size:clamp(26px,3vw,38px);line-height:1.05;margin:9px 0 10px}
+.hero-copy{font-size:12px;line-height:1.65;max-width:650px}
+.hero-actions{margin-top:20px;gap:9px}
+.hero-actions .solid-btn,.hero-actions .soft-btn{min-height:44px}
+.focus-pill strong{font-size:32px}
+.focus-pill span,.focus-pill small{font-size:9px}
+.signal{padding:13px;border-radius:13px}
+.signal span{font-size:8px}.signal strong{font-size:16px}.signal small{font-size:9px}
+.day-story{gap:8px}
+.day-move{padding:13px!important;border-radius:13px!important}
+.day-move span{font-size:8px!important}.day-move strong{font-size:11px!important}.day-move small{font-size:9px!important}
+
+.day-design-card{
+  margin-top:18px;
+  padding:24px!important;
+  border-radius:26px!important;
+}
+.day-design-head h2{font-size:25px!important;line-height:1.08!important}
+.day-design-head p{font-size:11px!important;line-height:1.6!important}
+.day-design-label span,.day-design-two label>span,.minimum-day>span{font-size:9px!important}
+.day-design-label small,.day-design-two small,.minimum-day small{font-size:9px!important}
+.success-condition-list input,
+.day-design-card input,
+.day-design-card textarea,
+.day-design-card select{font-size:12px!important;min-height:44px!important;border-radius:11px!important}
+.day-design-actions{gap:9px!important}
+.day-design-actions span{font-size:9px!important}
+
+/* Life Guide: fewer tiny labels, stronger readable cards. */
+.guide-hero{
+  border-radius:30px!important;
+  margin-bottom:18px!important;
+  box-shadow:0 18px 60px rgba(0,0,0,.09);
+}
+.guide-hero>div{padding:30px!important}
+.guide-hero h1{font-size:clamp(36px,4.4vw,54px)!important;line-height:1!important}
+.guide-hero p{font-size:13px!important;line-height:1.65!important;max-width:720px!important}
+.guide-catch-main{min-height:64px;padding:14px 16px;border-radius:15px}
+.guide-catch-main>span{width:38px;height:38px;border-radius:11px}
+.guide-catch-main strong{font-size:11px}.guide-catch-main small{font-size:9px}
+.guide-insight{padding:17px 18px;border-radius:15px}
+.guide-insight span{font-size:8px}.guide-insight strong{font-size:20px}.guide-insight p{font-size:10px}
+.life-guide-board{gap:12px}
+.guide-column{border-radius:18px}
+.guide-column>header{padding:17px}
+.guide-column>header span{font-size:8px}.guide-column>header strong{font-size:18px}.guide-column>header small{font-size:8px}
+.guide-list{gap:9px;padding:11px}
+.guide-item-card{padding:14px;border-radius:14px}
+.guide-item-top>span{font-size:7px}
+.guide-item-card h3{font-size:18px;line-height:1.12;margin:9px 0 7px}
+.guide-item-card p{font-size:10px;line-height:1.55}
+.guide-item-card>small{font-size:9px}
+.guide-item-card footer select{font-size:9px;max-width:140px}
+.guide-item-card footer .text-link{font-size:9px}
+.guide-column-add{font-size:10px;padding:11px}
+.guide-empty strong{font-size:11px}.guide-empty span{font-size:9px}
+.guide-bridge-head{padding:20px 22px}
+.guide-bridge-head h2{font-size:24px}.guide-bridge-head p{font-size:10px}.guide-bridge-head>span{font-size:8px}
+.guide-bridge-grid>button{padding:17px}
+.guide-bridge-grid span strong{font-size:10px}.guide-bridge-grid span small,.guide-bridge-grid em{font-size:8px}
+.guide-deeper summary{padding:14px 16px}.guide-deeper summary span{font-size:10px}.guide-deeper summary small{font-size:9px}
+
+/* Season, week and review forms inherit the same legibility. */
+.season-design-card{padding:26px}
+.season-design-head h2,.season-carry h2{font-size:27px}
+.season-design-head p,.season-carry p{font-size:11px}
+.season-design-state{font-size:9px}
+.season-posture-row>span,.season-design-label span,.season-wide-field>span,.season-design-two label>span{font-size:9px}
+.season-design-two small,.season-wide-field small,.season-design-label small{font-size:9px}
+.season-design-two input,.season-design-two textarea,.season-wide-field textarea,.season-success-list input{font-size:12px;padding:12px}
+.season-summary-card>span,.season-guide-bridge span{font-size:8px}
+.season-summary-card>strong,.season-guide-bridge strong{font-size:19px}
+.season-summary-card p,.season-guide-bridge small{font-size:10px}
+.season-summary-chips span{font-size:8px}
+#seasonGuideSuggestions button{font-size:10px;padding:10px}
+.season-carry-list span{font-size:8px}.season-carry-list strong{font-size:11px}
+.season-deeper>summary b{font-size:11px}.season-deeper>summary small,.season-deeper>summary em{font-size:9px}
+
+.review-banner{padding:26px;border-radius:26px}
+.review-banner h2{font-size:24px}.review-banner p{font-size:11px}
+.review-item{padding:16px 17px}.review-item strong{font-size:11px}.review-item p,.review-item time{font-size:9px}
+.review-lens-head h2{font-size:24px}.review-lens-head p{font-size:11px}
+
+/* Clear interaction states and keyboard accessibility. */
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--blue) 68%,transparent);
+  outline-offset:2px;
+}
+button{touch-action:manipulation}
+.text-link{font-size:10px}
+.archive-empty h3{font-size:18px}.archive-empty p{font-size:11px}
+.toast{font-size:11px!important}
+
+/* Mobile keeps one decision per screen and generous tap targets. */
+@media(max-width:980px){
+  :root{--sidebar:250px}
+  .page{padding:34px 26px 82px}
+  .activation-steps{grid-template-columns:1fr 1fr!important}
+  .activation-step{min-height:104px!important}
+  .auth-principles{grid-template-columns:1fr}
+  .auth-principle:nth-child(n+2){display:none}
+}
+@media(max-width:760px){
+  .topbar{padding:0 14px;height:66px}
+  .command-trigger{display:none}
+  .page{padding:28px 16px 82px}
+  .page h1{font-size:38px}
+  .page-head{margin-bottom:22px}
+  .date-chip{display:none}
+  .today-hero{padding:21px}
+  .hero-top{display:grid}
+  .focus-pill{text-align:left;min-width:0}
+  .activation-orientation{grid-template-columns:1fr;padding:12px 16px}
+  .activation-orientation span{grid-row:auto;width:max-content}
+  .activation-head{padding:20px 18px 15px!important}
+  .activation-progress-ring{display:none!important}
+  .activation-steps{grid-template-columns:1fr!important;padding:0 18px 16px!important}
+  .activation-step{min-height:0!important}
+  .activation-next{padding:18px!important;display:grid!important;gap:14px!important}
+  .activation-actions{display:grid!important;grid-template-columns:1fr!important}
+  .activation-actions button{width:100%!important;justify-content:center!important}
+  .day-design-card{padding:18px!important}
+  .guide-hero>div{padding:22px 18px!important}
+  .guide-hero h1{font-size:38px!important}
+  .guide-hero p{font-size:12px!important}
+  body.activation-simple .topbar{padding-left:14px}
+}
+@media(max-width:520px){
+  .page h1{font-size:34px}
+  .subhead{font-size:12px}
+  .top-actions .solid-btn .label{display:none}
+  .top-actions .solid-btn{width:42px;padding:0;justify-content:center}
+  .auth-copy h1{font-size:42px}
+  .auth-copy>p{font-size:13px}
+  .auth-panel{padding:20px}
+  .today-hero{border-radius:24px}
+  .hero-title{font-size:28px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

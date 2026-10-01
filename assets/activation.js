@@ -133,7 +133,7 @@
       btn.classList.toggle('activation-locked',simple&&!allowed);
       btn.setAttribute('aria-disabled',String(simple&&!allowed));
       const small=btn.querySelector('small');
-      if(small)small.textContent=simple&&!allowed?(space==='lab'?'after your first design loop':'when something is worth reviewing'):(space==='lab'?'Try + measure':'Learn + decide');
+      if(small)small.textContent=simple&&!allowed?(space==='lab'?'after your first design loop':'when something is worth reviewing'):(space==='lab'?'Test + learn':'Learn + decide');
     }
     const toggle=document.getElementById('complexityToggleLabel');if(toggle)toggle.textContent=simple?'Show full Blueprint':'Start simple';
     const full=document.getElementById('activationFullAction');if(full)full.textContent=simple?'Show full Blueprint':'Keep Start simple';
